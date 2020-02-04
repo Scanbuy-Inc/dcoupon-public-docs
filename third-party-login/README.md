@@ -83,3 +83,12 @@ A sample application is provided, in order to show how to embed the IFRAME messa
 
 Third parties should use _both_ parts in order to properly integrate the dCoupon Third Party Login API. 
 
+
+## Sample application
+
+The sample application is a Spring Boot application with Thymeleaf.
+
+The embeddable contents are:
++ src/main/resources/static/dcouponwidget.js
++ src/main/resources/templates/index.html
+
