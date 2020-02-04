@@ -1,0 +1,43 @@
+<!-- 
+(C) Copyright 2019-2020 Scanbuy Retail
+ -->
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"
+	integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+	crossorigin="anonymous"></script>
+<script type="text/javascript" src="dcouponwidget.js"></script>
+</head>
+<body>
+	<div id="loginBody" class=""></div>
+</body>
+
+<script th:inline="javascript">
+	var loginHandler;
+	var dcoupon;
+	
+	loginHandler = function(data) {
+		console.log(data);	
+	};
+	
+	(function($) {
+		var source = [[${enrollmentFormUrl}]];
+		console.log("ok ", source);
+		
+	    dcoupon = $.dcouponWidget("#loginBody", {
+			// options
+			originDomain : 'originDomain',
+			src : source,
+			display : 'out',
+			ssoTokenCallback : loginHandler,
+			logoutCallback : function() {},
+			appReadyCallback : function() { console.log("app ready"); },
+			thirdPartyCallback : function() {console.log("third party callback"); },
+			legalAcceptanceRequired : function() {console.log("legal acceptance req"); },
+			uid : 'uid'
+		});
+	    dcoupon.createIFrame();
+		dcoupon.initListener();
+	}(jQuery));
+</script>
+</html>
