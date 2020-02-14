@@ -53,7 +53,7 @@ When a user is not registered in the dCoupon Platform, or when it is already reg
 
 The redirection to the Terms and Conditions must be opened inside an IFRAME element. Upon acceptance of the dCoupon Terms and Conditions, the parent HTML of the IFRAME element will be notified through an event (IFRAME to parent message passing). We provide Javascript code that can be embedded in a webpage in order to support IFRAME message passing. See the demo source code and HTML to see an example.
 
-![Logo](https://s3.amazonaws.com/dcoupon.com/sdk/docs/third_party_api/third_party_api_registration_flow.png)
+![Flow diagram](https://s3.amazonaws.com/dcoupon.com/sdk/docs/third_party_api/third_party_api_registration_flow.jpg)
 
 
 ## API response when users are already registered
@@ -61,7 +61,7 @@ The redirection to the Terms and Conditions must be opened inside an IFRAME elem
 When a user is already registered in the dCoupon Platform, the API will return a HTTP 200 response code, together with a json body.
 A valid JSON Web Token is available inside the field 'sessionToken'. This token should be used in all subsequent calls to the dCoupon Platform.
 
-![Logo](https://s3.amazonaws.com/dcoupon.com/sdk/docs/third_party_api/third_party_api_ok_flow.png)
+![Flow diagram](https://s3.amazonaws.com/dcoupon.com/sdk/docs/third_party_api/third_party_api_ok_flow.jpg)
 
 
 ## Signing requests
