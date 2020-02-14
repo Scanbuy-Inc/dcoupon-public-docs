@@ -44,6 +44,8 @@ Additionally, the following headers must be provided:
 + dcoupon-authorization-signature: request' signature, see below
 + dcoupon-authorization-timestamp: timestamp at the time of making the request, in the format "yyyy-MM-dd'T'HH:mm:ssZ"
 
+*It is recommended always issuing a call to the aforementioned login method prior to using any dCoupon Platform API service.*
+
 
 ## API response when users are not registered
 
@@ -51,11 +53,15 @@ When a user is not registered in the dCoupon Platform, or when it is already reg
 
 The redirection to the Terms and Conditions must be opened inside an IFRAME element. Upon acceptance of the dCoupon Terms and Conditions, the parent HTML of the IFRAME element will be notified through an event (IFRAME to parent message passing). We provide Javascript code that can be embedded in a webpage in order to support IFRAME message passing. See the demo source code and HTML to see an example.
 
+![Logo](https://s3.amazonaws.com/dcoupon.com/sdk/docs/third_party_api/third_party_api_registration_flow.png)
+
 
 ## API response when users are already registered
 
 When a user is already registered in the dCoupon Platform, the API will return a HTTP 200 response code, together with a json body.
 A valid JSON Web Token is available inside the field 'sessionToken'. This token should be used in all subsequent calls to the dCoupon Platform.
+
+![Logo](https://s3.amazonaws.com/dcoupon.com/sdk/docs/third_party_api/third_party_api_ok_flow.png)
 
 
 ## Signing requests
