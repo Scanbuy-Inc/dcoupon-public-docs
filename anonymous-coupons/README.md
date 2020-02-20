@@ -6,7 +6,7 @@ Version 1.0 (February 2020)
 
 ## Introduction
 
-This API allow to generate coupons, wihtout identifying the user, from dcupon promotions. Once an anonymous coupons is created this API allows to access to coupon detail and to generate the temporary token suitable to redeem the coupon into assocciated stores.
+This API allow to generate coupons from dcupon promotions wihtout identifying the user. Once an anonymous coupons is created this API allows to access to coupon detail and to generate the temporary token suitable to redeem the coupon into assocciated stores.
 
 All requests must be signed with a secret, which is provided by dcoupon.
 
@@ -32,6 +32,7 @@ All requests must be signed with a secret, which is provided by dcoupon.
 	"transId": "_Transaction ID_"
 }
 ```
++ Response:
 
 
 ### GetAnonymousCouponDetail
