@@ -22,9 +22,9 @@ All requests must be signed with a secret, which is provided by dcoupon.
   
 + Body:
 ```json
-{ 
+{
 	"promoToken": "_Token that identify the promotion_", 
-	"publisherId": "_Publisher Identifier_", 
+	"publisherId": "_Publisher Identifier_",
 	"source": "_Identifies which site sent the request_",
 	"creationLatitude": "_Customer latitude_",
 	"creationLongitude": "_Customer longitude",
