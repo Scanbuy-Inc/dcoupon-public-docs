@@ -41,7 +41,9 @@ This method generates a coupon from a promotion, identified by its promoToken. T
 
 ### GetAnonymousCouponDetail
 
-Returns a JSON with the detailed information of the coupon/promotion, including description, redemption dates, retailers where to redeem ... 
+Returns a JSON with the detailed information of the coupon, including promotion description, promotion token,  redemption dates, retailers where to redeem ... 
+
+To access stores allowed to redeem this coupon, you can call stores API with the promotion token from the response.
 
 + URL:
 + Type: GET
@@ -98,4 +100,5 @@ The signed string should be:
 ```
 
 _timestamp_ should be in the form "yyyy-MM-dd'T'HH:mm:ssZ", and is the timestamp at the moment of the request.
-The string should be signed using the client's API secret provided by dcoupon.
+
+The string must be signed using the client's API secret provided by dcoupon.
