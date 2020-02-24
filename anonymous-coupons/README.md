@@ -12,6 +12,10 @@ All requests must be signed with a secret, which is provided by dcoupon.
 
 ## Methods:
 ### CreateAnonymousCoupon
+
+This method generates a coupon from a promotion, identified by its promoToken. To be able to create the coupon, the promotion must allow anonymous coupons. If everything is correct, the method will return a unique cupon identifier that will be used to access coupon detail, and to generate the temporal token to redeem the coupon
+
+
 + URL:
 + Type: POST
 + Header:
@@ -37,7 +41,43 @@ All requests must be signed with a secret, which is provided by dcoupon.
 
 ### GetAnonymousCouponDetail
 
+Returns a JSON with the detailed information of the coupon/promotion, including description, redemption dates, retailers where to redeem ... 
+
++ URL:
++ Type: GET
++ Header:
+  + dcoupon-authorization-apitoken: client's API key
+  + dcoupon-authorization-method: should always be 'SIGNATURE'
+  + dcoupon-authorization-signature: request' signature, see below
+  + dcoupon-authorization-timestamp: timestamp at the time of making the request, in the format "yyyy-MM-dd'T'HH:mm:ssZ"
+  
++ Parameters:
+  + coupon: Coupon identifier, returned in CreateAnonymousCoupon method 
+  + lang: language to display currency
+  
++ Response:
+
+
+
 ### GenerateTemporalCouponToken
+
+Returns the temporal code to use for coupon redemption in stores allowed to redeem the coupon . 
+
+This value can be displayed as a text or encoded inside a Code-128 barcode, adding "DC" as a prefix.
+
++ URL:
++ Type: GET
++ Header:
+  + dcoupon-authorization-apitoken: client's API key
+  + dcoupon-authorization-method: should always be 'SIGNATURE'
+  + dcoupon-authorization-signature: request' signature, see below
+  + dcoupon-authorization-timestamp: timestamp at the time of making the request, in the format "yyyy-MM-dd'T'HH:mm:ssZ"
+  
++ Parameters:
+  + coupon: Coupon identifier, returned in CreateAnonymousCoupon method 
+    
++ Response:
+
 
 ## Signing requests
 
