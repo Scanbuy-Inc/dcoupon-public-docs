@@ -36,12 +36,15 @@ This method generates a coupon from a promotion, identified by its promoToken. T
 	"transId": "_Transaction ID_"
 }
 ```
+
 + Response:
+
 ```json
 {
 	"code": "_Operation response code_", 
-	"description": "_Operation response description or hash unique cupon identifier _",
+	"description": "_Operation response description or hash unique cupon identifier_",
 }
+```
 
 ### GetAnonymousCouponDetail
 
@@ -62,51 +65,59 @@ To access stores allowed to redeem this coupon, you can call stores API with the
   + lang: language to display currency
   
 + Response:
+
 ```json
 {
-	"couponId":Coupon id,
-	"mcToken":Token,
-	"lowImage":Path to low image,
-	"highImage":Path to high image,
-	"highImage2":Another path to high image,
-	"name":Coupon name,
-	"description":Coupon description,
-	"offerRedemptionStartDate":Start date,
-	"offerRedemptionEndDate":End date,
-	"status":status,
-	"sgcn":sgcn,
-	"canBeRedeemed":If cab be redeem,
-	"termsAndConditions":Terms and conditions,
+	"couponId": "_Coupon id_",
+	"mcToken": "_Promotion token_",
+	"lowImage": "_Path to low image_",
+	"highImage": "_Path to high image_",
+	"highImage2": "_Path to second high image_",
+	"name": "_Coupon name_",
+	"description": "_Coupon description_",
+	"offerRedemptionStartDate": "_Coupon redemption start date_",
+	"offerRedemptionEndDate": "_Coupon redemption end date_",
+	"status": "_Active/Inactive_",
+	"sgcn": "_sgcn_",
+	"canBeRedeemed": "_Flag indicating if the coupon can be redeem_",
+	"termsAndConditions": "_Terms and conditions_",
 	"rewardedItems":[
 		{
-			"idREWARDED_ITEMS":id item,
-			"itemId":internal id item,
-			"rewardedItemQuantity":quantity,
+			"idREWARDED_ITEMS": "__Internal item id_",
+			"itemId": "_EAN/UPC of the item_",
+			"rewardedItemQuantity": "_quantity_"
 		}
 	],
-	"promotionType":type of promotion,
-	"totalStampsBurnt":stamps burnt,
-	"maxStamps":max number of stamps,
+	"promotionType": "_type of promotion_",
+	"totalStampsBurnt": "_stamps burnt_",
+	"maxStamps": "_max number of stamps_",
 	"retailerNameImg":[
 		{
-			"retailerName":Retailer name,
-			"retailerLogo":Retailer logo,
-			"retailerToken":Retailer token
+			"retailerName": "_Retailer name_",
+			"retailerLogo": "_Retailer logo_",
+			"retailerToken": "_Retailer token_"
 		}
 	],
-	"stampsBurnt":{
-		"redemption":redemption data
-	},
+	"stampsBurnt":[
+		{	
+			"redemption": 
+			{
+				"redDate": "_Redemption date_",
+				"stamps": "_Stamps burnt_"
+			}
+		}
+	]
+	,
 	"discount":{
-		"discountType":discount type,
-		"amount":amount
+		"discountType": "_Discount type_",
+		"amount": "_Discount amount_"
 	},
 	"genericResponse":{
-		"code":code of response,
-		"description":description of response
+		"code": "_Response code_",
+		"description": "_Response description_"
 	}
 }
-
+```
 
 
 ### GenerateTemporalCouponToken
@@ -127,11 +138,13 @@ This value can be displayed as a text or encoded inside a Code-128 barcode, addi
   + coupon: Coupon identifier, returned in CreateAnonymousCoupon method 
     
 + Response:
+
 ```json
 {
 	"code": "_Operation response code_", 
-	"description": "_Temporal token for use with_",
+	"description": "_Operation response description or Temporal token for redemption_",
 }
+```
 
 ## Signing requests
 
