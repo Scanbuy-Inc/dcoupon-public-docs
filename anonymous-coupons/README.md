@@ -37,31 +37,44 @@ This method generates a coupon from a promotion, identified by its promoToken. T
 }
 ```
 
-+ Response:
++ Ok Response:
 
 ```json
 {
 "_Hash unique cupon identifier_"
 }
 ```
-+ Posibles Response Types:
+If a petition can't be resolved for any cause and error json response will be rise with the following structure:
+
++ Error Response:
+HttpStatus + body with:
+```json
+{
+ "code":"_Internal Error Code_",
+ "description":"_Error description_"
+}
 ```
-- PARAMATER_NOT_FOUND
-- CORDS_NOT_VALIDS
-- PUBLISHER_NOT_FOUND
-- PROMOTION_NOT_FOUND
-- PROMOTION_NOT_ALLOW_ANONYMOUS
-- PROMOTION_NOT_INITIATED
-- PROMOTION_EXPIRED
-- PROMOTION_STATE_NOT_VALID
-- TRANSID_NOT_VALID
-- PARAMETER_TRANSID_NOT_FOUND
-- MAX_COUPONS_PER_OFFER_EXCEEDED
-- PUBLISHER_NOT_VALID
-- PUBLISHER_EXCEED_MAX_NUMBER_OF_COUPONS
-- MAX_NON_REDEEMED_COUPONS_EXCEEDED
-- INTERNAL_ERROR
-```
+
++ Posibles Response Types for this method:
+
+| Response	 | HttpStatus | Internal Code | Description |
+|----------------|:----------:|:-------------:|-------------|
+| COUPONID_NOT_FOUND | 404 | 111 |  "Coupon id not found" |
+| MAX_COUPON_EXCEEDED | 202 | 119 |  "User exceeded the max coupon available per user" |
+| PROMOTION_NOT_INITIATED | 202 | 126 |  "Promotion not initiated" |
+| PROMOTION_EXPIRED | 202 | 127 |  "Promotion expired" |
+| MAX_COUPONS_PER_OFFER_EXCEEDED | 202 | 131 | "Max Coupons per Offer exceeded" |
+| TRANSID_NOT_VALID | 406 | 132 | "TransId not valid" |
+| PUBLISHER_NOT_VALID | 406 | 133 | "Publisher not valid" |
+| PUBLISHER_EXCEED_MAX_NUMBER_OF_COUPONS | 202 | 135 | "Publisher exceed max number of coupons for this campaign" |
+| CORDS_NOT_VALIDS | 406 | 136 | "Latitude or Longitude not valid" |
+| PROMOTION_STATE_NOT_VALID | 202 | 137 | "Promotion's state is not valid for coupon creation" |
+| PARAMATER_NOT_FOUND | 404 | 149 | "Required parameter not found" |
+| PARAMETER_NOT_CORRECT | 406 | 150 | "Parameter is not correct" |
+| PROMOTION_NOT_FOUND | 404 | 152 |  "Promotion not found" |
+| INTERNAL_ERROR | 500 | 500 | "Internal Error" |
+| PARAMETER_TRANSID_NOT_FOUND | 404 | 153 | "Parameter transid not found" |
+| PROMOTION_NOT_ALLOW_ANONYMOUS | 202 | 154 | "Promotion not allow creation of anonymous coupons" |
 
 ### GetAnonymousCouponDetail
 
@@ -131,14 +144,26 @@ To access stores allowed to redeem this coupon, you can call stores API with the
 	}
 }
 ```
-+ Posibles Response Types:
-```
-- PARAMATER_NOT_FOUND
-- NO_COUPONS_AVAILABLE
-- INTERNAL_ERROR
+
+If a petition can't be resolved for any cause and error json response will be rise with the following structure:
+
++ Error Response:
+HttpStatus + body with:
+```json
+{
+ "code":"_Internal Error Code_",
+ "description":"_Error description_"
+}
 ```
 
++ Posibles Response Types for this method:
 
+| Response	 | HttpStatus | Internal Code | Description |
+|----------------|:----------:|:-------------:|-------------|
+| PARAMATER_NOT_FOUND | 404 | 149 | "Required parameter not found" |
+| PARAMETER_NOT_CORRECT | 406 | 150 | "Parameter is not correct" |
+| NO_COUPONS_AVAILABLE | 404 | 134 | "No coupons available" |
+| INTERNAL_ERROR | 500 | 500 | "Internal Error" |
 
 ### GenerateTemporalCouponToken
 
@@ -164,12 +189,26 @@ This value can be displayed as a text or encoded inside a Code-128 barcode, addi
  "_Temporal token for redemption_"
 }
 ```
-+ Posibles Response Types:
+
+If a petition can't be resolved for any cause and error json response will be rise with the following structure:
+
++ Error Response:
+HttpStatus + body with:
+```json
+{
+ "code":"_Internal Error Code_",
+ "description":"_Error description_"
+}
 ```
-- PARAMATER_NOT_FOUND
-- NO_COUPONS_AVAILABLE
-- INTERNAL_ERROR
-```
+
++ Posibles Response Types for this method:
+
+| Response	 | HttpStatus | Internal Code | Description |
+|----------------|:----------:|:-------------:|-------------|
+| PARAMATER_NOT_FOUND | 404 | 149 | "Required parameter not found" |
+| PARAMETER_NOT_CORRECT | 406 | 150 | "Parameter is not correct" |
+| NO_COUPONS_AVAILABLE | 404 | 134 | "No coupons available" |
+| INTERNAL_ERROR | 500 | 500 | "Internal Error" |
 
 ## Signing requests
 
@@ -192,60 +231,3 @@ The signed string should be:
 _timestamp_ should be in the form "yyyy-MM-dd'T'HH:mm:ssZ", and is the timestamp at the moment of the request.
 
 The string must be signed using the client's API secret provided by dcoupon.
-
-### Response types
-| Response	 | HttpStatus | Internal Code | Description |
-|------------|------------|---------------|-------------|
-| OPERATION_OK | 200 | 0 | "Command executed successfully" |
-| POS_TIMEOUT | 408 | 1 |  "Timeout waiting for POS redemption response" |
-| LOGINID_USED | 409 | 101 |  "LoginId in use" |
-| APPID_USED | 409 | 102 |  "App_id in use" |
-| PASSWORD_FORMAT_INCORRECT | 406 | 103 |  "Password format invalid acording specifications" |
-| TOKEN_NOT_FOUND | 404 | 104 |  "Token not found" |
-| USER_NOT_FOUND | 404 | 105 |  "User not found" |
-| PASSWORD_NOT_VALID | 403 | 106 |  "Password not valid" |
-| APPID_ALREADY_ASSIGNED | 409 | 107 |  "App id asigned to other user" |
-| APPID_NOT_FOUND | 404 | 108 |  "App id not found" |  
-| NO_COUPONS_FOR_USER | 202 | 109 |  "No Coupons for the user in this point of sale" |
-| COUPONID_NOT_FOUND | 404 | 111 |  "Coupon id not found" |
-| POSID_NOT_FOUND | 404 | 115 |  "Pos id not found" |
-| RETAILER_NOT_FOUND | 404 | 116 |  "Retailer not found" |
-| METACOUPON_NOT_FOUND | 404 | 117 |  "MetaCoupon token not found" |
-| PUBLISHER_NOT_FOUND | 404 | 118 |  "Publisher token not found" |
-| MAX_COUPON_EXCEEDED | 202 | 119 |  "User exceeded the max coupon available per user" |
-| LOGINID_IS_NOT_VALID | 403 | 120 |  "Login id is not a valid email" |
-| EXPIRED_TOKEN | 410 | 121 |  "Expired token time. Token must be created again" |
-| USER_TOKEN_NOT_VALID | 406 |  122 |  "User Token Not Valid" |
-| TOKEN_NOT_CREATED | 402 |  123 |  "Token has not been created yet" |
-| RETAILER_ALLOCATED_NOT_VALID | 406 | 124 |  "No valid Allocated retailers" |
-| COUPONS_DETAILS_NOT_FOUND | 404 |  125 |  "Unable to find details of coupon" |
-| PROMOTION_NOT_INITIATED | 202 | 126 |  "Promotion not initiated" |
-| PROMOTION_EXPIRED | 202 | 127 |  "Promotion expired" |
-| COUNTRY_NOT_FOUND | 404 | 128 |  "Country not found" |
-| AFFILIATE_API_TOKEN_NOT_FOUND | 404 | 129 | "Loyalty affiliate api token not found" |
-| MAX_NON_REDEEMED_COUPONS_EXCEEDED | 202 | 130 | "MAX non redeemed coupons exceeded" |
-| MAX_COUPONS_PER_OFFER_EXCEEDED | 202 | 131 | "Max Coupons per Offer exceeded" |
-| TRANSID_NOT_VALID | 406 | 132 | "TransId not valid" |
-| PUBLISHER_NOT_VALID | 406 | 133 | "Publisher not valid" |
-| NO_COUPONS_AVAILABLE | 404 | 134 | "No coupons available" |
-| PUBLISHER_EXCEED_MAX_NUMBER_OF_COUPONS | 202 | 135 | "Publisher exceed max number of coupons for this campaign" |
-| CORDS_NOT_VALIDS | 406 | 136 | "Latitude or Longitude not valid" |
-| PROMOTION_STATE_NOT_VALID | 202 | 137 | "Promotion's state is not valid for coupon creation" |
-| CARD_NUMBER_NOT_FOUND | 404 | 138 | "Card Number not found" |
-| TRANSACTION_ALIVE | 409 | 139 | "Transaction still alive" |
-| CAMPAIGN_LIST_ERROR | 406 | 140 | "Error in the list of campaigns" |
-| SIGNATURE_INCORRECT | 406 | 141 | "Incorrect signature" |
-| SESSION_TOKEN_NOT_VALID | 406 | 142 | "Session Token Not Valid" |
-| LOYALTY_CARD_USED | 409 | 143 | "Loyalty card in use" |
-| INVALID_REDEMPTION_ID | 406 | 144 | "Invalid redemptionID parameter" |
-| INVALID_GTMTIMEZONEOFFSET | 406 | 145 | "Invalid gtmTimeZoneOffset parameter" |
-| INVALID_GROUPBY | 406 | 146 | "Invalid groupBy parameter" |
-| USER_NOT_ACTIVE | 403 | 147 | "User not active" |
-| USER_NOT_REGISTERED | 403 | 148 | "User not registered via $1 |  registration type: #" |
-| PARAMATER_NOT_FOUND | 404 | 149 | "Required parameter not found" |
-| PARAMETER_NOT_CORRECT | 406 | 150 | "Parameter is not correct" |
-| TIME_ACQUISITION_NOT_ELAPSED | 202 | 151 | "Time between consecutive coupons acquisition not elapsed" |
-| PROMOTION_NOT_FOUND | 404 | 152 |  "Promotion not found" |
-| INTERNAL_ERROR | 500 | 500 | "Internal Error" |
-| PARAMETER_TRANSID_NOT_FOUND | 404 | 153 | "Parameter transid not found" |
-| PROMOTION_NOT_ALLOW_ANONYMOUS | 202 | 154 | "Promotion not allow creation of anonymous coupons" |
