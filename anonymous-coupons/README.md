@@ -29,7 +29,7 @@ This method generates a coupon from a promotion, identified by its promoToken. T
 {
 	"promoToken": "_Token that identify the promotion_", 
 	"publisherId": "_Publisher Identifier_",
-	"source": "_Identifies which site sent the request_",
+	"source": "_Identifies which site sends the request_",
 	"creationLatitude": "_Customer latitude_",
 	"creationLongitude": "_Customer longitude",
 	"crmId": "_Customer identifier_",
@@ -37,14 +37,14 @@ This method generates a coupon from a promotion, identified by its promoToken. T
 }
 ```
 
-+ Ok Response:
++ OK Response:
 
 ```json
 {
 "_Hash unique cupon identifier_"
 }
 ```
-If a petition can't be resolved for any cause and error json response will be rise with the following structure:
+If a request can't be resolved, an error JSON response will be returned with the following structure:
 
 + Error Response:
 HttpStatus + body with:
@@ -55,7 +55,7 @@ HttpStatus + body with:
 }
 ```
 
-+ Posibles Response Types for this method:
++ Response Types for this method:
 
 | Response	 | HttpStatus | Internal Code | Description |
 |----------------|:----------:|:-------------:|-------------|
@@ -72,9 +72,9 @@ HttpStatus + body with:
 | PARAMATER_NOT_FOUND | 404 | 149 | "Required parameter not found" |
 | PARAMETER_NOT_CORRECT | 406 | 150 | "Parameter is not correct" |
 | PROMOTION_NOT_FOUND | 404 | 152 |  "Promotion not found" |
-| INTERNAL_ERROR | 500 | 500 | "Internal Error" |
 | PARAMETER_TRANSID_NOT_FOUND | 404 | 153 | "Parameter transid not found" |
 | PROMOTION_NOT_ALLOW_ANONYMOUS | 202 | 154 | "Promotion not allow creation of anonymous coupons" |
+| INTERNAL_ERROR | 500 | 500 | "Internal Error" |
 
 ### GetAnonymousCouponDetail
 
@@ -145,7 +145,7 @@ To access stores allowed to redeem this coupon, you can call stores API with the
 }
 ```
 
-If a petition can't be resolved for any cause and error json response will be rise with the following structure:
+If a request can't be resolved, an error JSON response will be returned with the following structure:
 
 + Error Response:
 HttpStatus + body with:
@@ -190,7 +190,7 @@ This value can be displayed as a text or encoded inside a Code-128 barcode, addi
 }
 ```
 
-If a petition can't be resolved for any cause and error json response will be rise with the following structure:
+If a request can't be resolved, an error JSON response will be returned with the following structure:
 
 + Error Response:
 HttpStatus + body with:
@@ -201,7 +201,7 @@ HttpStatus + body with:
 }
 ```
 
-+ Posibles Response Types for this method:
++ Response Types for this method:
 
 | Response	 | HttpStatus | Internal Code | Description |
 |----------------|:----------:|:-------------:|-------------|
@@ -214,7 +214,7 @@ HttpStatus + body with:
 
 All request must be signed using UTF-8 encoding and the HmacSHA256 algorithm. 
 
-The signed string should be:
+The string to sign should have the sollowing pattern:
 
  + POST request
 
@@ -230,4 +230,4 @@ The signed string should be:
 
 _timestamp_ should be in the form "yyyy-MM-dd'T'HH:mm:ssZ", and is the timestamp at the moment of the request.
 
-The string must be signed using the client's API secret provided by dcoupon.
+The string must be signed using the client's secret provided by dcoupon.
