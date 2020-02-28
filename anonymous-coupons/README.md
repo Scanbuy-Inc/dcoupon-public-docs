@@ -13,7 +13,7 @@ All requests must be signed with a secret, which is provided by dcoupon.
 ## Methods:
 ### CreateAnonymousCoupon
 
-This method generates a coupon from a promotion, identified by its promoToken. To be able to create the coupon, the promotion must allow anonymous coupons. If everything is correct, the method will return a unique cupon identifier that will be used to access coupon detail, and to generate the temporal token to redeem the coupon
+This method generates a coupon from a promotion, identified by its promoToken. To be able to create the coupon, the promotion must allow anonymous coupons. If everything is correct, the method will return a unique coupon identifier that will be used to access coupon detail, and to generate the temporal token to redeem the coupon
 
 
 + URL:
