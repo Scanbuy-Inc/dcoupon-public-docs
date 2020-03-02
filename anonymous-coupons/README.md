@@ -73,7 +73,7 @@ HttpStatus + body with:
 | PARAMETER_NOT_CORRECT | 406 | 150 | "Parameter is not correct" |
 | PROMOTION_NOT_FOUND | 404 | 152 |  "Promotion not found" |
 | PARAMETER_TRANSID_NOT_FOUND | 404 | 153 | "Parameter transid not found" |
-| PROMOTION_NOT_ALLOW_ANONYMOUS | 202 | 154 | "Promotion not allow creation of anonymous coupons" |
+| PROMOTION_NOT_ALLOW_ANONYMOUS | 202 | 154 | "Promotion does not allow creation of anonymous coupons" |
 | INTERNAL_ERROR | 500 | 500 | "Internal Error" |
 
 ### GetAnonymousCouponDetail
