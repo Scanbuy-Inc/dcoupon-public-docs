@@ -16,7 +16,7 @@ All requests must be signed with a secret, which is provided by dcoupon.
 This method generates a coupon from a promotion, identified by its promoToken. To be able to create the coupon, the promotion must allow anonymous coupons. If everything is correct, the method will return a unique coupon identifier that will be used to access coupon detail, and to generate the temporal token to redeem the coupon
 
 
-+ URL:
++ URL: [ENV]/coupons/createAnonymousCoupon
 + Type: POST
 + Header:
   + dcoupon-authorization-apitoken: client's API key
@@ -82,7 +82,7 @@ Returns a JSON with the detailed information of the coupon, including promotion 
 
 To access stores allowed to redeem this coupon, you can call stores API with the promotion token from the response.
 
-+ URL:
++ URL:[ENV]/coupons/getAnonymousCouponDetail
 + Type: GET
 + Header:
   + dcoupon-authorization-apitoken: client's API key
@@ -171,7 +171,7 @@ Returns the temporal code to use for coupon redemption in stores allowed to rede
 
 This value can be displayed as a text or encoded inside a Code-128 barcode, adding "DC" as a prefix.
 
-+ URL:
++ URL:[ENV]/coupons/generateTemporalCouponToken
 + Type: GET
 + Header:
   + dcoupon-authorization-apitoken: client's API key
@@ -231,3 +231,18 @@ The string to sign should have the sollowing pattern:
 _timestamp_ should be in the form "yyyy-MM-dd'T'HH:mm:ssZ", and is the timestamp at the moment of the request.
 
 The string must be signed using the client's secret provided by dcoupon.
+
+## Environments
+
+This API is available in different dcoupon environments, you will get credentials for each environmen that you will need to use.
+
+### Integration
+
+This environment is available to develop and test your integration with dcoupon anonymous coupons.
+
+URL to use as [ENV] for this environment is https://integration.coupon.com/
+
+
+ 
+
+
