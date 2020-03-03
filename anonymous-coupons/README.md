@@ -68,7 +68,7 @@ HttpStatus + body with:
 | PUBLISHER_NOT_VALID | 406 | 133 | "Publisher not valid" |
 | PUBLISHER_EXCEED_MAX_NUMBER_OF_COUPONS | 202 | 135 | "Publisher exceed max number of coupons for this campaign" |
 | CORDS_NOT_VALIDS | 406 | 136 | "Latitude or Longitude not valid" |
-| PROMOTION_STATE_NOT_VALID | 202 | 137 | "Promotion's state is not valid for coupon creation" |
+| PROMOTION_STATE_NOT_VALID | 202 | 137 | "Promotion's state does not allow this operation" |
 | PARAMATER_NOT_FOUND | 404 | 149 | "Required parameter not found" |
 | PARAMETER_NOT_CORRECT | 406 | 150 | "Parameter is not correct" |
 | PROMOTION_NOT_FOUND | 404 | 152 |  "Promotion not found" |
