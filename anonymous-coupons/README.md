@@ -216,14 +216,6 @@ All request must be signed using UTF-8 encoding and the HmacSHA256 algorithm.
 
 The string to sign should have the sollowing pattern:
 
- + POST request
-
-```
-<API_KEY>:<timestamp>:<POST body>
-```
-
- + GET request
-
 ```
 <API_KEY>:<timestamp>
 ```
