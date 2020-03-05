@@ -4,7 +4,6 @@
 package com.scanbuy.demo.thirdparty;
 
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
@@ -26,8 +25,8 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public class DemoController {
 
-	public static final String API_KEY = "oqkjskfpxip5fd23tqrh";
-	public static final String API_SECRET = "insert_secret_here";
+	public static final String API_KEY = "<api_key>";
+	public static final String API_SECRET = "<secret>";
 
 	@RequestMapping("/")
 	public String viewHome(Model model)
@@ -40,23 +39,21 @@ public class DemoController {
 		requestBody.setAlias("gapadaxide");
 		requestBody.setEmail("glaxo1@mail.com");
 		requestBody.setExternalId("glaxo1234");
+        requestBody.setClientCountry("ES");
 
 		String resourceUrl = "https://testapi.dcoupon.com/thirdparty/login/v1";
 
-		final Charset asciiCs = Charset.forName("US-ASCII");
 		Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
-		// SecretKeySpec secret_key = new
-		// javax.crypto.spec.SecretKeySpec(asciiCs.encode(API_SECRET).array(),
-		// "HmacSHA256");
+
 		SecretKeySpec secret_key = new SecretKeySpec(API_SECRET.getBytes("UTF-8"), "HmacSHA256");
 		sha256_HMAC.init(secret_key);
-		String timestamp = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(new Date());
-		;
+		String timestamp = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ssXXX").format(new Date());
+
 		String data = API_KEY + ":" + timestamp;
 		String signature = " " + Hex.encodeHexString(sha256_HMAC.doFinal(data.getBytes("UTF-8")));
 
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("dcoupon-authorization-apitoken", API_KEY);
+		headers.add("dcoupon-authorization-apikey", API_KEY);
 		headers.add("dcoupon-authorization-method", "SIGNATURE");
 		headers.add("dcoupon-authorization-signature", signature);
 		headers.add("dcoupon-authorization-timestamp", timestamp);
@@ -77,8 +74,7 @@ public class DemoController {
 			System.out.println(result);
 		}
 
-		String originDomain = "http://localhost:8080";
-		enrollmentFormUrl = enrollmentFormUrl + "?originDomain=" + originDomain;
+		enrollmentFormUrl = enrollmentFormUrl + "?originDomain=https://localhost:8080";
 
 		model.addAttribute("enrollmentFormUrl", enrollmentFormUrl);
 

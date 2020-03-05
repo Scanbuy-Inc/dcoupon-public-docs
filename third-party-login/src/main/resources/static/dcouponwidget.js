@@ -20,28 +20,37 @@
 
 			if (options.ssoTokenCallback) {
 				this.ssoTokenCallback = options.ssoTokenCallback;
+				console.log("ssoTokenCallback set");
 			}
 			if (options.logoutCallback) {
 				this.logoutCallback = options.logoutCallback;
+				console.log("logoutCallback set");
 			} else {
+				console.log("logoutCallback empty");
 				this.logoutCallback = function() {
 				};
 			}
 			if (options.appReadyCallback) {
 				this.appReadyCallback = options.appReadyCallback;
+				console.log("appReadyCallback set");
 			} else {
+				console.log("appReadyCallback empty");
 				this.appReadyCallback = function() {
 				};
 			}
 			if (options.thirdPartyCallback) {
 				this.thirdPartyCallback = options.thirdPartyCallback;
+				console.log("thirdPartyCallback set");
 			} else {
+				console.log("thirdPartyCallback empty");
 				this.thirdPartyCallback = function() {
 				};
 			}
 			if (options.legalAcceptanceRequired) {
 				this.legalAcceptanceRequired = options.legalAcceptanceRequired;
+				console.log("legalAcceptanceRequired set");
 			} else {
+				console.log("legalAcceptanceRequired empty");
 				this.legalAcceptanceRequired = function() {
 				};
 			}
@@ -50,14 +59,14 @@
 
 	Dcoupon.prototype.initListener = function() {
 		var that = this;
+		console.log("initListener called");
 		$(window).on("message", function(e) {
+			console.log("processing event 'on message'");
 			that.processEvents(e);
 		});
 	};
 
-	Dcoupon.prototype.processEvents = function(event) {
-		console.log("Event: " + event);
-		
+	Dcoupon.prototype.processEvents = function(event) {		
 		if (!event.originalEvent) {
 			return;
 		}
@@ -66,7 +75,7 @@
 		}
 
 		if (event.originalEvent.origin.indexOf("ui.dcoupon.com") < 0) {
-			// console.log("testing domain origin...");
+			console.log("testing domain origin...");
 		}
 
 		if (this.ssoToken == event.originalEvent.data.ssoToken && (event.originalEvent.data.ssoToken)) {
@@ -120,6 +129,7 @@
 	Dcoupon.prototype.registerListener = function(callback) {
 		// register the callback.. to be call when a SSSo message is received
 		eventCallbacks.push(callback);
+		console.log("pushing callback");
 
 	};
 
@@ -143,6 +153,7 @@
 		// this.iframe.height = this.myParentElement.offsetHeight+"px";
 
 		this.myParentElement.appendChild(this.iframe);
+		console.log("iframe created");
 
 	};
 
@@ -151,6 +162,7 @@
 		eventCallbacks = [];
 	};
 	Dcoupon.prototype.loginWithToken = function(jwtToken, targetDomain) {
+		console.log("posting message loginWithToken");
 
 		// Send postMessage to Login With Token.
 		this.iframe.contentWindow.postMessage({
@@ -160,6 +172,7 @@
 	};
 	
 	Dcoupon.prototype.loginButtonClicked = function(targetDomain) {
+		console.log("loginButtonClicked");
 		this.iframe.contentWindow.postMessage(
 			      { action:"loginButtonClicked"},targetDomain);
 	};

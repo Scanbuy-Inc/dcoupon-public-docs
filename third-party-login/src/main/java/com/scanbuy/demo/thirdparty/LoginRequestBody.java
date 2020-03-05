@@ -12,4 +12,5 @@ public class LoginRequestBody {
 	private String alias;
 	private String birthdate;
 	private String gender;
+	private String clientCountry;
 }
