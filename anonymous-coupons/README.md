@@ -163,7 +163,6 @@ HttpStatus + body with:
 | PARAMATER_NOT_FOUND | 404 | 149 | "Required parameter not found" |
 | PARAMETER_NOT_CORRECT | 406 | 150 | "Parameter is not correct" |
 | NO_COUPONS_AVAILABLE | 404 | 134 | "No coupons available" |
-| COUNPON_CANT_BE_REEDEMED| 202 | 155 | "Coupon can not be redeemed" |
 | PROMOTION_NOT_ALLOW_ANONYMOUS | 202 | 154 | "Promotion does not allow creation of anonymous coupons" |
 | PROMOTION_NOT_INITIATED | 202 | 126 | "Promotion not initiated" |
 | PROMOTION_EXPIRED | 202 | 127 | "Promotion expired" | 
