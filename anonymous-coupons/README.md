@@ -235,15 +235,15 @@ The string must be signed using the client's secret provided by dcoupon.
 
 This API is available in different dcoupon environments, you will get credentials for each environmen that you will need to use.
 
-## API method Version
-
-The version of api methods will have this pattern "v1" "v2" ... "v?" on his URL
-
 ### Integration
 
 This environment is available to develop and test your integration with dcoupon anonymous coupons.
 
 URL to use as [ENV] for this environment is https://integration.coupon.com/
+
+## API method Version
+
+The version of api methods will have this pattern "v1" "v2" ... "v?" on his URL
 
 
  
