@@ -16,7 +16,7 @@ All requests must be signed with a secret, which is provided by dcoupon.
 This method generates a coupon from a promotion, identified by its promoToken. To be able to create the coupon, the promotion must allow anonymous coupons. If everything is correct, the method will return a unique coupon identifier that will be used to access coupon detail, and to generate the temporal token to redeem the coupon
 
 
-+ URL: [ENV]/coupons/createAnonymousCoupon
++ URL: [ENV]/coupons/{version}/createAnonymousCoupon
 + Type: POST
 + Header:
   + dcoupon-authorization-apitoken: client's API key
@@ -41,7 +41,8 @@ This method generates a coupon from a promotion, identified by its promoToken. T
 
 ```json
 {
-"_Hash unique cupon identifier_"
+ "code":"_Internal Ok Response Code_",
+ "description":"_Hash unique cupon identifier_"
 }
 ```
 If a request can't be resolved, an error JSON response will be returned with the following structure:
@@ -50,8 +51,8 @@ If a request can't be resolved, an error JSON response will be returned with the
 HttpStatus + body with:
 ```json
 {
- "code":"_Internal Error Code_",
- "description":"_Error description_"
+ "code":"_Internal Error Response Code_",
+ "description":"_Error Response description_"
 }
 ```
 
@@ -82,7 +83,7 @@ Returns a JSON with the detailed information of the coupon, including promotion 
 
 To access stores allowed to redeem this coupon, you can call stores API with the promotion token from the response.
 
-+ URL:[ENV]/coupons/getAnonymousCouponDetail
++ URL:[ENV]/coupons/{version}/getAnonymousCouponDetail/{coupon identifier} (returned in CreateAnonymousCoupon method)
 + Type: GET
 + Header:
   + dcoupon-authorization-apitoken: client's API key
@@ -91,7 +92,6 @@ To access stores allowed to redeem this coupon, you can call stores API with the
   + dcoupon-authorization-timestamp: timestamp at the time of making the request, in the format "yyyy-MM-dd'T'HH:mm:ssZ"
   
 + Parameters:
-  + coupon: Coupon identifier, returned in CreateAnonymousCoupon method 
   + lang: language to display currency
   
 + Response:
@@ -151,8 +151,8 @@ If a request can't be resolved, an error JSON response will be returned with the
 HttpStatus + body with:
 ```json
 {
- "code":"_Internal Error Code_",
- "description":"_Error description_"
+ "code":"_Internal Response Error Code_",
+ "description":"_Internal Response Error description_"
 }
 ```
 
@@ -175,22 +175,20 @@ Returns the temporal code to use for coupon redemption in stores allowed to rede
 
 This value can be displayed as a text or encoded inside a Code-128 barcode, adding "DC" as a prefix.
 
-+ URL:[ENV]/coupons/generateTemporalCouponToken
++ URL:[ENV]/coupons/{version}/generateTemporalCouponToken/{coupon identifier} (returned in CreateAnonymousCoupon method)
 + Type: GET
 + Header:
   + dcoupon-authorization-apitoken: client's API key
   + dcoupon-authorization-method: should always be 'SIGNATURE'
   + dcoupon-authorization-signature: request' signature, see below
   + dcoupon-authorization-timestamp: timestamp at the time of making the request, in the format "yyyy-MM-dd'T'HH:mm:ssZ"
-  
-+ Parameters:
-  + coupon: Coupon identifier, returned in CreateAnonymousCoupon method 
     
 + Response:
 
 ```json
 {
- "_Temporal token for redemption_"
+ "code":"_Internal Response Ok Code_",
+ "description":"_Temporal token for redemption_"
 }
 ```
 
@@ -200,8 +198,8 @@ If a request can't be resolved, an error JSON response will be returned with the
 HttpStatus + body with:
 ```json
 {
- "code":"_Internal Error Code_",
- "description":"_Error description_"
+ "code":"_Internal Response Error Code_",
+ "description":"_Internal Response Error description_"
 }
 ```
 
@@ -236,6 +234,10 @@ The string must be signed using the client's secret provided by dcoupon.
 ## Environments
 
 This API is available in different dcoupon environments, you will get credentials for each environmen that you will need to use.
+
+## API method Version
+
+The version of api methods will have this pattern "v1" "v2" ... "v?" on his URL
 
 ### Integration
 
