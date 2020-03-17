@@ -243,7 +243,13 @@ URL to use as [ENV] for this environment is https://integration.coupon.com/
 
 ## API method Version
 
-The version of api methods will have this pattern "v1" "v2" ... "v?" on his URL
+The version of the api method to use must be provided {version} when making a call
+
+Change Log
+
+| Version | {version} | Launch Date | Available until |
+|----------------|:----------:|:-------------:|-------------|
+| Version 1.0 | v1 | 13th of March, 2020  | TBD|
 
 
  
