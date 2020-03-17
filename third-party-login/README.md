@@ -68,7 +68,7 @@ A valid JSON Web Token is available inside the field 'sessionToken'. This token 
 
 All request must be signed using UTF-8 encoding and the HmacSHA256 algorithm. The signed string should be:
 ```
-<API_KEY>:<timestamp>:<POST body>
+<API_KEY>:<timestamp>
 ```
 
 _timestamp_ should be in the form "yyyy-MM-dd'T'HH:mm:ssZ", and is the timestamp at the moment of the request.
