@@ -19,7 +19,7 @@ This method generates a coupon from a promotion, identified by its promoToken. T
 + URL: [ENV]/coupons/{version}/createAnonymousCoupon
 + Type: POST
 + Header:
-  + dcoupon-authorization-apitoken: client's API key
+  + dcoupon-authorization-apikey: client's API key
   + dcoupon-authorization-method: should always be 'SIGNATURE'
   + dcoupon-authorization-signature: request' signature, see below
   + dcoupon-authorization-timestamp: timestamp at the time of making the request, in the format "yyyy-MM-dd'T'HH:mm:ssZ"
