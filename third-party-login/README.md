@@ -39,7 +39,7 @@ as a POST body.
 
 Additionally, the following headers must be provided:
 
-+ dcoupon-authorization-apitoken: client's API key
++ dcoupon-authorization-apikey: client's API key
 + dcoupon-authorization-method: should always be 'SIGNATURE'
 + dcoupon-authorization-signature: request' signature, see below
 + dcoupon-authorization-timestamp: timestamp at the time of making the request, in the format "yyyy-MM-dd'T'HH:mm:ssZ"
