@@ -1,6 +1,6 @@
 ![Logo](https://s3.amazonaws.com/dcoupon.com/sdk/docs/dcouponLogo.png)
 
-# dcoupon Anonymous coupon API
+# dcoupon User coupon API
 
 Version 1.0 (April 2020)
 
