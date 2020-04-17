@@ -79,7 +79,7 @@ This method return all user coupons. Can be filtered by retailers and companies 
 		"discountType": "_Discount type_",
 		"amount": "_Discount amount_"
 	}
-},{...}]
+}]
 ```
 If a request can't be resolved, an error JSON response will be returned with the following structure:
 
@@ -431,12 +431,11 @@ Return an array of retailers data for all active user coupons
 
 ```json
 [
-	{
-	"retailerName":"_Retailer Name_",
-	"retailerLogo":"_URL for retailer logo_",
-	"retailerToken":_Retailer api token_"
-	},
-	{..}
+	 {
+	  "retailerName":"_Retailer Name_",
+	  "retailerLogo":"_URL for retailer logo_",
+	  "retailerToken":"_Retailer api token_"
+	  }
 ]
 
 ```
@@ -481,9 +480,8 @@ Return an array of companies data for all active user coupons
 	{
 	"name":"Company Name_",
 	"logo":"_URL for company logo_",
-	"token":_Company api token_"
-	},
-	{..}
+	"token":"_Company api token_"
+	}
 ]
 
 ```
