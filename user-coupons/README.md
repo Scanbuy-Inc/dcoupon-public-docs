@@ -133,7 +133,13 @@ This method generates coupons for different promotions, identified by its promoT
 ```json
 {
  "code":"_Internal Ok Response Code_",
- "description":"[{"apiToken":"_Promotion token sent_","idCoupon":"_New created coupond id_","response":{"code":0,"description":"_Hash unique cupon identifier_"}}"
+ "description":"[{"apiToken":"_Promotion token sent_",
+		  "idCoupon":"_New created coupond id_",
+		  "response":{
+		  	      "code":0,
+			      "description":"_Hash unique cupon identifier_"
+			     }
+		}]
 }
 ```
 If a request can't be resolved, an error JSON response will be returned with the following structure:
