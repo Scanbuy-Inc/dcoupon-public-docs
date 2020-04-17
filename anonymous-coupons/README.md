@@ -27,7 +27,7 @@ This method generates a coupon from a promotion, identified by its promoToken. T
 + Body:
 ```json
 {
-	"promoToken": "_Token that identify the promotion_", 
+	"promoTokens": ["_Array of Tokens that identify the promotion_"], 
 	"publisherId": "_Publisher Identifier_",
 	"source": "_Identifies which site sends the request_",
 	"creationLatitude": "_Customer latitude_",
