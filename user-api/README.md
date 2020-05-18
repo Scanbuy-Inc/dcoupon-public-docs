@@ -202,7 +202,7 @@ Returns a JSON with the detailed information about all available affiliates for 
 ```json
 {
  "code":"_Internal Response Ok Code_",
- "description":{"id":_internal_id_affiliate,"name":"_affiliate_name_","affiliateLogoPath":"_affiliate_logo_path_","countryCode":"_country_short_codename_","apiTokenAffiliate":"_affiliate_api_token_"}
+ "description":{"id":"_internal_id_affiliate","name":"_affiliate_name_","affiliateLogoPath":"_affiliate_logo_path_","countryCode":"_country_short_codename_","apiTokenAffiliate":"_affiliate_api_token_"}
 }
 ```
 
@@ -393,7 +393,11 @@ Return an array of remdemption data for an active user. It could be grouped by d
 ```json
 {
  "code":"_Internal Response Ok Code_",
- "description":[{"redemptionAmount":_amount_payed_,"id_label":"_day_of_redemptions_","year":_year_of_redemptions_,"initialDate":"YYYY-MM-DD HH:MM:SS","endDate":"YYYY-MM-DD HH:MM:SS"}]
+ "description":[{"redemptionAmount":"_total_amount_rewarded__",
+				"id_label":"_day_of_redemptions_",
+				"year":"_year_of_redemptions_",
+				"initialDate":"YYYY-MM-DD HH:MM:SS",
+				"endDate":"YYYY-MM-DD HH:MM:SS"}]
 }
 ```
 
@@ -507,11 +511,12 @@ Return an object with remdemption detailed data for an active user and remdempti
 						{"retailerName":"_retailer_name_",
 						"retailerLogo":"_retailer_logo_path_",
 						"retailerToken":"_retailer_api_token_"}},
-						"couponsRedeemedList":[{"serial":_coupon_serial_number,
-						"promotionName":"_promotion_name_",
-						"redeemedAmount":_amount_rewarded_,
-						"stampsBurnt":_stamps_burnt_,
-						"gcn":"_coupon_gcn_"}
+						"couponsRedeemedList":
+							[{"serial":_coupon_serial_number,
+							"promotionName":"_promotion_name_",
+							"redeemedAmount":"_amount_rewarded_",
+							"stampsBurnt":"_stamps_burnt_",
+							"gcn":"_coupon_gcn_"}]
 				]}
 }
 ```
