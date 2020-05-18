@@ -1,6 +1,6 @@
 ![Logo](https://s3.amazonaws.com/dcoupon.com/sdk/docs/dcouponLogo.png)
 
-# dcoupon Anonymous coupon API
+# dcoupon Users API
 
 Version 1.0 (May 2020)
 
@@ -512,7 +512,7 @@ Return an object with remdemption detailed data for an active user and remdempti
 						"retailerLogo":"_retailer_logo_path_",
 						"retailerToken":"_retailer_api_token_"}},
 						"couponsRedeemedList":
-							[{"serial":_coupon_serial_number,
+							[{"serial":"_coupon_serial_number",
 							"promotionName":"_promotion_name_",
 							"redeemedAmount":"_amount_rewarded_",
 							"stampsBurnt":"_stamps_burnt_",
