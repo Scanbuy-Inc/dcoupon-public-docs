@@ -72,7 +72,7 @@ It returns an simple json object with some user data
 ```json
 {
  "code":"_Internal Ok Response Code_",
- "description":"{"alias":"_User_alias_","gender":"_User_gender_","birthdate":"YYYY-MM-DD","email":"_User_email_"}"
+ "description":{"alias":"_User_alias_","gender":"_User_gender_","birthdate":"YYYY-MM-DD","email":"_User_email_"}
 }
 ```
 If a request can't be resolved, an error JSON response will be returned with the following structure:
@@ -163,7 +163,7 @@ Returns a JSON with the detailed information about all available countries in dc
 ```json
 {
  "code":"_Internal Ok Response Code_",
- "description":"{"countryShort":"_Country short name_","name":"_Country name_","loyaltyAffiliatesCount":"_Number of loyalty affiliates added to the country_"}"
+ "description":{"countryShort":"_Country short name_","name":"_Country name_","loyaltyAffiliatesCount":"_Number of loyalty affiliates added to the country_"}
 }
 ```
 
@@ -202,7 +202,7 @@ Returns a JSON with the detailed information about all available affiliates for 
 ```json
 {
  "code":"_Internal Response Ok Code_",
- "description":"{"id\":_internal_id_affiliate,"name":"_affiliate_name_","affiliateLogoPath":"_affiliate_logo_path_","countryCode":"_country_short_codename_","apiTokenAffiliate":"_affiliate_api_token_"}"
+ "description":{"id":_internal_id_affiliate,"name":"_affiliate_name_","affiliateLogoPath":"_affiliate_logo_path_","countryCode":"_country_short_codename_","apiTokenAffiliate":"_affiliate_api_token_"}
 }
 ```
 
@@ -242,7 +242,7 @@ Returns basic data from all active cards for an user
 ```json
 {
  "code":"_Internal Response Ok Code_",
- "description":"[{"apiTokenAffilliate":"_affiliate_api_token_","cardNumber":"_card_number_"}]"
+ "description":[{"apiTokenAffilliate":"_affiliate_api_token_","cardNumber":"_card_number_"}]
 }
 ```
 
@@ -393,7 +393,7 @@ Return an array of remdemption data for an active user. It could be grouped by d
 ```json
 {
  "code":"_Internal Response Ok Code_",
- "description":"[{"redemptionAmount":_amount_payed_,"id_label":"_day_of_redemptions_","year":_year_of_redemptions_,"initialDate":"YYYY-MM-DD HH:MM:SS","endDate":"YYYY-MM-DD HH:MM:SS"}]"
+ "description":[{"redemptionAmount":_amount_payed_,"id_label":"_day_of_redemptions_","year":_year_of_redemptions_,"initialDate":"YYYY-MM-DD HH:MM:SS","endDate":"YYYY-MM-DD HH:MM:SS"}]
 }
 ```
 
@@ -443,7 +443,7 @@ Return an array of remdemption history data for an active user.
 ```json
 {
  "code":"_Internal Response Ok Code_",
- "description":"[{"id":"_redemption_id_codified_in_base64_",
+ "description":[{"id":"_redemption_id_codified_in_base64_",
 				"date":"YYYY-MM-DD",
 				"amount":"_amount_rewarded_",
 				"couponsCount":"_coupons_count_",
@@ -451,7 +451,7 @@ Return an array of remdemption history data for an active user.
 					"retailerName":"_retailer_name_",
 					"retailerLogo":"_retailer_logo_path_",
 					"retailerToken":"_retailer_api_token_"}
-				}]"
+				}]
 }
 ```
 
@@ -498,7 +498,7 @@ Return an object with remdemption detailed data for an active user and remdempti
 ```json
 {
  "code":"_Internal Response Ok Code_",
- "description":"[{"redemptionInfo":{
+ "description":[{"redemptionInfo":{
 					"id":"internal_redemption_id",
 					"date":"yyyy-MM-dd",
 					"amount":"_amount_rewarded_",
@@ -512,7 +512,7 @@ Return an object with remdemption detailed data for an active user and remdempti
 						"redeemedAmount":_amount_rewarded_,
 						"stampsBurnt":_stamps_burnt_,
 						"gcn":"_coupon_gcn_"}
-				]}"
+				]}
 }
 ```
 
