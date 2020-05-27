@@ -384,6 +384,7 @@ HttpStatus + body with:
 + Response types for methods included in this API:
 
 | Response	 | Error Status | Error Code | Error Message |
+|----------------|:----------:|:-------------:|-------------|
 | INPUT ERROR | 400 | ERROR.INPUT.INVALID.FIELDS | Validation failed |
 | UNAUTHORIZED |401 | ERROR.PERMISSION.UNAUTHORIZED | Unauthorized request |
 | FORBBIDDEN | 403 | ERROR.PERMISSION.UNAUTHORIZED | Unauthorized request |
@@ -411,7 +412,7 @@ This API is available in different dcoupon environments, you will get credential
 
 This environment is available to develop and test your integration with dcoupon user coupons.
 
-URL to use as [ENV] for this environment is https://integration.coupon.com/
+URL to use as [ENV] for this environment is https://integration.coupon.com/ *FR
 
 ## API method Version
 
