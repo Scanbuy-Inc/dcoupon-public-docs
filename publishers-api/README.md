@@ -281,7 +281,7 @@ HttpStatus + body with:
 
 Returns all categories and the number of active promotions for each category that are associated to the publisher identified by the API tokenSupports multiple languages. Currently defaults to english (en_US) if requested language is not supported.
 
-+ URL: [ENV]/publisher/{version}/stores/
++ URL: [ENV]/publisher/{version}/categories/
 + Type: GET
 + Header:
   + dcoupon-authorization-apikey: client's API key
@@ -383,11 +383,11 @@ HttpStatus + body with:
 
 + Response types for methods included in this API:
 
-| Response	 | Error Status | Error Code | Description |
-INPUT ERROR|400| ERROR.INPUT.INVALID.FIELDS| Validation failed
-UNAUTHORIZED|401| ERROR.PERMISSION.UNAUTHORIZED| Unauthorized request
-FORBBIDDEN|403| ERROR.PERMISSION.UNAUTHORIZED| Unauthorized request
-INTERNAL SERVER ERROR|500| FATAL.SERVER.ERROR|Internal Server Error
+| Response	 | Error Status | Error Code | Error Message |
+| INPUT ERROR | 400 | ERROR.INPUT.INVALID.FIELDS | Validation failed |
+| UNAUTHORIZED |401 | ERROR.PERMISSION.UNAUTHORIZED | Unauthorized request |
+| FORBBIDDEN | 403 | ERROR.PERMISSION.UNAUTHORIZED | Unauthorized request |
+| INTERNAL SERVER ERROR | 500 | FATAL.SERVER.ERROR | Internal Server Error|
 
 ## Signing requests
 
