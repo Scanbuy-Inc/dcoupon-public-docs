@@ -6,7 +6,7 @@ Version 1.0 (January 2020)
 
 ## Introduction
 
-The dcoupon SDK allows our clients to log in their users into the dcoupon service, so users can benefit from accessing dcoupon service from 3rd party apps, without needing to use an additional login for dcoupon
+The dcoupon SDK allows to log in client' users into the dcoupon service, so users can benefit from accessing dcoupon service from 3rd party apps, without needing to use an additional login for dcoupon
 
 All dcoupon users must provide the following information when registering:
 -	Alias/nickname
