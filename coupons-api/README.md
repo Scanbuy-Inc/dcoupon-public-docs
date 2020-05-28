@@ -394,7 +394,7 @@ This method generates coupons for different promotions, identified by its promoT
 {
  		[{"apiToken":"_Promotion token_",
 		  "idCoupon":"_New created coupond id_",
-		  "coupon":"_Hash unique cupon identifier_"
+		  "coupon":"_Hash unique cupon identifier_",
 		  "response":{
 		  		"code":"_dcoupon response code_",
  				"description":"_dcoupon response description_"
