@@ -391,16 +391,15 @@ This method generates coupons for different promotions, identified by its promoT
 + OK Response:
 
 ```json array of CouponDetailResponse
-{
- 		[{"apiToken":"_Promotion token_",
-		  "idCoupon":"_New created coupond id_",
-		  "coupon":"_Hash unique cupon identifier_",
-		  "response":{
-		  		"code":"_dcoupon response code_",
- 				"description":"_dcoupon response description_"
-			}
-		}]
-}
+[{"apiToken":"_Promotion token_",
+	"idCoupon":"_New created coupond id_",
+	"coupon":"_Hash unique cupon identifier_",
+	"response":{
+		"code":"_dcoupon response code_",
+ 		"description":"_dcoupon response description_"
+	}
+}]
+
 ```
 
 If a request can't be resolved, an error JSON response will be returned with the following structure:
