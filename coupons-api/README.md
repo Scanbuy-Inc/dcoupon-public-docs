@@ -7,7 +7,7 @@ Version 1.1 (May 2020)
 
 ## Introduction
 
-This API allow to generate coupons from dcupon promotions for an user. Once an user coupons is created this API allows to access the coupon detail, activate and deactivae the user coupons, list all his coupons by filtering them and listing retailers and companies of his active coupons.
+This API allow to generate coupons from dcupon promotions for an user. Once an user coupons is created this API allows to access the coupon detail, activate and deactivae the user coupons, list all his coupons by filtering them and listing retailers and companies of his/her active coupons.
 
 Also this API allow to generate coupons from dcupon promotions wihtout identifying the user. Once an anonymous coupons is created this API allows to access to coupon detail and to generate the temporary token suitable to redeem the coupon into assocciated stores.
 
@@ -23,7 +23,9 @@ Allow to generate and redeem coupons for users that are not registered/logged in
 
 This method generates a coupon from a promotion, identified by its promoToken. 
 To be able to create the coupon, the promotion must allow anonymous coupons creation. 
-If everything is correct, the method will return a unique coupon identifier that will be used to access coupon detail, and to generate the temporal token to redeem the coupon
+If everything is correct, the method will return a unique coupon identifier that will be used to access coupon detail, and to generate the temporal token to redeem the coupon.
+
+In addition once the *coupon identifier* is returned, it is possible to access the coupon detail by calling a URL like https://[DOMAIN]/mycoupons/coupon/anonymous/detail/{coupon identifier}=?lang=XX
 
 
 + URL: [ENV]/coupons/{version}/createAnonymousCoupon
@@ -95,8 +97,8 @@ Returns a JSON with the detailed information of the coupon, including promotion 
 
 To access stores allowed to redeem this coupon, you can call stores API with the promotion token from the response.
 
-+ URL:[ENV]/coupons/{version}/getAnonymousCouponDetail/{coupon identifier} (returned in CreateAnonymousCoupon method)
-+ URL:[ENV]/coupons/{version}/anonymous/detail/{coupon identifier} (returned in CreateAnonymousCoupon method)
++ URL:[ENV]/coupons/{version}/getAnonymousCouponDetail/{coupon identifier} (returned in createAnonymousCoupon method)
++ URL:[ENV]/coupons/{version}/anonymous/detail/{coupon identifier} (returned in createAnonymousCoupon method)
 + Type: GET
 + Header:
   + dcoupon-authorization-apitoken: client's API key
@@ -183,7 +185,7 @@ HttpStatus + body with:
 | PROMOTION_STATE_NOT_VALID | 202 | 137 | "Promotion's state does not allow this operation" |
 | INTERNAL_ERROR | 500 | 500 | "Internal Error" |
 
-### createAnonymousCoupon - redemptionToken (generateTemporalCouponToken)
+### AnonymousCoupon - redemptionToken (generateTemporalCouponToken)
 
 Returns the temporal code to use for coupon redemption in stores allowed to redeem the coupon . 
 
