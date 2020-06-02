@@ -14,9 +14,16 @@ Also this API allow to generate coupons from dcupon promotions wihtout identifyi
 All requests must be signed with a secret, which is provided by dcoupon.
 
 ## Methods:
-### CreateAnonymousCoupon
 
-This method generates a coupon from a promotion, identified by its promoToken. To be able to create the coupon, the promotion must allow anonymous coupons. If everything is correct, the method will return a unique coupon identifier that will be used to access coupon detail, and to generate the temporal token to redeem the coupon
+## Anonymous Coupons
+
+Allow to generate and redeem coupons for users that are not registered/logged into dcoupon.
+
+### AnonymousCoupon - create (createAnonymousCoupon)
+
+This method generates a coupon from a promotion, identified by its promoToken. 
+To be able to create the coupon, the promotion must allow anonymous coupons creation. 
+If everything is correct, the method will return a unique coupon identifier that will be used to access coupon detail, and to generate the temporal token to redeem the coupon
 
 
 + URL: [ENV]/coupons/{version}/createAnonymousCoupon
@@ -82,7 +89,7 @@ HttpStatus + body with:
 | PROMOTION_NOT_ALLOW_ANONYMOUS | 202 | 154 | "Promotion does not allow creation of anonymous coupons" |
 | INTERNAL_ERROR | 500 | 500 | "Internal Error" |
 
-### detail (GetAnonymousCouponDetail)
+### AnonymousCoupon - detail (getAnonymousCouponDetail)
 
 Returns a JSON with the detailed information of the coupon, including promotion description, promotion token,  redemption dates, retailers where to redeem ... 
 
@@ -176,7 +183,7 @@ HttpStatus + body with:
 | PROMOTION_STATE_NOT_VALID | 202 | 137 | "Promotion's state does not allow this operation" |
 | INTERNAL_ERROR | 500 | 500 | "Internal Error" |
 
-### GenerateTemporalCouponToken
+### createAnonymousCoupon - redemptionToken (generateTemporalCouponToken)
 
 Returns the temporal code to use for coupon redemption in stores allowed to redeem the coupon . 
 
@@ -225,12 +232,14 @@ HttpStatus + body with:
 | INTERNAL_ERROR | 500 | 500 | "Internal Error" |
 
 
-### redemptionToken
+## Coupons for register/logged in users
 
-This method return a temporal generated token to redeem coupons for an user. It will be valid 90 seconds by default.
+### create
 
-+ URL: [ENV]/coupons/{version}/redemptionToken
-+ Type: GET
+This method generates coupons for different promotions, identified by its promoToken. To be able to create the coupons, the promotion must be valid. If everything is correct, the method will return an array of coupons identifiers that will be used to access each coupon detail.
+
++ URL: [ENV]/coupons/{version}/createUserCoupon
++ Type: POST
 + Header:
   + dcoupon-authorization-apikey: client's API key
   + dcoupon-authorization-method: should always be 'SIGNATURE'
@@ -238,13 +247,32 @@ This method return a temporal generated token to redeem coupons for an user. It 
   + dcoupon-authorization-timestamp: timestamp at the time of making the request, in the format "yyyy-MM-dd'T'HH:mm:ssZ"
   + dcoupon-user-jwt: User encrypted session data token
   
- + OK Response:
-HttpStatus + body with:
++ Body:
 
-```json TemporalTokenUserResponse
+```json
 {
- "temporalToken":"_Temporal user token_",
+	"promoTokens": ["_Array of Tokens that identifiers the promotions_"], 
+	"publisherId": "_Publisher Identifier_",
+	"source": "_Identifies which site sends the request_",
+	"creationLatitude": "_Customer latitude_",
+	"creationLongitude": "_Customer longitude",
+	"crmId": "_Customer identifier_",
+	"transId": "_Transaction ID_"
 }
+```
+
++ OK Response:
+
+```json array of CouponDetailResponse
+[{"apiToken":"_Promotion token_",
+	"idCoupon":"_New created coupond id_",
+	"coupon":"_Hash unique cupon identifier_",
+	"response":{
+		"code":"_dcoupon response code_",
+ 		"description":"_dcoupon response description_"
+	}
+}]
+
 ```
 
 If a request can't be resolved, an error JSON response will be returned with the following structure:
@@ -254,8 +282,8 @@ HttpStatus + body with:
 
 ```json ResponseType
 {
- "code":"_dcoupon response code_",
- "description":"_dcoupon response description_"
+	"code":"_dcoupon response code_",
+ 	"description":"_dcoupon response description_"
 }
 ```
 
@@ -266,10 +294,24 @@ HttpStatus + body with:
 | SESSION_TOKEN_NOT_VALID | 406 | 142 |  "Session Token Not Valid" |
 | USER_NOT_FOUND | 404 | 105 |  "User not found" |
 | USER_NOT_ACTIVE | 403 | 147 |  "User not active" |
+| COUPONID_NOT_FOUND | 404 | 111 |  "Coupon id not found" |
+| MAX_COUPON_EXCEEDED | 202 | 119 |  "User exceeded the max coupon available per user" |
+| PROMOTION_NOT_INITIATED | 202 | 126 |  "Promotion not initiated" |
+| PROMOTION_EXPIRED | 202 | 127 |  "Promotion expired" |
+| MAX_COUPONS_PER_OFFER_EXCEEDED | 202 | 131 | "Max Coupons per Offer exceeded" |
+| TRANSID_NOT_VALID | 406 | 132 | "TransId not valid" |
+| PUBLISHER_NOT_VALID | 406 | 133 | "Publisher not valid" |
+| PUBLISHER_EXCEED_MAX_NUMBER_OF_COUPONS | 202 | 135 | "Publisher exceed max number of coupons for this campaign" |
+| CORDS_NOT_VALIDS | 406 | 136 | "Latitude or Longitude not valid" |
+| PROMOTION_STATE_NOT_VALID | 202 | 137 | "Promotion's state does not allow this operation" |
+| PARAMATER_NOT_FOUND | 404 | 149 | "Required parameter not found" |
+| PARAMETER_NOT_CORRECT | 406 | 150 | "Parameter is not correct" |
+| PROMOTION_NOT_FOUND | 404 | 152 |  "Promotion not found" |
+| PARAMETER_TRANSID_NOT_FOUND | 404 | 153 | "Parameter transid not found" |
 | INTERNAL_ERROR | 500 | 500 | "Internal Error" |
 
 
-### list (getUserCoupons)
+### list
 
 This method return all user coupons. Can be filtered by retailers and companies and sorted NEWEST, ENDING or VALUE. The response can be pageable by setting LIMIT and OFFSET.
 
@@ -360,84 +402,7 @@ HttpStatus + body with:
 | USER_NOT_ACTIVE | 403 | 147 |  "User not active" |
 | INTERNAL_ERROR | 500 | 500 | "Internal Error" |
   
- 
-### CreateUserCoupon
-
-This method generates coupons for different promotions, identified by its promoToken. To be able to create the coupons, the promotion must be valid. If everything is correct, the method will return an array of coupons identifiers that will be used to access each coupon detail.
-
-+ URL: [ENV]/coupons/{version}/createUserCoupon
-+ Type: POST
-+ Header:
-  + dcoupon-authorization-apikey: client's API key
-  + dcoupon-authorization-method: should always be 'SIGNATURE'
-  + dcoupon-authorization-signature: request' signature, see below
-  + dcoupon-authorization-timestamp: timestamp at the time of making the request, in the format "yyyy-MM-dd'T'HH:mm:ssZ"
-  + dcoupon-user-jwt: User encrypted session data token
-  
-+ Body:
-
-```json
-{
-	"promoTokens": ["_Array of Tokens that identifiers the promotions_"], 
-	"publisherId": "_Publisher Identifier_",
-	"source": "_Identifies which site sends the request_",
-	"creationLatitude": "_Customer latitude_",
-	"creationLongitude": "_Customer longitude",
-	"crmId": "_Customer identifier_",
-	"transId": "_Transaction ID_"
-}
-```
-
-+ OK Response:
-
-```json array of CouponDetailResponse
-[{"apiToken":"_Promotion token_",
-	"idCoupon":"_New created coupond id_",
-	"coupon":"_Hash unique cupon identifier_",
-	"response":{
-		"code":"_dcoupon response code_",
- 		"description":"_dcoupon response description_"
-	}
-}]
-
-```
-
-If a request can't be resolved, an error JSON response will be returned with the following structure:
-
-+ Error Response:
-HttpStatus + body with:
-
-```json ResponseType
-{
-	"code":"_dcoupon response code_",
- 	"description":"_dcoupon response description_"
-}
-```
-
-+ Response Types for this method:
-
-| Response	 | HttpStatus | Internal Code | Description |
-|----------------|:----------:|:-------------:|-------------|
-| SESSION_TOKEN_NOT_VALID | 406 | 142 |  "Session Token Not Valid" |
-| USER_NOT_FOUND | 404 | 105 |  "User not found" |
-| USER_NOT_ACTIVE | 403 | 147 |  "User not active" |
-| COUPONID_NOT_FOUND | 404 | 111 |  "Coupon id not found" |
-| MAX_COUPON_EXCEEDED | 202 | 119 |  "User exceeded the max coupon available per user" |
-| PROMOTION_NOT_INITIATED | 202 | 126 |  "Promotion not initiated" |
-| PROMOTION_EXPIRED | 202 | 127 |  "Promotion expired" |
-| MAX_COUPONS_PER_OFFER_EXCEEDED | 202 | 131 | "Max Coupons per Offer exceeded" |
-| TRANSID_NOT_VALID | 406 | 132 | "TransId not valid" |
-| PUBLISHER_NOT_VALID | 406 | 133 | "Publisher not valid" |
-| PUBLISHER_EXCEED_MAX_NUMBER_OF_COUPONS | 202 | 135 | "Publisher exceed max number of coupons for this campaign" |
-| CORDS_NOT_VALIDS | 406 | 136 | "Latitude or Longitude not valid" |
-| PROMOTION_STATE_NOT_VALID | 202 | 137 | "Promotion's state does not allow this operation" |
-| PARAMATER_NOT_FOUND | 404 | 149 | "Required parameter not found" |
-| PARAMETER_NOT_CORRECT | 406 | 150 | "Parameter is not correct" |
-| PROMOTION_NOT_FOUND | 404 | 152 |  "Promotion not found" |
-| PARAMETER_TRANSID_NOT_FOUND | 404 | 153 | "Parameter transid not found" |
-| INTERNAL_ERROR | 500 | 500 | "Internal Error" |
-
-### detail (GetUserCouponDetail)
+### detail 
 
 Returns a JSON with the detailed information of the coupon, including promotion description, promotion token,  redemption dates, retailers where to redeem ... 
 
@@ -534,7 +499,7 @@ HttpStatus + body with:
 | PROMOTION_STATE_NOT_VALID | 202 | 137 | "Promotion's state does not allow this operation" |
 | INTERNAL_ERROR | 500 | 500 | "Internal Error" |
 
-### activate (ActivateUserCoupon)
+### activate
 
 Activate a user coupon if not already active.
 
@@ -584,7 +549,7 @@ HttpStatus + body with:
 | PROMOTION_STATE_NOT_VALID | 202 | 137 | "Promotion's state does not allow this operation" |
 | INTERNAL_ERROR | 500 | 500 | "Internal Error" |
 
-### deactivate (DeactivateUserCoupon)
+### deactivate
 
 Deactivate a user coupon if not already deactive.
 
@@ -634,9 +599,54 @@ HttpStatus + body with:
 | PROMOTION_STATE_NOT_VALID | 202 | 137 | "Promotion's state does not allow this operation" |
 | INTERNAL_ERROR | 500 | 500 | "Internal Error" |
 
-### retailers (UserCouponRetailers)
+### redemptionToken
 
-Return an array of retailers data for all active user coupons
+This method return a temporal generated token to redeem all coupons for an user. This token will be valid 180 seconds.
+
++ URL: [ENV]/coupons/{version}/redemptionToken
++ Type: GET
++ Header:
+  + dcoupon-authorization-apikey: client's API key
+  + dcoupon-authorization-method: should always be 'SIGNATURE'
+  + dcoupon-authorization-signature: request' signature, see below
+  + dcoupon-authorization-timestamp: timestamp at the time of making the request, in the format "yyyy-MM-dd'T'HH:mm:ssZ"
+  + dcoupon-user-jwt: User encrypted session data token
+  
+ + OK Response:
+HttpStatus + body with:
+
+```json TemporalTokenUserResponse
+{
+ "temporalToken":"_Temporal user token_",
+}
+```
+
+If a request can't be resolved, an error JSON response will be returned with the following structure:
+
++ Error Response:
+HttpStatus + body with:
+
+```json ResponseType
+{
+ "code":"_dcoupon response code_",
+ "description":"_dcoupon response description_"
+}
+```
+
++ Response Types for this method:
+
+| Response	 | HttpStatus | Internal Code | Description |
+|----------------|:----------:|:-------------:|-------------|
+| SESSION_TOKEN_NOT_VALID | 406 | 142 |  "Session Token Not Valid" |
+| USER_NOT_FOUND | 404 | 105 |  "User not found" |
+| USER_NOT_ACTIVE | 403 | 147 |  "User not active" |
+| INTERNAL_ERROR | 500 | 500 | "Internal Error" |
+
+
+
+### retailers
+
+Return an array of retailers where user' coupons can be redeemed
 
 + URL:[ENV]/coupons/{version}/retailers
 + Type: GET
@@ -681,9 +691,9 @@ HttpStatus + body with:
 | USER_NOT_ACTIVE | 403 | 147 |  "User not active" |
 | INTERNAL_ERROR | 500 | 500 | "Internal Error" |
 
-### companies (UserCouponCompanies)
+### companies 
 
-Return an array of companies data for all active user coupons
+Return an array of companies/brands from user' coupons
 
 + URL:[ENV]/coupons/{version}/companies
 + Type: GET
