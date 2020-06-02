@@ -750,7 +750,7 @@ This API is available in different dcoupon environments, you will get credential
 
 This environment is available to develop and test your integration with dcoupon user coupons.
 
-URL to use as [ENV] for this environment is https://servoces-dev.dcoupon.com/
+URL to use as [ENV] for this environment is https://services-dev.dcoupon.com/
 
 ## API method Version
 
