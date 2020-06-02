@@ -28,7 +28,7 @@ Returns all active promotions filtered with the parameters sent in the request.
   + country: "_Short country code (2 digits), according to ISO 3166-1 alpha-2. The publisher must be authorized to publish offers in this country._"
   + categoryIds: "_Filter offers from this/these category/ies_"
   + retailerTokens: "_Filter offers redeemable in this/these retailer/s_"
-  + storeIds: "_Filter offers redeemable in those stores form the selected retailer"
+  + storeIds: "Filter offers redeemable in those stores form the selected retailer"
   + textSearch: "_Text to search for into promotion name, promotion description and company owner of the promotions_"
   + companyTokens: "_Filter offers from this/these company/ies_"
   + longitude: "_User longitude coordinate (DD format)_"
