@@ -6,7 +6,7 @@ Version 2.0 (May 2020)
 
 ## Introduction
 
-This API enable to work with dcoupon promotions, this API allows to list available promotions, access to promotion details and access to available filters
+This API enable to work with dcoupon promotions, this API allows to list available promotions, access to promotion details and access to available filters. Each publisher will have access only to those promotions associated to it.
 
 All requests must be signed with a secret, which is provided by dcoupon.
 
@@ -14,7 +14,7 @@ All requests must be signed with a secret, which is provided by dcoupon.
 
 ### Promotions
 
-Returns all active promotions associated to the publisher identified by the API token filtered with the parameters sent in the request.
+Returns all active promotions filtered with the parameters sent in the request.
 
 + URL: [ENV]/publisher/{version}/promotions
 + Type: GET
@@ -33,8 +33,7 @@ Returns all active promotions associated to the publisher identified by the API 
   + companyTokens: "_Filter offers from this/these company/ies_"
   + longitude: "_User longitude coordinate (DD format)_"
   + latitude:"_User latitude coordinate (DD format)_"
-  + radius: "_Radius to make the search for coupons available_ *FR incluir unidad de medida"
-  + zipcode: "_Zip code to filter the search_ *FR validar que funciona"
+  + radius: "_Radius in kilometers to make the search for coupons available_"
   + start: "_Number of rows to skip before starting to return rows_" (Optional) (Default: 0)  
   + limit: "_Number of rows fetched_" (Optional)_"
   + orderBy:"_Filter how the result set is sorted_"
@@ -149,7 +148,7 @@ HttpStatus + body with:
 
 ### Retailers
 
-Returns all retailers where the offers can be redeemed and the number of active offers for each retailer that are associated to the publisher identified by the API token
+Returns all retailers where the offers can be redeemed and the number of active offers for each retailer
 
 + URL: [ENV]/publisher/{version}/retailers
 + Type: GET
@@ -215,11 +214,11 @@ HttpStatus + body with:
 
 ### Stores
 
-Return a list of stores associated with a retailer identified by its retailer API token. (Use retailer_token , not promotion_token ) 
+If retailer_token is sent without using promotion_token, this method returns a list of stores associated with the retailer filtered using other parameters sent in the request.
 OR 
-Returns all active promotions associated to the publisher identified by the API token filtered with the parameters sent in the request, including a list of stores from the retailer. (Use promotion_token , can combine with retailer_tokens)Requires either promotion_token OR retailer_token. 
-OR 
-Both can be used.
+If promotion_token is sent, returns  a list of stores available to redeem the promotion filtered with the parameters sent in the request. promotion_token can be combined with retailer_tokens, to filter only stores from those retailers. 
+
+Requires either promotion_token OR retailer_token OR both can be used.
 
 + URL: [ENV]/publisher/{version}/stores/
 + Type: GET
@@ -236,7 +235,6 @@ Both can be used.
    + longitude: "_User longitude coordinate (DD format)_"
    + latitude:"_User latitude coordinate (DD format)_"
    + radius: "_Radius to make the search for available stores_ *FR incluir unidad de medida"
-   + zipcode: "_Zip code to filter the search_ *FR validar que funciona"
    + start: "_Number of rows to skip before starting to return rows_" (Optional) (Default: 0)  
    + limit: "_Number of rows fetched_" (Optional)_"
   
@@ -279,7 +277,8 @@ HttpStatus + body with:
 
 ### Categories
 
-Returns all categories and the number of active promotions for each category that are associated to the publisher identified by the API tokenSupports multiple languages. Currently defaults to english (en_US) if requested language is not supported.
+Returns all categories and the number of active promotions for each category. 
+Supports multiple languages, currently defaults to english (en_US) if requested language is not supported.
 
 + URL: [ENV]/publisher/{version}/categories/
 + Type: GET
@@ -298,23 +297,13 @@ Returns all categories and the number of active promotions for each category tha
 ```json
 {
   "totalResults": 1,
-  "pageSize": 0,
+  "pageSize": 1,
   "start": 0,
   "items": [
     {
-      "id": 1,
-      "name": "store1",
-      "longitude": 14.135647,
-      "latitude": 134.222356,
-      "zipcode": 450,
-      "city": "harrison",
-      "region": "nj",
-      "addressHtml": "some <html>",
-      "retailer": {
-        "token": "blah",
-        "name": "juan",
-        "logoUrl": "http://imgs.dcoupon.com/retailer/blah/hello.jpg"
-      }
+      "name": "Beverages",
+      "id": 191919,
+      "numActiveOffer": 150
     }
   ]
 }
@@ -332,7 +321,7 @@ HttpStatus + body with:
 
 ### Companies
 
-Returns all companies with active promotions associated to the publisher identified by the API token and the number of active offers for each company. ONLY those companies that have choose at least one of its promotions to be published using the Publisher identified in the request will be returned
+Returns all companies with active promotions and the number of active offers for each company. ONLY companies that have promotions published will be returned
 
 + URL: [ENV]/publisher/{version}/companies/
 + Type: GET
@@ -406,13 +395,13 @@ The string must be signed using the client's secret provided by dcoupon.
 
 ## Environments
 
-This API is available in different dcoupon environments, you will get credentials for each environmen that you will need to use.
+This API is available in different dcoupon environments, you will get credentials for each environment that you will need to use.
 
 ### Integration
 
 This environment is available to develop and test your integration with dcoupon user coupons.
 
-URL to use as [ENV] for this environment is https://integration.coupon.com/ *FR
+URL to use as [ENV] for this environment is https://services-dev.dcoupon.com/
 
 ## API method Version
 
