@@ -22,21 +22,29 @@ interface DcouponBoolCallback {
 }
 ```
 
+Callback example in one of the methods.
+
+```kotlin
+dcoupon.logIn(..., (code, message) -> {
+                            //Your logic
+                        });
+```
+
 ---
 
 ## METHODS
 
-### LogIn
+### logIn
 Third-party log in method.
 ```kotlin
 fun logIn(
-        email: String,
-        externalId: String,
-        alias: String?,
-        gender: String?,
-        birthdate: String?,
-        callback: DcouponCallback
-    )
+    email: String,
+    externalId: String,
+    alias: String?,
+    gender: String?,
+    birthdate: String?,
+    callback: DcouponCallback
+)
 ```
 #### Log In flow chart
 ![login-diagram](https://s3.amazonaws.com/dcoupon.com/sdk/docs/loginflowchart.png?raw=true)
@@ -50,25 +58,18 @@ fun logIn(
 | `alias` | varchar(90) | String | *false* | User's alias/name.
 | `gender` | 'MALE', 'FEMALE', 'OTHER', 'RATHERNOTSAY' | String | *false* | User's gender.
 | `birthdate` | 'YYYY-MM-dd' | String | *false* | User's date of birth.
-| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message
+| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
 
 #### Callback response
 | code | (type) message | description |
-| :---: | :---: | --- |
+| --- | :---: | --- |
 | 200 | (String) | The user is logged, now the user can access to others methods(getCoupons(), getFilters(),...).
 | 301 | (String) | A form view is showed, the user must fill the mandatory data and accept the legal documents.
-| 400 | (String) | Bad request, missed mandatory data (email, externalId).
+| 400 | (String) | Bad request, missing mandatory data (email, externalId).
 | 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
 | 503 | (String) | Service unavailable, other service in background thread is running, please wait a moment.
 
 **logIn -> Special case:** load the enrollment view because there are mandatory legal texts that need to be accepted by the user.
-
-When the user is logged in, the method **isLoggedIn()** returns *true* in the callback.
-```kotlin
-fun isLoggedIn(
-        callback: DcouponBoolCallback
-    )
-```
 
 To log out the user, the method **logOut** will do it.
 ```kotlin
@@ -77,40 +78,68 @@ fun logOut()
 
 ---
 
-### GetUserData
-Get the user data.
+### isLoggedIn
+Check if the user is still logged in.
 ```kotlin
-fun getUserData(
-        callback: DcouponCallback
-    )
+fun isLoggedIn(
+    callback: DcouponBoolCallback
+)
 ```
 
 #### Input
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
-| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message
+| `callback` | (bool) -> {} | Function | ***true*** | Dcoupon callback with boolean
+
+#### Callback response
+| (type) | description |
+| --- | --- |
+| (Boolean) | Returns true if the user is still logged in and false in any other case (not logged in, error).
+
+---
+
+### logOut
+Log out the user.
+```kotlin
+fun logOut()
+```
+
+---
+
+### getUserData
+Get the user data.
+```kotlin
+fun getUserData(
+    callback: DcouponCallback
+)
+```
+
+#### Input
+| name | value | type | mandatory | description |
+| :--- | :---: | :---: | :---: | --- |
+| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
 
 
 #### Callback response
 | code | (type) message | description |
-| :---: | :---: | --- |
+| --- | :---: | --- |
 | 200 | [(JsonObject)](#getuserdata-jsonobject) | Returns the user data.
-| 403 | (String) | User is not active.
-| 404 | (String) | User not found.
-| 406 | (String) | The user session token is not valid.
+| 403 | (String) | Forbidden, user is not active.
+| 404 | (String) | Not found, the user is not found.
+| 406 | (String) | Not acceptable, the user session token is not valid.
 | 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
 
 ---
 
-### UpdateUserData
+### updateUserData
 Update the user data.
 ```kotlin
-    fun updateUserData(
-        alias: String?,
-        gender: String?,
-        birthdate: String?,
-        callback: DcouponCallback
-    )
+fun updateUserData(
+    alias: String?,
+    gender: String?,
+    birthdate: String?,
+    callback: DcouponCallback
+)
 ```
 
 #### Input
@@ -119,31 +148,31 @@ Update the user data.
 | `alias` | varchar(90) | String | *false* | User's alias/name.
 | `gender` | 'MALE', 'FEMALE', 'OTHER', 'RATHERNOTSAY' | String | *false* | User's gender.
 | `birthdate` | 'YYYY-MM-dd' | String | *false* | User's date of birth.
-| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message
+| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
 
 
 #### Callback response
 | code | (type) message | description |
-| :---: | :---: | --- |
+| --- | :---: | --- |
 | 200 | [(JsonObject)](#updateuserdata-jsonobject) | Returns the user data.
-| 403 | (String) | User is not active.
-| 404 | (String) | User not found.
-| 406 | (String) | The user session token is not valid.
+| 403 | (String) | Forbidden, user is not active.
+| 404 | (String) | Not found, the user is not found.
+| 406 | (String) | Not acceptable, the user session token is not valid.
 | 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
 
 ---
 
-### GetCoupons
+### getCoupons
 Get the list of user's coupons.
 ```kotlin
-    fun getCoupons(
-        offset: Int?,
-        limit: Int?,
-        sortBy: String?,
-        companyTokens: ArrayList<String>?,
-        retailerTokens: ArrayList<String>?,
-        callback: DcouponCallback
-    )
+fun getCoupons(
+    offset: Int?,
+    limit: Int?,
+    sortBy: String?,
+    companyTokens: ArrayList<String>?,
+    retailerTokens: ArrayList<String>?,
+    callback: DcouponCallback
+)
 ```
 #### Input
 | name | value | type | mandatory | description
@@ -153,7 +182,7 @@ Get the list of user's coupons.
 | `sortBy` | 'NEWEST', 'ENDING', 'VALUE', 'DEFAULT' | String | *false* | How the result set is sorted.
 | `companyTokens` | any | ArrayList<*String*> | *false* | Filter user coupons by this/these company/s.
 | `retailerTokens` | any | ArrayList<*String*> | *false* | Filter user coupons by this/these retailer/s.
-| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message
+| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
 
 Sort By Options:
 - **NEWEST** : coupons returned will be ordered from newest coupons to oldest created.
@@ -163,112 +192,109 @@ Sort By Options:
 
 #### Callback response
 | code | (type) message | description
-| :---: | :---: | --- |
+| --- | :---: | --- |
 | 200 | [(JsonObject)](#getcoupons-jsonobject) | Returns a list of coupons.
-| 403 | (String) | User is not active.
-| 404 | (String) | User not found.
-| 406 | (String) | The user session token is not valid.
+| 403 | (String) | Forbidden, user is not active.
+| 404 | (String) | Not found, the user is not found.
+| 406 | (String) | Not acceptable, the user session token is not valid.
 | 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
 
 ---
 
-### GetCouponDetail
+### getCouponDetail
 Get the details of one coupon by the couponId.
 ```kotlin
-    fun getCouponDetail(
-        couponId: Int,
-        callback: DcouponCallback
-    )
+fun getCouponDetail(
+    couponId: Int,
+    callback: DcouponCallback
+)
 ```
 #### Input
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
 | `couponId` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | ***true*** | The identifier of the user's coupon.
-| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message
+| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
 
 #### Callback response
 | code | (type) message | description |
-| :---: | :---: | --- |
+| --- | :---: | --- |
 | 200 | [(JsonObject)](#getcoupondetail-jsonobject) | Returns the coupon detail.
-| 400 | (String) | Bad request, missed mandatory data (couponId).
-| 401 | (String) | Unauthorized, the user is not logged.
-| 404 | (String) | Not found, the coupon not exists or does not belong to the user.
+| 202 | (String) | Accepted, coupon promotion not initiated or coupon promotion expired or coupon promotion state not valid.
+| 403 | (String) | Forbidden, user is not active.
+| 404 | (String) | Not found, the user is not found or the couponId does not exist or does not belong to the user.
+| 406 | (String) | Not acceptable, the user session token is not valid or the couponId is not valid.
 | 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
-| 503 | (String) | Service unavailable, other service in background thread is running, please wait a moment.
 
 ---
 
-#### activateCoupon:
+### activateCoupon
 Set the activated status on a coupon.
-```java
-class Dcoupon{
-    void activateCoupon(int couponId);
-}
+```kotlin
+fun activateCoupon(
+    couponId: Int,
+    callback: DcouponCallback
+)
 ```
-##### input:
+#### Input
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
 | `couponId` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | ***true*** | The identifier of the user's coupon.
-##### output:
-| which | code | (type) message | description |
-| --- | :---: | :---: | --- |
-| `WHICH_ACTIVATE_COUPON` | 200 | [(JsonObject)](#activatecoupon-jsonobject) | Coupon activated successfully.
-| `WHICH_ACTIVATE_COUPON` | 400 | (String) | Bad request, missed mandatory data (couponId).
-| `WHICH_ACTIVATE_COUPON` | 401 | (String) | Unauthorized, the user is not logged.
-| `WHICH_ACTIVATE_COUPON` | 404 | (String) | Not found, the coupon not exists or does not belong to the user.
-| `WHICH_ACTIVATE_COUPON` | 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
-| `WHICH_ACTIVATE_COUPON` | 503 | (String) | Service unavailable, other service in background thread is running, please wait a moment.
+| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+
+#### Callback response
+| code | (type) message | description |
+| --- | :---: | --- |
+| 200 | [(JsonObject)](#activatecoupon-jsonobject) | Coupon activated successfully.
+| 202 | (String) | Accepted, coupon promotion not initiated or coupon promotion expired or coupon promotion state not valid.
+| 403 | (String) | Forbidden, user is not active.
+| 404 | (String) | Not found, the user is not found or the couponId does not exist or does not belong to the user.
+| 406 | (String) | Not acceptable, the user session token is not valid or the couponId is not valid.
+| 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
 
 ---
 
-#### deactivateCoupon:
+### deactivateCoupon
 Set the deactivated status on a coupon.
-```java
-class Dcoupon{
-    void deactivateCoupon(int couponId);
-}
+```kotlin
+fun deactivateCoupon(
+    couponId: Int,
+    callback: DcouponCallback
+)
 ```
-##### input:
+#### Input
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
 | `couponId` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | ***true*** | The identifier of the user's coupon.
-##### output:
-| which | code | (type) message | description |
-| --- | :---: | :---: | --- |
-| `WHICH_DEACTIVATE_COUPON` | 200 | [(JsonObject)](#deactivatecoupon-jsonobject) | Coupon deactivated successfully.
-| `WHICH_DEACTIVATE_COUPON` | 400 | (String) | Bad request, missed mandatory data (couponId).
-| `WHICH_DEACTIVATE_COUPON` | 401 | (String) | Unauthorized, the user is not logged.
-| `WHICH_DEACTIVATE_COUPON` | 404 | (String) | Not found, the coupon not exists or does not belong to the user.
-| `WHICH_DEACTIVATE_COUPON` | 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
-| `WHICH_DEACTIVATE_COUPON` | 503 | (String) | Service unavailable, other service in background thread is running, please wait a moment.
+| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+
+#### Callback response
+| code | (type) message | description |
+| --- | :---: | --- |
+| 200 | [(JsonObject)](#deactivatecoupon-jsonobject) | Coupon deactivated successfully.
+| 202 | (String) | Accepted, coupon promotion not initiated or coupon promotion expired or coupon promotion state not valid.
+| 403 | (String) | Forbidden, user is not active.
+| 404 | (String) | Not found, the user is not found or the couponId does not exist or does not belong to the user.
+| 406 | (String) | Not acceptable, the user session token is not valid or the couponId is not valid.
+| 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
 
 ---
 
-#### getRedemptionCode:
-Get an available user's redemption code.
-```java
-class Dcoupon{
-    void getRedemptionCode();
-}
-```
-##### output:
-| which | code | (type) message | description |
-| --- | :---: | :---: | --- |
-| `WHICH_GET_REDEMPTION_CODE` | 200 | [(JsonObject)](#getredemptioncode-jsonobject) | Redemption code has been generated successfully.
-| `WHICH_GET_REDEMPTION_CODE` | 401 | (String) | Unauthorized, the user is not logged.
-| `WHICH_GET_REDEMPTION_CODE` | 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
-| `WHICH_GET_REDEMPTION_CODE` | 503 | (String) | Service unavailable, other service in background thread is running, please wait a moment.
-
----
-
-#### createCoupons:
+### createCoupons
 Create multiple coupons by promotion tokens.
-```java
-class Dcoupon{
-    void createCoupons(@NonNull ArrayList<String> promotionTokens, String latitude, String longitude, String source, String transId, String crmId);
-}
+```kotlin
+fun createCoupons(
+    promotionTokens: ArrayList<String>,
+    latitude: String?,
+    longitude: String?,
+    source: String?,
+    transId: String?,
+    crmId: String?,
+    publisherName: String?,
+    callback: DcouponCallback
+)
 ```
-##### input:
+
+#### Input
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
 | `promotionTokens` | any | ArrayList<*String*> | ***true*** | Promotions tokens that identifies the promotions.
@@ -277,51 +303,402 @@ class Dcoupon{
 | `source` | varchar(100) | String | *false* | Source from the request.
 | `transId` | varchar(50) | String | *false* | Transaction identifier if the promotion requires it.
 | `crmId` | varchar(50) | String | *false* | The customer relationship management identifier.
-##### output:
-| which | code | (type) message | description |
-| --- | :---: | :---: | --- |
-| `WHICH_CREATE_COUPONS` | 200 | [(JsonObject)](#createcoupons-jsonobject) | Returns a list of each promotion result.
-| `WHICH_CREATE_COUPONS` | 400 | (String) | Bad request, missed mandatory data (promotionsTokens).
-| `WHICH_CREATE_COUPONS` | 401 | (String) | Unauthorized, the user is not logged.
-| `WHICH_CREATE_COUPONS` | 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
-| `WHICH_CREATE_COUPONS` | 503 | (String) | Service unavailable, other service in background thread is running, please wait a moment.
+| `publisherName` | varchar | String | *false* | The client publisher name.
+| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+
+#### Callback response
+| code | (type) message | description |
+| --- | :---: | --- |
+| 200 | [(JsonObject)](#createcoupons-jsonobject) | Returns a list of each promotion result.
+| 202 | (String) | Accepted, coupon promotion not initiated or coupon promotion expired or coupon promotion state not valid or user coupons max exceeded or coupons per promotion max exceeded or publisher campaign coupons max exceeded.
+| 403 | (String) | Forbidden, user is not active.
+| 404 | (String) | Not found, the user is not found or promotion/s not found or transId not found.
+| 406 | (String) | Not acceptable, the user session token is not valid or transId is not valid or publisher is not valid or latitude/longitude not valid or one of the parameters is not valid.
+| 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
 
 ---
 
-#### getFilters:
-Returns all companies, categories and retailers with active promotions associated to the publisher identified by the API token and the number of active offers for each company, retailer or category. ONLY those companies, retailers and categories that have choose at least one of its promotions to be published using the Publisher identified in the request will be returned.
-```java
-class Dcoupon{
-    void getFilters(int start, int limit);
-}
+### getCouponsCompanies
+Get the list of companies for all active user's coupons.
+```kotlin
+fun getCouponsCompanies(
+    callback: DcouponCallback
+)
 ```
-##### input:
-| name | value | type | mandatory | description
-| :--- | :---: | :---: | :---: | --- |
-| `start` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Index of first store to be returned. 0 by default.
-| `limit` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Maximum number of items to return. 10 by default.
-##### output:
-| which | code | (type) message | description |
-| --- | :---: | :---: | --- |
-| `WHICH_GET_FILTERS` | 200 | [(JsonObject)](#getfilters-jsonobject) | Return a list of filters. Filters type: *filterCategory*, *filterCompany*, *filterRetailer*. 
-| `WHICH_GET_FILTERS` | 401 | (String) | Unauthorized, the user is not logged.
-| `WHICH_GET_FILTERS` | 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
-| `WHICH_GET_FILTERS` | 503 | (String) | Service unavailable, other service in background thread is running, please wait a moment.
 
----
-
-#### getPromotions:
-Returns all active promotions associated to the publisher identified by the API token filtered with the parameters sent in the request.
-```java
-class Dcoupon{
-    void getPromotions(int start, int limit, ArrayList<String> categoryIds, ArrayList<String> storeIds, ArrayList<String> retailerTokens,  ArrayList<String> companyTokens, String textSearch, String zipcode, String latitude, String longitude, String radius, String orderBy);
-}
-```
-##### input:
+#### Input
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
-| `start` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | ***true*** | Index of first store to be returned. 0 by default.
-| `limit` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | ***true*** | Maximum number of items to return. 10 by default.
+| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+
+#### Callback response
+| code | (type) message | description |
+| --- | :---: | --- |
+| 200 | [(JsonObject)](#getCouponsCompanies-jsonobject) | Returns a list of each company result.
+| 403 | (String) | Forbidden, user is not active.
+| 404 | (String) | Not found, the user is not found.
+| 406 | (String) | Not acceptable, the user session token is not valid.
+| 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
+
+---
+
+### getCouponsRetailers
+Get the list of retailers for all active user's coupons.
+```kotlin
+fun getCouponsRetailers(
+    callback: DcouponCallback
+)
+```
+
+#### Input
+| name | value | type | mandatory | description |
+| :--- | :---: | :---: | :---: | --- |
+| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+
+#### Callback response
+| code | (type) message | description |
+| --- | :---: | --- |
+| 200 | [(JsonObject)](#getCouponsRetailers-jsonobject) | Returns a list of each retailer result.
+| 403 | (String) | Forbidden, user is not active.
+| 404 | (String) | Not found, the user is not found.
+| 406 | (String) | Not acceptable, the user session token is not valid.
+| 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
+
+---
+
+
+### getRedemptionCode
+Get an available user's redemption code.
+```kotlin
+fun getRedemptionCode(
+    callback: DcouponCallback
+)
+```
+
+#### Input
+| name | value | type | mandatory | description |
+| :--- | :---: | :---: | :---: | --- |
+| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+
+#### Callback response
+| code | (type) message | description |
+| --- | :---: | --- |
+| 200 | [(JsonObject)](#getredemptioncode-jsonobject) | Returns the temporal redemption code.
+| 403 | (String) | Forbidden, user is not active.
+| 404 | (String) | Not found, the user is not found.
+| 406 | (String) | Not acceptable, the user session token is not valid.
+| 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
+
+---
+
+### getRedemptionDetail
+Return redemption detailed data for an active user and redemption id.
+```kotlin
+fun getRedemptionDetail(
+    redemptionId: String,
+    gmtTimeZoneOffset: Int?,
+    callback: DcouponCallback
+)
+```
+
+#### Input
+| name | value | type | mandatory | description |
+| :--- | :---: | :---: | :---: | --- |
+| `redemptionId` | any | String | ***true*** | The id that identifies this redemption.
+| `gmtTimeZoneOffset` | any | int | *false* | The GMT timezone offset. Default to 0.
+| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+
+#### Callback response
+| code | (type) message | description |
+| --- | :---: | --- |
+| 200 | [(JsonObject)](#getRedemptionDetail-jsonobject) | Returns the redemption detail.
+| 403 | (String) | Forbidden, user is not active.
+| 404 | (String) | Not found, the user is not found.
+| 406 | (String) | Not acceptable, the user session token is not valid or gmtTimeZoneOffset is not valid.
+| 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
+
+---
+
+### getRedemptionSummary
+Return redemption data for an active user grouped by date chunks.
+```kotlin
+fun getRedemptionSummary(
+    groupBy: String,
+    startDate: String?,
+    endDate: String?,
+    gmtTimeZoneOffset: Int?,
+    callback: DcouponCallback
+)
+```
+
+#### Input
+| name | value | type | mandatory | description |
+| :--- | :---: | :---: | :---: | --- |
+| `groupBy` | 'DAY', 'WEEK', 'MONTH', 'YEAR' | String | ***true*** | How the redemptions are grouped.
+| `startDate` | 'YYYY-MM-dd' | String | *false* | Filter redemptions that are after this date.
+| `endDate` | 'YYYY-MM-dd' | String | *false* | Filter redemptions that are before this date.
+| `gmtTimeZoneOffset` | any | int | *false* | The GMT timezone offset. Default to 0.
+| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+
+#### Callback response
+| code | (type) message | description |
+| --- | :---: | --- |
+| 200 | [(JsonObject)](#getRedemptionSummary-jsonobject) | Returns the redemption summary data.
+| 403 | (String) | Forbidden, user is not active.
+| 404 | (String) | Not found, the user is not found.
+| 406 | (String) | Not acceptable, the user session token is not valid or groupBy is not valid or gmtTimeZoneOffset is not valid.
+| 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
+
+---
+
+### getRedemptionHistory
+Return redemption history data for an active user.
+```kotlin
+fun getRedemptionHistory(
+    limit: Int?,
+    offset: Int?,
+    startDate: String?,
+    endDate: String?,
+    gmtTimeZoneOffset: Int?,
+    callback: DcouponCallback
+)
+```
+
+#### Input
+| name | value | type | mandatory | description |
+| :--- | :---: | :---: | :---: | --- |
+| `start` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Index of first item to be returned.
+| `limit` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Maximum number of items to return.
+| `startDate` | 'YYYY-MM-dd' | String | *false* | Filter redemptions that are after this date.
+| `endDate` | 'YYYY-MM-dd' | String | *false* | Filter redemptions that are before this date.
+| `gmtTimeZoneOffset` | any | int | *false* | The GMT timezone offset. Default to 0.
+| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+
+#### Callback response
+| code | (type) message | description |
+| --- | :---: | --- |
+| 200 | [(JsonObject)](#getRedemptionHistory-jsonobject) | Returns the redemption history list.
+| 403 | (String) | Forbidden, user is not active.
+| 404 | (String) | Not found, the user is not found.
+| 406 | (String) | Not acceptable, the user session token is not valid or gmtTimeZoneOffset is not valid.
+| 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
+
+---
+
+### getLoyaltyAffiliates
+Returns all available loyalty affiliates for the current country.
+```kotlin
+fun getLoyaltyAffiliates(
+    callback: DcouponCallback
+)
+```
+
+#### Input
+| name | value | type | mandatory | description |
+| :--- | :---: | :---: | :---: | --- |
+| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+
+#### Callback response
+| code | (type) message | description |
+| --- | :---: | --- |
+| 200 | [(JsonObject)](#getLoyaltyAffiliates-jsonobject) | Returns the loyalty affiliates list.
+| 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
+
+---
+
+### addUpdateLoyaltyCard
+Update or add one loyalty card for an user.
+```kotlin
+fun addUpdateLoyaltyCard(
+    affiliateApiToken: String,
+    cardNumber: String,
+    callback: DcouponCallback
+)
+```
+
+#### Input
+| name | value | type | mandatory | description |
+| :--- | :---: | :---: | :---: | --- |
+| `affiliateApiToken` | any | String | ***true*** | The affiliate token.
+| `cardNumber` | any | String | ***true*** | The card number.
+| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+
+#### Callback response
+| code | (type) message | description |
+| --- | :---: | --- |
+| 200 | [(JsonObject)](#addUpdateLoyaltyCard-jsonobject) | Card succesfully added/updated.
+| 403 | (String) | Forbidden, user is not active.
+| 404 | (String) | Not found, the user is not found.
+| 406 | (String) | Not acceptable, the user session token is not valid.
+| 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
+
+---
+
+### getLoyaltyCards
+Returns basic data from all active loyalty cards for an user.
+```kotlin
+fun getLoyaltyCards(
+    callback: DcouponCallback
+)
+```
+
+#### Input
+| name | value | type | mandatory | description |
+| :--- | :---: | :---: | :---: | --- |
+| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+
+#### Callback response
+| code | (type) message | description |
+| --- | :---: | --- |
+| 200 | [(JsonObject)](#getLoyaltyCards-jsonobject) | Returns the loyalty affiliates cards list for the user.
+| 403 | (String) | Forbidden, user is not active.
+| 404 | (String) | Not found, the user is not found.
+| 406 | (String) | Not acceptable, the user session token is not valid.
+| 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
+
+---
+
+### deleteLoyaltyCard
+Delete one loyalty card for an user.
+```kotlin
+fun deleteLoyaltyCard(
+    affiliateApiToken: String,
+    cardNumber: String,
+    callback: DcouponCallback
+)
+```
+
+#### Input
+| name | value | type | mandatory | description |
+| :--- | :---: | :---: | :---: | --- |
+| `affiliateApiToken` | any | String | ***true*** | The affiliate token.
+| `cardNumber` | any | String | ***true*** | The card number.
+| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+
+#### Callback response
+| code | (type) message | description |
+| --- | :---: | --- |
+| 200 | [(JsonObject)](#deleteLoyaltyCard-jsonobject) | Card succesfully deleted.
+| 403 | (String) | Forbidden, user is not active.
+| 404 | (String) | Not found, the user is not found.
+| 406 | (String) | Not acceptable, the user session token is not valid.
+| 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
+
+---
+
+### getCategories
+Returns all categories with active promotions associated to the publisher and the number of active offers for category.
+```kotlin
+fun getCategories(
+    start: Int?,
+    limit: Int?,
+    publisherName: String?,
+    callback: DcouponCallback
+)
+```
+
+#### Input
+| name | value | type | mandatory | description |
+| :--- | :---: | :---: | :---: | --- |
+| `start` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Index of first item to be returned.
+| `limit` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Maximum number of items to return.
+| `publisherName` | varchar | String | *false* | The client publisher name.
+| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+
+#### Callback response
+| code | (type) message | description |
+| --- | :---: | --- |
+| 200 | [(JsonObject)](#getCategories-jsonobject) | Returns the categories list.
+| 401 | (String) | Bad request, user is not logged in.
+| 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
+| 503 | (String) | Service unavailable, other service in background thread is running, please wait a moment.
+
+---
+
+### getCompanies
+Returns all companies with active promotions associated to the publisher and the number of active offers for category. **NOTE**: only those companies that have choose at least one of its promotions to be published using the publisher will be returned.
+```kotlin
+fun getCompanies(
+    start: Int?,
+    limit: Int?,
+    publisherName: String?,
+    callback: DcouponCallback
+)
+```
+
+#### Input
+| name | value | type | mandatory | description |
+| :--- | :---: | :---: | :---: | --- |
+| `start` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Index of first item to be returned.
+| `limit` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Maximum number of items to return.
+| `publisherName` | varchar | String | *false* | The client publisher name.
+| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+
+#### Callback response
+| code | (type) message | description |
+| --- | :---: | --- |
+| 200 | [(JsonObject)](#getCompanies-jsonobject) | Returns the companies list.
+| 401 | (String) | Bad request, user is not logged in.
+| 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
+| 503 | (String) | Service unavailable, other service in background thread is running, please wait a moment.
+
+---
+
+### getRetailers
+Returns all retailers with active promotions associated to the publisher and the number of active offers for category.
+```kotlin
+fun getRetailers(
+    start: Int?,
+    limit: Int?,
+    publisherName: String?,
+    callback: DcouponCallback
+)
+```
+
+#### Input
+| name | value | type | mandatory | description |
+| :--- | :---: | :---: | :---: | --- |
+| `start` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Index of first item to be returned.
+| `limit` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Maximum number of items to return.
+| `publisherName` | varchar | String | *false* | The client publisher name.
+| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+
+#### Callback response
+| code | (type) message | description |
+| --- | :---: | --- |
+| 200 | [(JsonObject)](#getRetailers-jsonobject) | Returns the retailers list.
+| 401 | (String) | Bad request, user is not logged in.
+| 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
+| 503 | (String) | Service unavailable, other service in background thread is running, please wait a moment.
+
+---
+
+### getPromotions:
+Returns all active promotions associated to the publisher identified by the API token filtered with the parameters sent in the request.
+```kotlin
+fun getPromotions(
+    start: Int?,
+    limit: Int?,
+    categoryIds: ArrayList<String>?,
+    storeIds: ArrayList<String>?,
+    retailerTokens: ArrayList<String>?,
+    companyTokens: ArrayList<String>?,
+    textSearch: String?,
+    zipcode: String?,
+    latitude: String?,
+    longitude: String?,
+    radius: String?,
+    orderBy: String?,
+    publisherName: String?,
+    callback: DcouponCallback
+)
+```
+
+#### Input
+| name | value | type | mandatory | description |
+| :--- | :---: | :---: | :---: | --- |
+| `start` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Index of first item to be returned.
+| `limit` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Maximum number of items to return.
 | `categoryIds` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | ArrayList<*String*> | *false* | Filter offers from this/these category/ies.
 | `storeIds` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | ArrayList<*String*> | *false* | Filter offers redeemable in those stores form the selected retailer.
 | `retailerTokens` | any | ArrayList<*String*> | *false* | Filter offers redeemable in this/these retailer/s.
@@ -332,6 +709,7 @@ class Dcoupon{
 | `longitude` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninQ.gif) | String | *false* | User longitude coordinate.
 | `radius` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | String | *false* | Radius to make the search for coupons available.
 | `orderBy` | 'NEWEST', 'ENDING', 'VALUE', 'TOP' | String | *false* | How the result set is sorted.
+| `publisherName` | varchar | String | *false* | The client publisher name.
 
 Order By Options:
 - **NEWEST** : (default) promotions returned will be ordered from newest promotions to oldest.
@@ -339,45 +717,59 @@ Order By Options:
 - **VALUE** : promotions returned will be ordered considering face value of the offer, from highest values to lowest.
 - **TOP** : promotions returned will be ordered starting for those promotions with a higher number of acquired coupons.
 
-##### output:
-| which | code | (type) message | description |
-| --- | :---: | :---: | --- |
-| `WHICH_GET_PROMOTIONS` | 200 | [(JsonObject)](#getpromotions-jsonobject) | Returns a list of promotions.
-| `WHICH_GET_PROMOTIONS` | 401 | (String) | Unauthorized, the user is not logged.
-| `WHICH_GET_PROMOTIONS` | 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
-| `WHICH_GET_PROMOTIONS` | 503 | (String) | Service unavailable, other service in background thread is running, please wait a moment.
+#### Callback response
+| code | (type) message | description |
+| --- | :---: | --- |
+| 200 | [(JsonObject)](#getpromotions-jsonobject) | Returns a list of promotions.
+| 401 | (String) | Unauthorized, the user is not logged.
+| 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
+| 503 | (String) | Service unavailable, other service in background thread is running, please wait a moment.
 
 ---
 
-#### getPromotionDetail:
+### getPromotionDetail
 Get the details of a promotion by promotion token sent.
-```java
-class Dcoupon{
-    void getPromotionDetail(@NonNull String promotionToken);
-}
+```kotlin
+fun getPromotionDetail(
+    promotionToken: String,
+    publisherName: String?,
+    callback: DcouponCallback
+)
 ```
-##### input:
+
+#### Input
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
 | `promotionToken` | any | String | ***true*** | The token that identifies this promotion.
-##### output:
-| which | code | (type) message | description |
-| --- | :---: | :---: | --- |
-| `WHICH_GET_PROMOTION_DETAIL` | 200 | [(JsonObject)](#getpromotiondetail-jsonobject) | Returns the promotion detail.
-| `WHICH_GET_PROMOTION_DETAIL` | 401 | (String) | Unauthorized, the user is not logged.
-| `WHICH_GET_PROMOTION_DETAIL` | 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
-| `WHICH_GET_PROMOTION_DETAIL` | 503 | (String) | Service unavailable, other service in background thread is running, please wait a moment.
+| `publisherName` | varchar | String | *false* | The client publisher name.
+
+#### Callback response
+| code | (type) message | description |
+| --- | :---: | --- |
+| 200 | [(JsonObject)](#getpromotiondetail-jsonobject) | Returns the promotion detail.
+| 401 | (String) | Unauthorized, the user is not logged.
+| 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
+| 503 | (String) | Service unavailable, other service in background thread is running, please wait a moment.
 
 ---
 
-#### getStores:
+### getStores
 Returns all active promotions associated to the publisher identified by the API token filtered with the parameters sent in the request, including a list of stores from the retailer. (Use promotionToken, can combine with retailerTokens).
-```java
-class Dcoupon{
-    void getStores(int start, int limit, String promotionToken, ArrayList<String> retailerTokens, String zipcode, String latitude, String longitude, String radius);
-}
+```kotlin
+    fun getStores(
+        start: Int?,
+        limit: Int?,
+        promotionToken: String?,
+        retailerTokens: ArrayList<String>?,
+        zipcode: String?,
+        latitude: String?,
+        longitude: String?,
+        radius: String?,
+        publisherName: String?,
+        callback: DcouponCallback
+    )
 ```
-##### input:
+#### Input
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
 | `start` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | ***true*** | Index of first store to be returned. 0 by default.
@@ -388,289 +780,565 @@ class Dcoupon{
 | `latitude` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninQ.gif) | String | *false* | User latitude coordinate.
 | `longitude` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninQ.gif) | String | *false* | User longitude coordinate.
 | `radius` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | String | *false* | Radius to make the search for coupons available.
-##### output:
-| which | code | (type) message | description |
-| --- | :---: | :---: | --- |
-| `WHICH_GET_STORES` | 200 | [(JsonObject)](#getstores-jsonobject) | Return a list of stores.
-| `WHICH_GET_STORES` | 401 | (String) | Unauthorized, the user is not logged.
-| `WHICH_GET_STORES` | 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
-| `WHICH_GET_STORES` | 503 | (String) | Service unavailable, other service in background thread is running, please wait a moment.
+| `publisherName` | varchar | String | *false* | The client publisher name.
+
+#### Callback response
+| code | (type) message | description |
+| --- | :---: | --- |
+| 200 | [(JsonObject)](#getstores-jsonobject) | Return a list of stores.
+| 401 | (String) | Unauthorized, the user is not logged.
+| 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
+| 503 | (String) | Service unavailable, other service in background thread is running, please wait a moment.
 
 ---
 
-### Listener for responses - DcouponListener()
-```java
-public interface DcouponListener {
-    void handleMessage(int which, int code, String message);
+## Methods Response Examples
+
+### getUserData (JSONObject)
+- Response code 200:
+```json
+{
+    "alias": "John Doe",
+	"gender": "MALE",
+	"birthdate": "1990-12-31",
+	"email": "john@doe.com"
 }
 ```
-example:
-```java
-class Activity{
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        Dcoupon dcoupon = new Dcoupon(this);
-        dcoupon.registerListener(new DcouponListener() {
-            public void handleMessage(int which, int code, String message) {
-                try {
-                    switch (which) {
-                        case DcouponListener.WHICH_LOGIN:
-                            if (dcoupon.isLogged()) {
-                                // user is logged
-                            }
-                            break;
-                        case DcouponListener.WHICH_GET_COUPONS:
-                            JSONObject jsonCoupons = new JSONObject(message);
-                            break;
-                        case DcouponListener.WHICH_CREATE_COUPONS:
-                            // get response
-                            break;
-                        default:
-                            break;
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+---
+
+### updateUserData (JSONObject)
+- Response code 200:
+```json
+{
+  "code":0,
+  "description":"Command executed successfully"
+}
+```
+
+---
+
+### getCoupons (JSONObject)
+- Response code 200:
+```json
+{
+	"coupons":[
+        { 
+            "couponId":15949,
+            "mcToken":"vrljzb7tvzajzevfq38m",
+            "lowImage":"",
+            "highImage":"",
+            "highImage2":"",
+            "name":"CP041",
+            "description":"Sello de compra para artículo 2000000000090<br>",
+            "offerRedemptionStartDate":"2019-01-21T17:59:00Z",
+            "offerRedemptionEndDate":"2020-12-31T22:59:59Z",
+            "status":true,
+            "retailerNameImg":[
+            {
+                "retailerName":"ScanLife Demo",
+                "retailerLogo":"https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1553166021496.png",
+                "retailerToken":"x3vyr8icn081mlrrr0rn"
             }
-        });
-    }
-}
-```
+            ],
+            "sgcn":"TESTCMP00108334",
+            "canBeRedeemed":true,
+            "termsAndConditions":"",
+            "rewardedItems":[
+            {
+                "idRewardedItems":749,
+                "idMcoupon":347,
+                "itemId":"2000000000090",
+                "rewardedItemQuantity":1
+            }
+            ],
+            "promotionType":2,
+            "totalStampsBurnt":0,
+            "maxStamps":1,
+            "stampsBurnt":{
+            "redemption":[
 
-### Which(codes):
-```java
-public interface DcouponListener {
+            ]
+            },
+            "discount":{
+            "discountType":"PERCENTAGE",
+            "amount":"0.0%"
+            },
+            "genericResponse":null
+        },
+        {
+            "couponId":15948,
+            "mcToken":"d502bj63lh62502ke17n",
+            "lowImage":"",
+            "highImage":"",
+            "highImage2":"",
+            "name":"CP039",
+            "description":"<div>3% de descuento en los artículos A, G, H. Limitado a máximo 10 productos</div><div>Máximo a descontar 1,5 €</div><div>10 usos por transacción </div>",
+            "offerRedemptionStartDate":"2018-11-20T11:25:00Z",
+            "offerRedemptionEndDate":"2019-12-31T22:59:59Z",
+            "status":true,
+            "retailerNameImg":[
+            {
+                "retailerName":"ScanLife Demo",
+                "retailerLogo":"https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1553166021496.png",
+                "retailerToken":"x3vyr8icn081mlrrr0rn"
+            }
+            ],
+            "sgcn":"TESTCMP001052106",
+            "canBeRedeemed":true,
+            "termsAndConditions":"",
+            "rewardedItems":[
+            {
+                "idRewardedItems":733,
+                "idMcoupon":336,
+                "itemId":"2000000000084",
+                "rewardedItemQuantity":1
+            },
+            {
+                "idRewardedItems":734,
+                "idMcoupon":336,
+                "itemId":"2000000000077",
+                "rewardedItemQuantity":1
+            },
+            {
+                "idRewardedItems":735,
+                "idMcoupon":336,
+                "itemId":"2000000000015",
+                "rewardedItemQuantity":1
+            }
+            ],
+            "promotionType":1,
+            "totalStampsBurnt":0,
+            "maxStamps":1,
+            "stampsBurnt":{
+            "redemption":[
 
-    int WHICH_LOGIN = 0;
-    int WHICH_GET_COUPONS = 1;
-    int WHICH_GET_COUPON_DETAIL = 2;
-    int WHICH_ACTIVATE_COUPON = 3;
-    int WHICH_DEACTIVATE_COUPON = 4;
-    int WHICH_GET_REDEMPTION_CODE = 5;
-    int WHICH_CREATE_COUPONS = 6;
-    int WHICH_ADD_LOYALTY_CARD = 7;
-    int WHICH_GET_USER_REDEMPTION_HISTORY = 8;
-    int WHICH_GET_PROMOTIONS = 9;
-    int WHICH_GET_PROMOTION_DETAIL = 10;
-    int WHICH_GET_FILTERS = 11;
-    int WHICH_GET_STORES = 12;
-}
-```
+            ]
+            },
+            "discount":{
+            "discountType":"PERCENTAGE",
+            "amount":"3.0 %"
+            },
+            "genericResponse":null
+        },
+        {
+            "couponId":15940,
+            "mcToken":"hq28mtv2lon7jgu4zea9",
+            "lowImage":"https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/promos/img_83_1512639655944.jpg",
+            "highImage":"https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/promos/img_83_1512639520657.png",
+            "highImage2":"",
+            "name":"CP036",
+            "description":"1,56€ de descuento al comprar artículos de L o por la compra de 2 artículos de K<br>2 usos por transacción.<br><br>",
+            "offerRedemptionStartDate":"2017-12-07T09:55:00Z",
+            "offerRedemptionEndDate":"2019-12-31T22:59:59Z",
+            "status":true,
+            "retailerNameImg":[
+            {
+                "retailerName":"GADIS",
+                "retailerLogo":"https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/mcp_img1460370674807.png",
+                "retailerToken":"scgildx2619ccqzu4vkj"
+            },
+            {
+                "retailerName":"ScanLife Demo",
+                "retailerLogo":"https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1553166021496.png",
+                "retailerToken":"x3vyr8icn081mlrrr0rn"
+            }
+            ],
+            "sgcn":"JUANCMP000901360",
+            "canBeRedeemed":true,
+            "termsAndConditions":"",
+            "rewardedItems":[
+            {
+                "idRewardedItems":585,
+                "idMcoupon":285,
+                "itemId":"2000100003305",
+                "rewardedItemQuantity":4
+            },
+            {
+                "idRewardedItems":586,
+                "idMcoupon":285,
+                "itemId":"2000100003213",
+                "rewardedItemQuantity":2
+            }
+            ],
+            "promotionType":1,
+            "totalStampsBurnt":0,
+            "maxStamps":1,
+            "stampsBurnt":{
+            "redemption":[
 
-```swift
-public class Dcoupon: DcouponProtocol, DcouponListener {
-    public static var WHICH_LOGIN: Int = 0
-    public static var WHICH_GET_COUPONS: Int = 1
-    public static var WHICH_GET_COUPON_DETAIL: Int = 2
-    public static var WHICH_ACTIVATE_COUPON: Int = 3
-    public static var WHICH_DEACTIVATE_COUPON: Int = 4
-    public static var WHICH_GET_REDEMPTION_CODE: Int = 5
-    public static var WHICH_CREATE_COUPONS: Int = 6
-    public static var WHICH_ADD_LOYALTY_CARD: Int = 7
-    public static var WHICH_GET_USER_REDEMPTION_HISTORY: Int = 8
-    public static var WHICH_GET_PROMOTIONS: Int = 9
-    public static var WHICH_GET_PROMOTION_DETAIL: Int = 10
-    public static var WHICH_GET_FILTERS: Int = 11
-    public static var WHICH_GET_STORES: Int = 12
-```
-
-### Responses (examples):
-
-#### getUserData (JSONObject)
-- Response code 200:
-```json
-{
-  "alias": "_User_alias_",
-	"gender": "_User_gender_",
-	"birthdate": "YYYY-MM-DD",
-	"email": "_User_email_"
-}
-```
----
-
-#### updateUserData (JSONObject)
-- Response code 200:
-```json
-{
-  "responseCode":0,
-  "responseMsg":"Command executed successfully"
-}
-```
-
----
-
-#### getCoupons (JSONObject)
-- Response code 200:
-```json
-{
-	"coupons":[{
-		"couponId": "_Coupon id_",
-		"mcToken": "_Promotion token_",
-		"lowImage": "_Path to low image_",
-		"highImage": "_Path to high image_",
-		"highImage2": "_Path to second high image_",
-		"name": "_Coupon name_",
-		"description": "_Coupon description_",
-		"offerRedemptionStartDate": "_Coupon redemption start date_",
-		"offerRedemptionEndDate": "_Coupon redemption end date_",
-		"status": "_Active/Inactive_",
-		"sgcn": "_sgcn_",
-		"canBeRedeemed": "_Flag indicating if the coupon can be redeem_",
-		"termsAndConditions": "_Terms and conditions_",
-		"rewardedItems":[
-			{
-				"idREWARDED_ITEMS": "__Internal item id_",
-				"itemId": "_EAN/UPC of the item_",
-				"rewardedItemQuantity": "_quantity_"
-			}
-		],
-		"promotionType": "_type of promotion_",
-		"totalStampsBurnt": "_stamps burnt_",
-		"maxStamps": "_max number of stamps_",
-		"retailerNameImg":[
-			{
-				"retailerName": "_Retailer name_",
-				"retailerLogo": "_Retailer logo_",
-				"retailerToken": "_Retailer token_"
-			}
-		],
-		"stampsBurnt":[
-			{	
-				"redemption": 
-				{
-					"redDate": "_Redemption date_",
-					"stamps": "_Stamps burnt_"
-				}
-			}
-		]
-		,
-		"discount":{
-			"discountType": "_Discount type_",
-			"amount": "_Discount amount_"
-		}
-	}],
-	"totalDiscount": "_Total discount amount of coupons in user wallet_",
-	"totalCount": "_Total number of coupons in user wallet_"
-}
-```
-
----
-
-#### getCouponDetail (JSONObject)
-- Response code 200:
-```json
-{
-	"couponId": "_Coupon id_",
-	"mcToken": "_Promotion token_",
-	"lowImage": "_Path to low image_",
-	"highImage": "_Path to high image_",
-	"highImage2": "_Path to second high image_",
-	"name": "_Coupon name_",
-	"description": "_Coupon description_",
-	"offerRedemptionStartDate": "_Coupon redemption start date_",
-	"offerRedemptionEndDate": "_Coupon redemption end date_",
-	"status": "_Active/Inactive_",
-	"sgcn": "_sgcn_",
-	"canBeRedeemed": "_Flag indicating if the coupon can be redeem_",
-	"termsAndConditions": "_Terms and conditions_",
-	"rewardedItems":[
-		{
-			"idREWARDED_ITEMS": "__Internal item id_",
-			"itemId": "_EAN/UPC of the item_",
-			"rewardedItemQuantity": "_quantity_"
-		}
-	],
-	"promotionType": "_type of promotion_",
-	"totalStampsBurnt": "_stamps burnt_",
-	"maxStamps": "_max number of stamps_",
-	"retailerNameImg":[
-		{
-			"retailerName": "_Retailer name_",
-			"retailerLogo": "_Retailer logo_",
-			"retailerToken": "_Retailer token_"
-		}
-	],
-	"stampsBurnt":[
-		{	
-			"redemption": 
-			{
-				"redDate": "_Redemption date_",
-				"stamps": "_Stamps burnt_"
-			}
-		}
-	]
-	,
-	"discount":{
-		"discountType": "_Discount type_",
-		"amount": "_Discount amount_"
-	}
+            ]
+            },
+            "discount":{
+            "discountType":"FIXED",
+            "amount":"EUR1.56"
+            },
+            "genericResponse":null
+        }
+    ],
+	"totalDiscount":"EUR3.06",
+    "totalCount":3
 }
 ```
 
 ---
 
-#### activateCoupon (JSONObject)
+### getCouponDetail (JSONObject)
 - Response code 200:
 ```json
 {
-  "responseCode":0,
-  "responseMsg":"Command executed successfully"
-}
-```
-
----
-
-#### deactivateCoupon (JSONObject)
-- Response code 200:
-```json
-{
-  "responseCode":0,
-  "responseMsg":"Command executed successfully"
-}
-```
-
----
-
-#### getRedemptionCode (JSONObject)
-- Response code 200:
-```json
-{
-  "userIDToken":"49695"
-}
-```
-
----
-
-#### createCoupons (JSONObject)
-- Response code 200:
-```json
-{
-   "createMultipleCouponResponse":[
+   "couponId":15940,
+   "mcToken":"hq28mtv2lon7jgu4zea9",
+   "lowImage":"https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/promos/img_83_1512639655944.jpg",
+   "highImage":"https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/promos/img_83_1512639520657.png",
+   "highImage2":"",
+   "name":"CP036",
+   "description":"1,56€ de descuento al comprar 4 artículos de L o por la compra de 2 artículos de K<br>2 usos por transacción.<br><br>",
+   "offerRedemptionStartDate":"2017-12-07T09:55:00Z",
+   "offerRedemptionEndDate":"2019-12-31T22:59:59Z",
+   "status":false,
+   "retailerNameImg":[
       {
-         "apiTokenMetaCoupon":"d502bj63lh62502ke17n",
-         "couponSerialNumber":"106",
-         "idCoupon":15948,
-         "genericResponse":{
-            "responseCode":0,
-            "responseMsg":"Command executed successfully"
-         }
+         "retailerName":"GADIS",
+         "retailerLogo":"https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/mcp_img1460370674807.png",
+         "retailerToken":"scgildx2619ccqzu4vkj"
       },
       {
-         "apiTokenMetaCoupon":"vrljzb7tvzajzevfq38m",
-         "couponSerialNumber":"34",
-         "idCoupon":15949,
-         "genericResponse":{
-            "responseCode":0,
-            "responseMsg":"Command executed successfully"
-         }
+         "retailerName":"ScanLife Demo",
+         "retailerLogo":"https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1553166021496.png",
+         "retailerToken":"x3vyr8icn081mlrrr0rn"
       }
-   ]
+   ],
+   "sgcn":"JUANCMP000901360",
+   "canBeRedeemed":true,
+   "termsAndConditions":"",
+   "rewardedItems":[
+      {
+         "idRewardedItems":585,
+         "idMcoupon":285,
+         "itemId":"2000100003305",
+         "rewardedItemQuantity":4
+      },
+      {
+         "idRewardedItems":586,
+         "idMcoupon":285,
+         "itemId":"2000100003213",
+         "rewardedItemQuantity":2
+      }
+   ],
+   "promotionType":1,
+   "totalStampsBurnt":0,
+   "maxStamps":1,
+   "stampsBurnt":{
+      "redemption":[
+
+      ]
+   },
+   "discount":{
+      "discountType":"FIXED",
+      "amount":"EUR1.56"
+   }
 }
 ```
 
 ---
 
-#### getPromotions (JSONObject)
+### activateCoupon (JSONObject)
+- Response code 200:
+```json
+{
+  "code":0,
+  "description":"Command executed successfully"
+}
+```
+
+---
+
+### deactivateCoupon (JSONObject)
+- Response code 200:
+```json
+{
+  "code":0,
+  "description":"Command executed successfully"
+}
+```
+
+---
+
+
+### createCoupons (JSONObject)
+- Response code 200:
+```json
+[
+    {
+        "apiToken":"_Promotion token_",
+        "idCoupon":"_New created coupond id_",
+        "coupon":"_Hash unique coupon identifier_",
+        "response":{
+            "code":"_dcoupon response code_",
+            "description":"_dcoupon response description_"
+        }
+    }
+]
+```
+
+---
+
+### getCouponsCompanies (JSONObject)
+- Response code 200:
+```json
+[
+	{
+	"name":"Company Name_",
+	"logo":"_URL for company logo_",
+	"token":"_Company api token_"
+	}
+]
+```
+
+---
+
+### getCouponsRetailers (JSONObject)
+- Response code 200:
+```json
+[
+    {
+    "retailerName":"_Retailer Name_",
+    "retailerLogo":"_URL for retailer logo_",
+    "retailerToken":"_Retailer api token_"
+    }
+]
+```
+
+---
+
+### getRedemptionCode (JSONObject)
+- Response code 200:
+```json
+{
+ "temporalToken": "12345",
+}
+```
+
+---
+
+### getRedemptionDetail (JSONObject)
+- Response code 200:
+```json
+[
+	{
+		"redemptionInfo": {
+			"id": "internal_redemption_id",
+			"date": "yyyy-MM-dd",
+			"amount": "_amount_rewarded_",
+			"couponsCount": "_coupons_count_",
+			"retailerNameImg": {
+				"retailerName": "_retailer_name_",
+				"retailerLogo": "_retailer_logo_path_",
+				"retailerToken": "_retailer_api_token_"
+			},
+			"couponsRedeemedList": [
+				{
+					"serial": "_coupon_serial_number",
+					"promotionName": "_promotion_name_",
+					"redeemedAmount": "_amount_rewarded_",
+					"stampsBurnt": "_stamps_burnt_",
+					"gcn": "_coupon_gcn_"
+				}
+			]
+		}
+	}
+]
+```
+
+---
+
+### getRedemptionSummary (JSONObject)
+- Response code 200:
+```json
+[
+	{
+		"redemptionAmount": "_total_amount_rewarded__",
+		"id_label": "_day_of_redemptions_",
+		"year": "_year_of_redemptions_",
+		"initialDate": "YYYY-MM-DD HH:MM:SS",
+		"endDate": "YYYY-MM-DD HH:MM:SS"
+	}
+]
+```
+
+---
+
+### getRedemptionHistory (JSONObject)
+- Response code 200:
+```json
+{
+	"redemptions": [
+		{
+			"id": "_redemption_id_codified_in_base64_",
+			"date": "YYYY-MM-DD",
+			"amount": "_amount_rewarded_",
+			"couponsCount": "_coupons_count_",
+			"retailerNameImg": {
+				"retailerName": "_retailer_name_",
+				"retailerLogo": "_retailer_logo_path_",
+				"retailerToken": "_retailer_api_token_"
+			}
+		}
+	],
+	"totalDiscount": "_Total discount history_",
+	"totalCount": "_Total coupons redeemed history_"
+}
+```
+
+---
+
+### getLoyaltyAffiliates (JSONObject)
+- Response code 200:
+```json
+[
+	{
+		"id": "_internal_id_affiliate",
+		"name": "_affiliate_name_",
+		"affiliateLogoPath": "_affiliate_logo_path_",
+		"countryCode": "_country_short_codename_",
+		"apiTokenAffiliate": "_affiliate_api_token_"
+	}
+]
+```
+
+---
+
+### addUpdateLoyaltyCard (JSONObject)
+- Response code 200:
+```json
+{
+  "code":0,
+  "description":"Command executed successfully"
+}
+```
+
+---
+
+### getLoyaltyCards (JSONObject)
+- Response code 200:
+```json
+[
+	{
+		"apiTokenAffiliate": "_affiliate_api_token_",
+		"cardNumber": "_card_number_"
+	}
+]
+```
+
+---
+
+### deleteLoyaltyCard (JSONObject)
+- Response code 200:
+```json
+{
+  "code":0,
+  "description":"Command executed successfully"
+}
+```
+
+---
+
+### getCategories (JSONObject)
+- Response code 200:
+```json
+{
+    "totalResults":4,
+    "pageSize":4,
+    "start":0,
+    "items":[
+        {
+            "id":5,
+            "name":"Personal care",
+            "numActiveOffers":1
+        },
+        {
+            "id":4,
+            "name":"Home",
+            "numActiveOffers":1
+        },
+        {
+            "id":1,
+            "name":"Food",
+            "numActiveOffers":41
+        },
+        {
+            "id":2,
+            "name":"Clothes",
+            "numActiveOffers":1
+        }
+    ]
+}
+```
+
+---
+
+### getCompanies (JSONObject)
+- Response code 200:
+```json
+{
+    "totalResults":3,
+    "pageSize":10,
+    "start":0,
+    "items":[
+        {
+            "name":"Company Test SDK  Wincor",
+            "token":"ni2sa4ah4rfnr574fumh",
+            "numActiveOffers":41
+        },
+        {
+            "name":"Scanbuy Agustin Demo",
+            "token":"kkbx2kkcnexvgmgo5p9y",
+            "numActiveOffers":2
+        },
+        {
+            "name":"Scanbuy-Sergio",
+            "token":"5u4d74fpalho69e221eq",
+            "numActiveOffers":1
+        }
+    ]
+}
+```
+
+---
+
+### getRetailers (JSONObject)
+- Response code 200:
+```json
+{
+    "totalResults":3,
+    "pageSize":10,
+    "start":0,
+    "items":[
+        {
+            "name":"GADIS",
+            "token":"scgildx2619ccqzu4vkj",
+            "logoUrl":"s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/mcp_img1460370674807.png",
+            "numActiveOffers":16
+        },
+        {
+            "name":"Leroy Merlín",
+            "token":"5ri3050btdhtxztunxfr",
+            "logoUrl":"s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1489422491901.png",
+            "numActiveOffers":1
+        },
+        {
+            "name":"ScanLife Demo",
+            "token":"x3vyr8icn081mlrrr0rn",
+            "logoUrl":"s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1553166021496.png",
+            "numActiveOffers":43
+        }
+    ]
+}
+```
+
+---
+
+### getPromotions (JSONObject)
 - Response code 200:
 ```json
 {
@@ -767,7 +1435,7 @@ public class Dcoupon: DcouponProtocol, DcouponListener {
 
 ---
 
-#### getPromotionDetail (JSONObject)
+### getPromotionDetail (JSONObject)
 - Response code 200:
 ```json
 {
@@ -796,89 +1464,6 @@ public class Dcoupon: DcouponProtocol, DcouponListener {
          "validInAllStores":true
       }
    ]
-}
-```
-
----
-
-#### getFilters (JSONObject)
-- Response code 200:
-```json
-{
-   "filtersRetailers":{
-      "totalResults":3,
-      "pageSize":10,
-      "start":0,
-      "items":[
-         {
-            "name":"GADIS",
-            "token":"scgildx2619ccqzu4vkj",
-            "logoUrl":"s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/mcp_img1460370674807.png",
-            "numActiveOffers":16
-         },
-         {
-            "name":"Leroy Merlín",
-            "token":"5ri3050btdhtxztunxfr",
-            "logoUrl":"s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1489422491901.png",
-            "numActiveOffers":1
-         },
-         {
-            "name":"ScanLife Demo",
-            "token":"x3vyr8icn081mlrrr0rn",
-            "logoUrl":"s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1553166021496.png",
-            "numActiveOffers":43
-         }
-      ]
-   },
-   "filtersCompanies":{
-      "totalResults":3,
-      "pageSize":10,
-      "start":0,
-      "items":[
-         {
-            "name":"Company Test SDK  Wincor",
-            "token":"ni2sa4ah4rfnr574fumh",
-            "numActiveOffers":41
-         },
-         {
-            "name":"Scanbuy Agustin Demo",
-            "token":"kkbx2kkcnexvgmgo5p9y",
-            "numActiveOffers":2
-         },
-         {
-            "name":"Scanbuy-Sergio",
-            "token":"5u4d74fpalho69e221eq",
-            "numActiveOffers":1
-         }
-      ]
-   },
-   "filtersCategories":{
-      "totalResults":4,
-      "pageSize":4,
-      "start":0,
-      "items":[
-         {
-            "id":5,
-            "name":"Personal care",
-            "numActiveOffers":1
-         },
-         {
-            "id":4,
-            "name":"Home",
-            "numActiveOffers":1
-         },
-         {
-            "id":1,
-            "name":"Food",
-            "numActiveOffers":41
-         },
-         {
-            "id":2,
-            "name":"Clothes",
-            "numActiveOffers":1
-         }
-      ]
-   }
 }
 ```
 
