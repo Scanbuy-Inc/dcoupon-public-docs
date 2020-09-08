@@ -590,8 +590,6 @@ fun deleteLoyaltyCard(
 Returns all categories with active promotions associated to the publisher and the number of active offers for category.
 ```kotlin
 fun getCategories(
-    start: Int?,
-    limit: Int?,
     publisherName: String?,
     callback: DcouponCallback
 )
@@ -600,8 +598,6 @@ fun getCategories(
 #### Input
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
-| `start` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Index of first item to be returned.
-| `limit` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Maximum number of items to return.
 | `publisherName` | varchar | String | *false* | The client publisher name.
 | `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
 
@@ -754,12 +750,12 @@ fun getPromotionDetail(
 ---
 
 ### getStores
-Returns all active promotions associated to the publisher identified by the API token filtered with the parameters sent in the request, including a list of stores from the retailer. (Use promotionToken, can combine with retailerTokens).
+Returns all active promotions associated to the publisher filtered with the parameters sent in the request, including a list of stores from the retailer. (Use promotionToken, can combine with retailerTokens).
 ```kotlin
     fun getStores(
+        promotionToken: String,
         start: Int?,
         limit: Int?,
-        promotionToken: String?,
         retailerTokens: ArrayList<String>?,
         zipcode: String?,
         latitude: String?,
@@ -772,9 +768,9 @@ Returns all active promotions associated to the publisher identified by the API 
 #### Input
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
-| `start` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | ***true*** | Index of first store to be returned. 0 by default.
-| `limit` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | ***true*** | Maximum number of items to return. 10 by default.
 | `promotionToken` | any | String | ***true*** | The token that identifies the promotion.
+| `start` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Index of first store to be returned. 0 by default.
+| `limit` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Maximum number of items to return. 10 by default.
 | `retailerTokens` | any | ArrayList<*String*> | *false* | Token from the retailer.
 | `zipcode` | any | String | *false* | Zip code to filter the search.
 | `latitude` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninQ.gif) | String | *false* | User latitude coordinate.
