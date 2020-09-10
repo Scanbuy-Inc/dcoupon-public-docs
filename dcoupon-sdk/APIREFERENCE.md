@@ -1065,15 +1065,15 @@ Returns all active promotions associated to the publisher filtered with the para
 - Response code 200:
 ```json
 [
-    {
-        "apiToken":"_Promotion token_",
-        "idCoupon":"_New created coupond id_",
-        "coupon":"_Hash unique coupon identifier_",
-        "response":{
-            "code":"_dcoupon response code_",
-            "description":"_dcoupon response description_"
-        }
+  {
+    "apiToken": "fqvmayo4o7myplvd2bth",
+    "idCoupon": 214725,
+    "coupon": "ZjE49y0X7Luj1cl_SE9xEhUDuVprWIiloxzw76AmTTI=",
+    "response": {
+      "code": 0,
+      "description": "Command executed successfully"
     }
+  }
 ]
 ```
 
@@ -1083,11 +1083,16 @@ Returns all active promotions associated to the publisher filtered with the para
 - Response code 200:
 ```json
 [
-	{
-	"name":"Company Name_",
-	"logo":"_URL for company logo_",
-	"token":"_Company api token_"
-	}
+  {
+    "name": "Scanbuy Agustin Demo",
+    "token": "kkbx2kkcnexvgmgo5p9y",
+    "logo": "https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/promos/mcp_img1435738789745.png"
+  },
+  {
+    "name": "Company Test Integracion",
+    "token": "ni2sa4ah4rfnr574fumh",
+    "logo": "https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/companies/img_1560332543256.png"
+  }
 ]
 ```
 
@@ -1097,11 +1102,21 @@ Returns all active promotions associated to the publisher filtered with the para
 - Response code 200:
 ```json
 [
-    {
-    "retailerName":"_Retailer Name_",
-    "retailerLogo":"_URL for retailer logo_",
-    "retailerToken":"_Retailer api token_"
-    }
+  {
+    "retailerName": "ScanLife Demo",
+    "retailerLogo": "https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1579625831118.png",
+    "retailerToken": "x3vyr8icn081mlrrr0rn"
+  },
+  {
+    "retailerName": "7-eleven",
+    "retailerLogo": "https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1529915570305.png",
+    "retailerToken": "mid68p20vvwc72bnis8z"
+  },
+  {
+    "retailerName": "dcoupon demo",
+    "retailerLogo": "https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1580813574943.png",
+    "retailerToken": "q5dn8vbw59t8es4709fu"
+  }
 ]
 ```
 
@@ -1111,7 +1126,7 @@ Returns all active promotions associated to the publisher filtered with the para
 - Response code 200:
 ```json
 {
- "temporalToken": "12345",
+ "temporalToken": "14926",
 }
 ```
 
@@ -1120,30 +1135,28 @@ Returns all active promotions associated to the publisher filtered with the para
 ### getRedemptionDetail (JSONObject)
 - Response code 200:
 ```json
-[
-	{
-		"redemptionInfo": {
-			"id": "internal_redemption_id",
-			"date": "yyyy-MM-dd",
-			"amount": "_amount_rewarded_",
-			"couponsCount": "_coupons_count_",
-			"retailerNameImg": {
-				"retailerName": "_retailer_name_",
-				"retailerLogo": "_retailer_logo_path_",
-				"retailerToken": "_retailer_api_token_"
-			},
-			"couponsRedeemedList": [
-				{
-					"serial": "_coupon_serial_number",
-					"promotionName": "_promotion_name_",
-					"redeemedAmount": "_amount_rewarded_",
-					"stampsBurnt": "_stamps_burnt_",
-					"gcn": "_coupon_gcn_"
-				}
-			]
-		}
-	}
-]
+{
+  "redemptionInfo": {
+    "id": "13362020-09-02 18:28:33.80590032d53-975b-4634-8dc8-b1f533aea778",
+    "date": "2020-09-02",
+    "amount": 2.7,
+    "couponsCount": 1,
+    "retailerNameImg": {
+      "retailerName": "ScanLife Demo",
+      "retailerLogo": "https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1579625831118.png",
+      "retailerToken": "x3vyr8icn081mlrrr0rn"
+    }
+  },
+  "couponsRedeemedList": [
+    {
+      "serial": 5423,
+      "promotionName": "CP034",
+      "redeemedAmount": 2.7,
+      "stampsBurnt": 1,
+      "gcn": "JUANCMP000765"
+    }
+  ]
+}
 ```
 
 ---
@@ -1152,13 +1165,20 @@ Returns all active promotions associated to the publisher filtered with the para
 - Response code 200:
 ```json
 [
-	{
-		"redemptionAmount": "_total_amount_rewarded__",
-		"id_label": "_day_of_redemptions_",
-		"year": "_year_of_redemptions_",
-		"initialDate": "YYYY-MM-DD HH:MM:SS",
-		"endDate": "YYYY-MM-DD HH:MM:SS"
-	}
+  {
+    "redemptionAmount": 189081.04,
+    "id_label": "2019",
+    "year": 2019,
+    "initialDate": "2019-02-01 13:13:52",
+    "endDate": "2019-12-23 15:41:38"
+  },
+  {
+    "redemptionAmount": 221969.08,
+    "id_label": "2020",
+    "year": 2020,
+    "initialDate": "2020-01-01 01:00:00",
+    "endDate": "2020-09-02 18:28:34"
+  }
 ]
 ```
 
@@ -1168,21 +1188,21 @@ Returns all active promotions associated to the publisher filtered with the para
 - Response code 200:
 ```json
 {
-	"redemptions": [
-		{
-			"id": "_redemption_id_codified_in_base64_",
-			"date": "YYYY-MM-DD",
-			"amount": "_amount_rewarded_",
-			"couponsCount": "_coupons_count_",
-			"retailerNameImg": {
-				"retailerName": "_retailer_name_",
-				"retailerLogo": "_retailer_logo_path_",
-				"retailerToken": "_retailer_api_token_"
-			}
-		}
-	],
-	"totalDiscount": "_Total discount history_",
-	"totalCount": "_Total coupons redeemed history_"
+  "redemptions": [
+    {
+      "id": "cBr_ZcVjuUg6ToLGvxXwhKxtzTt_4WcQB-XJ4l-Qh8Zwp6RahzG4Pkld6ibYDBDAMe6Vi6M-3zM0fPvQyPSTJg==",
+      "date": "2020-09-02",
+      "amount": 2.7,
+      "couponsCount": 1,
+      "retailerNameImg": {
+        "retailerName": "ScanLife Demo",
+        "retailerLogo": "https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1579625831118.png",
+        "retailerToken": "x3vyr8icn081mlrrr0rn"
+      }
+    }
+  ],
+  "totalDiscount": "411.050,12 €",
+  "totalCount": 64016
 }
 ```
 
@@ -1192,13 +1212,34 @@ Returns all active promotions associated to the publisher filtered with the para
 - Response code 200:
 ```json
 [
-	{
-		"id": "_internal_id_affiliate",
-		"name": "_affiliate_name_",
-		"affiliateLogoPath": "_affiliate_logo_path_",
-		"countryCode": "_country_short_codename_",
-		"apiTokenAffiliate": "_affiliate_api_token_"
-	}
+  {
+    "id": 1,
+    "name": "Fidelizacion Supermercado Gadisa",
+    "affiliateLogoPath": "https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/loyalties/mcp_img1446549650592.png",
+    "countryCode": "ES",
+    "apiTokenAffiliate": "m7flae9ervztvgu216lm"
+  },
+  {
+    "id": 2,
+    "name": "Carrefour",
+    "affiliateLogoPath": "https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/loyalties/mcp_img1446549664991.png",
+    "countryCode": "ES",
+    "apiTokenAffiliate": "jr5ece8ctivthnzg8l4n"
+  },
+  {
+    "id": 3,
+    "name": "Scanlife Demo",
+    "affiliateLogoPath": "https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/loyalties/mcp_img1444730430643.png",
+    "countryCode": "ES",
+    "apiTokenAffiliate": "4cchky01jfdgy6nwsfuh"
+  },
+  {
+    "id": 5,
+    "name": "Travel Club",
+    "affiliateLogoPath": "https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/loyalties/mcp_img1446549751766.png",
+    "countryCode": "ES",
+    "apiTokenAffiliate": "7y9bzd01sxa6h17vqpks"
+  }
 ]
 ```
 
@@ -1219,10 +1260,10 @@ Returns all active promotions associated to the publisher filtered with the para
 - Response code 200:
 ```json
 [
-	{
-		"apiTokenAffiliate": "_affiliate_api_token_",
-		"cardNumber": "_card_number_"
-	}
+  {
+    "apiTokenAffiliate": "4cchky01jfdgy6nwsfuh",
+    "cardNumber": "66666666"
+  }
 ]
 ```
 
