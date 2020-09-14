@@ -29,6 +29,6 @@ In future attempts, if any legal doc has changed, they will be prompted to accep
 
 **Android**. If you want to set up Dcoupon SDK on Android, visit [Dcoupon Android Library](https://bintray.com/dcouponsdk/maven-dcoupon-sdk/android_library#read).
 
-**iOS**. If you want to set up Dcoupon SDK on iOS, visit [Dcoupon iOS Framework](https://cocoapods.org/pods/dcouponSDK).
+**iOS**. If you want to set up Dcoupon SDK on iOS, visit [Dcoupon iOS Framework](https://github.com/Scanbuy-Inc/dcoupon-public-docs/blob/master/dcoupon-sdk/iOS-SETUP.md).
 
 
