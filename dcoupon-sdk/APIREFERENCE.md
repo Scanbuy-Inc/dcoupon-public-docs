@@ -820,7 +820,7 @@ Returns all active promotions associated to the publisher filtered with the para
 	"coupons":[
         { 
             "couponId":15949,
-            "mcToken":"vrljzb7tvzajzevfq38m",
+            "mcToken":"xxxxxxxxxxxxxxxxxx",
             "lowImage":"",
             "highImage":"",
             "highImage2":"",
@@ -833,7 +833,7 @@ Returns all active promotions associated to the publisher filtered with the para
             {
                 "retailerName":"ScanLife Demo",
                 "retailerLogo":"https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1553166021496.png",
-                "retailerToken":"x3vyr8icn081mlrrr0rn"
+                "retailerToken":"xxxxxxxxxxxxxxxxxx"
             }
             ],
             "sgcn":"TESTCMP00108334",
@@ -863,7 +863,7 @@ Returns all active promotions associated to the publisher filtered with the para
         },
         {
             "couponId":15948,
-            "mcToken":"d502bj63lh62502ke17n",
+            "mcToken":"xxxxxxxxxxxxxxxxxx",
             "lowImage":"",
             "highImage":"",
             "highImage2":"",
@@ -876,7 +876,7 @@ Returns all active promotions associated to the publisher filtered with the para
             {
                 "retailerName":"ScanLife Demo",
                 "retailerLogo":"https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1553166021496.png",
-                "retailerToken":"x3vyr8icn081mlrrr0rn"
+                "retailerToken":"xxxxxxxxxxxxxxxxxx"
             }
             ],
             "sgcn":"TESTCMP001052106",
@@ -918,7 +918,7 @@ Returns all active promotions associated to the publisher filtered with the para
         },
         {
             "couponId":15940,
-            "mcToken":"hq28mtv2lon7jgu4zea9",
+            "mcToken":"xxxxxxxxxxxxxxxxxx",
             "lowImage":"https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/promos/img_83_1512639655944.jpg",
             "highImage":"https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/promos/img_83_1512639520657.png",
             "highImage2":"",
@@ -931,12 +931,12 @@ Returns all active promotions associated to the publisher filtered with the para
             {
                 "retailerName":"GADIS",
                 "retailerLogo":"https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/mcp_img1460370674807.png",
-                "retailerToken":"scgildx2619ccqzu4vkj"
+                "retailerToken":"xxxxxxxxxxxxxxxxxx"
             },
             {
                 "retailerName":"ScanLife Demo",
                 "retailerLogo":"https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1553166021496.png",
-                "retailerToken":"x3vyr8icn081mlrrr0rn"
+                "retailerToken":"xxxxxxxxxxxxxxxxxx"
             }
             ],
             "sgcn":"JUANCMP000901360",
@@ -983,7 +983,7 @@ Returns all active promotions associated to the publisher filtered with the para
 ```json
 {
    "couponId":15940,
-   "mcToken":"hq28mtv2lon7jgu4zea9",
+   "mcToken":"xxxxxxxxxxxxxxxxxx",
    "lowImage":"https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/promos/img_83_1512639655944.jpg",
    "highImage":"https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/promos/img_83_1512639520657.png",
    "highImage2":"",
@@ -996,12 +996,12 @@ Returns all active promotions associated to the publisher filtered with the para
       {
          "retailerName":"GADIS",
          "retailerLogo":"https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/mcp_img1460370674807.png",
-         "retailerToken":"scgildx2619ccqzu4vkj"
+         "retailerToken":"xxxxxxxxxxxxxxxxxx"
       },
       {
          "retailerName":"ScanLife Demo",
          "retailerLogo":"https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1553166021496.png",
-         "retailerToken":"x3vyr8icn081mlrrr0rn"
+         "retailerToken":"xxxxxxxxxxxxxxxxxx"
       }
    ],
    "sgcn":"JUANCMP000901360",
@@ -1066,7 +1066,7 @@ Returns all active promotions associated to the publisher filtered with the para
 ```json
 [
   {
-    "apiToken": "fqvmayo4o7myplvd2bth",
+    "apiToken": "xxxxxxxxxxxxxxxxxx",
     "idCoupon": 214725,
     "coupon": "ZjE49y0X7Luj1cl_SE9xEhUDuVprWIiloxzw76AmTTI=",
     "response": {
@@ -1085,12 +1085,12 @@ Returns all active promotions associated to the publisher filtered with the para
 [
   {
     "name": "Scanbuy Agustin Demo",
-    "token": "kkbx2kkcnexvgmgo5p9y",
+    "token": "xxxxxxxxxxxxxxxxxx",
     "logo": "https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/promos/mcp_img1435738789745.png"
   },
   {
     "name": "Company Test Integracion",
-    "token": "ni2sa4ah4rfnr574fumh",
+    "token": "xxxxxxxxxxxxxxxxxx",
     "logo": "https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/companies/img_1560332543256.png"
   }
 ]
@@ -1105,17 +1105,17 @@ Returns all active promotions associated to the publisher filtered with the para
   {
     "retailerName": "ScanLife Demo",
     "retailerLogo": "https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1579625831118.png",
-    "retailerToken": "x3vyr8icn081mlrrr0rn"
+    "retailerToken": "xxxxxxxxxxxxxxxxxx"
   },
   {
     "retailerName": "7-eleven",
     "retailerLogo": "https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1529915570305.png",
-    "retailerToken": "mid68p20vvwc72bnis8z"
+    "retailerToken": "xxxxxxxxxxxxxxxxxx"
   },
   {
     "retailerName": "dcoupon demo",
     "retailerLogo": "https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1580813574943.png",
-    "retailerToken": "q5dn8vbw59t8es4709fu"
+    "retailerToken": "xxxxxxxxxxxxxxxxxx"
   }
 ]
 ```
@@ -1144,7 +1144,7 @@ Returns all active promotions associated to the publisher filtered with the para
     "retailerNameImg": {
       "retailerName": "ScanLife Demo",
       "retailerLogo": "https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1579625831118.png",
-      "retailerToken": "x3vyr8icn081mlrrr0rn"
+      "retailerToken": "xxxxxxxxxxxxxxxxxx"
     }
   },
   "couponsRedeemedList": [
@@ -1197,7 +1197,7 @@ Returns all active promotions associated to the publisher filtered with the para
       "retailerNameImg": {
         "retailerName": "ScanLife Demo",
         "retailerLogo": "https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1579625831118.png",
-        "retailerToken": "x3vyr8icn081mlrrr0rn"
+        "retailerToken": "xxxxxxxxxxxxxxxxxx"
       }
     }
   ],
@@ -1217,28 +1217,28 @@ Returns all active promotions associated to the publisher filtered with the para
     "name": "Fidelizacion Supermercado Gadisa",
     "affiliateLogoPath": "https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/loyalties/mcp_img1446549650592.png",
     "countryCode": "ES",
-    "apiTokenAffiliate": "m7flae9ervztvgu216lm"
+    "apiTokenAffiliate": "xxxxxxxxxxxxxxxxxx"
   },
   {
     "id": 2,
     "name": "Carrefour",
     "affiliateLogoPath": "https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/loyalties/mcp_img1446549664991.png",
     "countryCode": "ES",
-    "apiTokenAffiliate": "jr5ece8ctivthnzg8l4n"
+    "apiTokenAffiliate": "xxxxxxxxxxxxxxxxxx"
   },
   {
     "id": 3,
     "name": "Scanlife Demo",
     "affiliateLogoPath": "https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/loyalties/mcp_img1444730430643.png",
     "countryCode": "ES",
-    "apiTokenAffiliate": "4cchky01jfdgy6nwsfuh"
+    "apiTokenAffiliate": "xxxxxxxxxxxxxxxxxx"
   },
   {
     "id": 5,
     "name": "Travel Club",
     "affiliateLogoPath": "https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/loyalties/mcp_img1446549751766.png",
     "countryCode": "ES",
-    "apiTokenAffiliate": "7y9bzd01sxa6h17vqpks"
+    "apiTokenAffiliate": "xxxxxxxxxxxxxxxxxx"
   }
 ]
 ```
@@ -1261,7 +1261,7 @@ Returns all active promotions associated to the publisher filtered with the para
 ```json
 [
   {
-    "apiTokenAffiliate": "4cchky01jfdgy6nwsfuh",
+    "apiTokenAffiliate": "xxxxxxxxxxxxxxxxxx",
     "cardNumber": "66666666"
   }
 ]
@@ -1324,17 +1324,17 @@ Returns all active promotions associated to the publisher filtered with the para
     "items":[
         {
             "name":"Company Test SDK  Wincor",
-            "token":"ni2sa4ah4rfnr574fumh",
+            "token":"nxxxxxxxxxxxxxxxxxx",
             "numActiveOffers":41
         },
         {
             "name":"Scanbuy Agustin Demo",
-            "token":"kkbx2kkcnexvgmgo5p9y",
+            "token":"xxxxxxxxxxxxxxxxxx",
             "numActiveOffers":2
         },
         {
             "name":"Scanbuy-Sergio",
-            "token":"5u4d74fpalho69e221eq",
+            "token":"xxxxxxxxxxxxxxxxxx",
             "numActiveOffers":1
         }
     ]
@@ -1353,19 +1353,19 @@ Returns all active promotions associated to the publisher filtered with the para
     "items":[
         {
             "name":"GADIS",
-            "token":"scgildx2619ccqzu4vkj",
+            "token":"xxxxxxxxxxxxxxxxxx",
             "logoUrl":"s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/mcp_img1460370674807.png",
             "numActiveOffers":16
         },
         {
             "name":"Leroy Merlín",
-            "token":"5ri3050btdhtxztunxfr",
+            "token":"xxxxxxxxxxxxxxxxxx",
             "logoUrl":"s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1489422491901.png",
             "numActiveOffers":1
         },
         {
             "name":"ScanLife Demo",
-            "token":"x3vyr8icn081mlrrr0rn",
+            "token":"xxxxxxxxxxxxxxxxxx",
             "logoUrl":"s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1553166021496.png",
             "numActiveOffers":43
         }
@@ -1388,7 +1388,7 @@ Returns all active promotions associated to the publisher filtered with the para
       {
          "id":347,
          "name":"CP041",
-         "token":"vrljzb7tvzajzevfq38m",
+         "token":"xxxxxxxxxxxxxxxxxx",
          "couponType":2,
          "smallImageUrl":"",
          "bigImageUrl":"",
@@ -1407,7 +1407,7 @@ Returns all active promotions associated to the publisher filtered with the para
             {
                "name":"ScanLife Demo",
                "logoUrl":"s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1553166021496.png",
-               "token":"x3vyr8icn081mlrrr0rn",
+               "token":"xxxxxxxxxxxxxxxxxx",
                "validInAllStores":true
             }
          ]
@@ -1415,7 +1415,7 @@ Returns all active promotions associated to the publisher filtered with the para
       {
          "id":336,
          "name":"CP039",
-         "token":"d502bj63lh62502ke17n",
+         "token":"xxxxxxxxxxxxxxxxxx",
          "couponType":1,
          "smallImageUrl":"",
          "bigImageUrl":"",
@@ -1434,7 +1434,7 @@ Returns all active promotions associated to the publisher filtered with the para
             {
                "name":"ScanLife Demo",
                "logoUrl":"s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1553166021496.png",
-               "token":"x3vyr8icn081mlrrr0rn",
+               "token":"xxxxxxxxxxxxxxxxxx",
                "validInAllStores":true
             }
          ]
@@ -1442,7 +1442,7 @@ Returns all active promotions associated to the publisher filtered with the para
       {
          "id":335,
          "name":"CP038",
-         "token":"3df5g32a15j00q37me60",
+         "token":"xxxxxxxxxxxxxxxxxx",
          "couponType":1,
          "smallImageUrl":"",
          "bigImageUrl":"",
@@ -1461,7 +1461,7 @@ Returns all active promotions associated to the publisher filtered with the para
             {
                "name":"ScanLife Demo",
                "logoUrl":"s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1553166021496.png",
-               "token":"x3vyr8icn081mlrrr0rn",
+               "token":"xxxxxxxxxxxxxxxxxx",
                "validInAllStores":true
             }
          ]
@@ -1478,7 +1478,7 @@ Returns all active promotions associated to the publisher filtered with the para
 {
    "id":347,
    "name":"CP041",
-   "token":"vrljzb7tvzajzevfq38m",
+   "token":"xxxxxxxxxxxxxxxxxx",
    "couponType":2,
    "smallImageUrl":"",
    "bigImageUrl":"",
@@ -1497,7 +1497,7 @@ Returns all active promotions associated to the publisher filtered with the para
       {
          "name":"ScanLife Demo",
          "logoUrl":"s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1553166021496.png",
-         "token":"x3vyr8icn081mlrrr0rn",
+         "token":"xxxxxxxxxxxxxxxxxx",
          "validInAllStores":true
       }
    ]
@@ -1526,7 +1526,7 @@ Returns all active promotions associated to the publisher filtered with the para
          "addressHtml":"<strong>HTML address 100</strong>",
          "retailer":{
             "name":"ScanLife Demo",
-            "token":"x3vyr8icn081mlrrr0rn",
+            "token":"xxxxxxxxxxxxxxxxxx",
             "logoUrl":"s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1553166021496.png",
             "numActiveOffers":44
          },
@@ -1543,7 +1543,7 @@ Returns all active promotions associated to the publisher filtered with the para
          "addressHtml":"<strong>HTML address 101</strong>",
          "retailer":{
             "name":"ScanLife Demo",
-            "token":"x3vyr8icn081mlrrr0rn",
+            "token":"xxxxxxxxxxxxxxxxxx",
             "logoUrl":"s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1553166021496.png",
             "numActiveOffers":44
          },
@@ -1560,7 +1560,7 @@ Returns all active promotions associated to the publisher filtered with the para
          "addressHtml":"<strong>HTML address 107</strong>",
          "retailer":{
             "name":"ScanLife Demo",
-            "token":"x3vyr8icn081mlrrr0rn",
+            "token":"xxxxxxxxxxxxxxxxxx",
             "logoUrl":"s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1553166021496.png",
             "numActiveOffers":44
          },
@@ -1577,7 +1577,7 @@ Returns all active promotions associated to the publisher filtered with the para
          "addressHtml":"<strong>HTML address 102</strong>",
          "retailer":{
             "name":"ScanLife Demo",
-            "token":"x3vyr8icn081mlrrr0rn",
+            "token":"xxxxxxxxxxxxxxxxxx",
             "logoUrl":"s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1553166021496.png",
             "numActiveOffers":44
          },
@@ -1594,7 +1594,7 @@ Returns all active promotions associated to the publisher filtered with the para
          "addressHtml":"<strong>HTML address 108</strong>",
          "retailer":{
             "name":"ScanLife Demo",
-            "token":"x3vyr8icn081mlrrr0rn",
+            "token":"xxxxxxxxxxxxxxxxxx",
             "logoUrl":"s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1553166021496.png",
             "numActiveOffers":44
          },
@@ -1611,7 +1611,7 @@ Returns all active promotions associated to the publisher filtered with the para
          "addressHtml":"<strong>HTML address 109</strong>",
          "retailer":{
             "name":"ScanLife Demo",
-            "token":"x3vyr8icn081mlrrr0rn",
+            "token":"xxxxxxxxxxxxxxxxxx",
             "logoUrl":"s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1553166021496.png",
             "numActiveOffers":44
          },
@@ -1628,7 +1628,7 @@ Returns all active promotions associated to the publisher filtered with the para
          "addressHtml":"<strong>HTML address 103</strong>",
          "retailer":{
             "name":"ScanLife Demo",
-            "token":"x3vyr8icn081mlrrr0rn",
+            "token":"xxxxxxxxxxxxxxxxxx",
             "logoUrl":"s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1553166021496.png",
             "numActiveOffers":44
          },
@@ -1645,7 +1645,7 @@ Returns all active promotions associated to the publisher filtered with the para
          "addressHtml":"",
          "retailer":{
             "name":"ScanLife Demo",
-            "token":"x3vyr8icn081mlrrr0rn",
+            "token":"xxxxxxxxxxxxxxxxxx",
             "logoUrl":"s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1553166021496.png",
             "numActiveOffers":44
          },
@@ -1662,7 +1662,7 @@ Returns all active promotions associated to the publisher filtered with the para
          "addressHtml":"",
          "retailer":{
             "name":"ScanLife Demo",
-            "token":"x3vyr8icn081mlrrr0rn",
+            "token":"xxxxxxxxxxxxxxxxxx",
             "logoUrl":"s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1553166021496.png",
             "numActiveOffers":44
          },
@@ -1679,7 +1679,7 @@ Returns all active promotions associated to the publisher filtered with the para
          "addressHtml":"",
          "retailer":{
             "name":"ScanLife Demo",
-            "token":"x3vyr8icn081mlrrr0rn",
+            "token":"xxxxxxxxxxxxxxxxxx",
             "logoUrl":"s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1553166021496.png",
             "numActiveOffers":44
          },
