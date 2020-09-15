@@ -3,7 +3,7 @@
 ## CLASSES
 
 ### Dcoupon
-Dcoupon SDK instance to call methods.
+dcoupon SDK instance to call methods.
 ```kotlin
 class Dcoupon(context: Context)
 ```
@@ -11,7 +11,7 @@ class Dcoupon(context: Context)
 ---
 
 ### Dcoupon Callback
-Dcoupon callback to receive method responses as a code/message tuple or as a boolean in some methods.
+dcoupon callback to receive method responses as a code/message tuple or as a boolean in some methods.
 ```kotlin
 interface DcouponCallback {
     fun result(code: Int, message: String)
@@ -58,7 +58,7 @@ fun logIn(
 | `alias` | varchar(90) | String | *false* | User's alias/name.
 | `gender` | 'MALE', 'FEMALE', 'OTHER', 'RATHERNOTSAY' | String | *false* | User's gender.
 | `birthdate` | 'YYYY-MM-dd' | String | *false* | User's date of birth.
-| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+| `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
 | code | (type) message | description |
@@ -89,7 +89,7 @@ fun isLoggedIn(
 #### Input
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
-| `callback` | (bool) -> {} | Function | ***true*** | Dcoupon callback with boolean
+| `callback` | (bool) -> {} | Function | ***true*** | dcoupon callback with boolean
 
 #### Callback response
 | (type) | description |
@@ -117,7 +117,7 @@ fun getUserData(
 #### Input
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
-| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+| `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 
 #### Callback response
@@ -148,7 +148,7 @@ fun updateUserData(
 | `alias` | varchar(90) | String | *false* | User's alias/name.
 | `gender` | 'MALE', 'FEMALE', 'OTHER', 'RATHERNOTSAY' | String | *false* | User's gender.
 | `birthdate` | 'YYYY-MM-dd' | String | *false* | User's date of birth.
-| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+| `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 
 #### Callback response
@@ -182,7 +182,7 @@ fun getCoupons(
 | `sortBy` | 'NEWEST', 'ENDING', 'VALUE', 'DEFAULT' | String | *false* | How the result set is sorted.
 | `companyTokens` | any | ArrayList<*String*> | *false* | Filter user coupons by this/these company/s.
 | `retailerTokens` | any | ArrayList<*String*> | *false* | Filter user coupons by this/these retailer/s.
-| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+| `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 Sort By Options:
 - **NEWEST** : coupons returned will be ordered from newest coupons to oldest created.
@@ -213,7 +213,7 @@ fun getCouponDetail(
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
 | `couponId` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | ***true*** | The identifier of the user's coupon.
-| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+| `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
 | code | (type) message | description |
@@ -239,7 +239,7 @@ fun activateCoupon(
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
 | `couponId` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | ***true*** | The identifier of the user's coupon.
-| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+| `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
 | code | (type) message | description |
@@ -265,7 +265,7 @@ fun deactivateCoupon(
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
 | `couponId` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | ***true*** | The identifier of the user's coupon.
-| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+| `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
 | code | (type) message | description |
@@ -304,7 +304,7 @@ fun createCoupons(
 | `transId` | varchar(50) | String | *false* | Transaction identifier if the promotion requires it.
 | `crmId` | varchar(50) | String | *false* | The customer relationship management identifier.
 | `publisherName` | varchar | String | *false* | The client publisher name.
-| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+| `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
 | code | (type) message | description |
@@ -329,7 +329,7 @@ fun getCouponsCompanies(
 #### Input
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
-| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+| `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
 | code | (type) message | description |
@@ -353,7 +353,7 @@ fun getCouponsRetailers(
 #### Input
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
-| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+| `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
 | code | (type) message | description |
@@ -378,7 +378,7 @@ fun getRedemptionCode(
 #### Input
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
-| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+| `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
 | code | (type) message | description |
@@ -406,7 +406,7 @@ fun getRedemptionDetail(
 | :--- | :---: | :---: | :---: | --- |
 | `redemptionId` | any | String | ***true*** | The id that identifies this redemption.
 | `gmtTimeZoneOffset` | any | int | *false* | The GMT timezone offset. Default to 0.
-| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+| `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
 | code | (type) message | description |
@@ -438,7 +438,7 @@ fun getRedemptionSummary(
 | `startDate` | 'YYYY-MM-dd' | String | *false* | Filter redemptions that are after this date.
 | `endDate` | 'YYYY-MM-dd' | String | *false* | Filter redemptions that are before this date.
 | `gmtTimeZoneOffset` | any | int | *false* | The GMT timezone offset. Default to 0.
-| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+| `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
 | code | (type) message | description |
@@ -472,7 +472,7 @@ fun getRedemptionHistory(
 | `startDate` | 'YYYY-MM-dd' | String | *false* | Filter redemptions that are after this date.
 | `endDate` | 'YYYY-MM-dd' | String | *false* | Filter redemptions that are before this date.
 | `gmtTimeZoneOffset` | any | int | *false* | The GMT timezone offset. Default to 0.
-| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+| `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
 | code | (type) message | description |
@@ -496,7 +496,7 @@ fun getLoyaltyAffiliates(
 #### Input
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
-| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+| `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
 | code | (type) message | description |
@@ -521,7 +521,7 @@ fun addUpdateLoyaltyCard(
 | :--- | :---: | :---: | :---: | --- |
 | `affiliateApiToken` | any | String | ***true*** | The affiliate token.
 | `cardNumber` | any | String | ***true*** | The card number.
-| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+| `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
 | code | (type) message | description |
@@ -545,7 +545,7 @@ fun getLoyaltyCards(
 #### Input
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
-| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+| `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
 | code | (type) message | description |
@@ -573,7 +573,7 @@ fun deleteLoyaltyCard(
 | :--- | :---: | :---: | :---: | --- |
 | `affiliateApiToken` | any | String | ***true*** | The affiliate token.
 | `cardNumber` | any | String | ***true*** | The card number.
-| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+| `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
 | code | (type) message | description |
@@ -599,7 +599,7 @@ fun getCategories(
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
 | `publisherName` | varchar | String | *false* | The client publisher name.
-| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+| `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
 | code | (type) message | description |
@@ -628,7 +628,7 @@ fun getCompanies(
 | `start` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Index of first item to be returned.
 | `limit` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Maximum number of items to return.
 | `publisherName` | varchar | String | *false* | The client publisher name.
-| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+| `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
 | code | (type) message | description |
@@ -657,7 +657,7 @@ fun getRetailers(
 | `start` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Index of first item to be returned.
 | `limit` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Maximum number of items to return.
 | `publisherName` | varchar | String | *false* | The client publisher name.
-| `callback` | (code, message) -> {} | Function | ***true*** | Dcoupon callback with code and message.
+| `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
 | code | (type) message | description |
@@ -939,7 +939,7 @@ Returns all active promotions associated to the publisher filtered with the para
                 "retailerToken":"xxxxxxxxxxxxxxxxxx"
             }
             ],
-            "sgcn":"JUANCMP000901360",
+            "sgcn":"IDCMP000901360",
             "canBeRedeemed":true,
             "termsAndConditions":"",
             "rewardedItems":[
@@ -1004,7 +1004,7 @@ Returns all active promotions associated to the publisher filtered with the para
          "retailerToken":"xxxxxxxxxxxxxxxxxx"
       }
    ],
-   "sgcn":"JUANCMP000901360",
+   "sgcn":"IDCMP000901360",
    "canBeRedeemed":true,
    "termsAndConditions":"",
    "rewardedItems":[
@@ -1084,7 +1084,7 @@ Returns all active promotions associated to the publisher filtered with the para
 ```json
 [
   {
-    "name": "Scanbuy Agustin Demo",
+    "name": "Scanbuy Demo",
     "token": "xxxxxxxxxxxxxxxxxx",
     "logo": "https://s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/promos/mcp_img1435738789745.png"
   },
@@ -1153,7 +1153,7 @@ Returns all active promotions associated to the publisher filtered with the para
       "promotionName": "CP034",
       "redeemedAmount": 2.7,
       "stampsBurnt": 1,
-      "gcn": "JUANCMP000765"
+      "gcn": "IDCMP000765"
     }
   ]
 }
@@ -1323,17 +1323,17 @@ Returns all active promotions associated to the publisher filtered with the para
     "start":0,
     "items":[
         {
-            "name":"Company Test SDK  Wincor",
+            "name":"Company Test SDK",
             "token":"nxxxxxxxxxxxxxxxxxx",
             "numActiveOffers":41
         },
         {
-            "name":"Scanbuy Agustin Demo",
+            "name":"Scanbuy  Demo",
             "token":"xxxxxxxxxxxxxxxxxx",
             "numActiveOffers":2
         },
         {
-            "name":"Scanbuy-Sergio",
+            "name":"Scanbuy-Test",
             "token":"xxxxxxxxxxxxxxxxxx",
             "numActiveOffers":1
         }
@@ -1636,7 +1636,7 @@ Returns all active promotions associated to the publisher filtered with the para
       },
       {
          "id":20,
-         "name":"Lab. AECOC",
+         "name":"Lab. Integración",
          "longitude":"null",
          "latitude":"null",
          "zipcode":"08080",
@@ -1670,7 +1670,7 @@ Returns all active promotions associated to the publisher filtered with the para
       },
       {
          "id":53,
-         "name":"Wincor",
+         "name":"Demo Store",
          "longitude":"null",
          "latitude":"null",
          "zipcode":"97370",
