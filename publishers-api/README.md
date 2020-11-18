@@ -196,7 +196,8 @@ Returns all retailers where the offers can be redeemed and the number of active 
 			"numActiveOffers": 61
 		}
 	]
-}```
+}
+```
 
 + Error Response:
 HttpStatus + body with:
