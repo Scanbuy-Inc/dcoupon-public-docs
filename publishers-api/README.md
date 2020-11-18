@@ -167,40 +167,36 @@ Returns all retailers where the offers can be redeemed and the number of active 
 
 ```json
 {
-  "totalResults": 1,
-  "pageSize": 0,
-  "start": 0,
-  "more": false,
-  "filterTotalDiscount": "$100",
-  "items": [
-    {
-      "token": "token_promo_1",
-      "name": "promo1",
-      "description": "description",
-      "smallImageUrl": "https://imageurl.com",
-      "bigImageUrl": "https://imageurl.com",
-      "bigImageUrl2": "https://imageurl.com",
-      "discount": {
-        "promoType": "Type1",
-        "amount": "$100",
-        "maxAmtToDiscount": "$100"
-      },
-      "redemptionStartDate": "01/01/2016",
-      "redemptionEndDate": "01/01/2017",
-      "isTransactionIdRequired": false,
-      "retailers": [
-        {
-          "name": "retailer1",
-          "logoUrl": "http://retailer.com/img.jpg",
-          "token": "token1",
-          "validInAllStores": true
-        }
-      ],
-      "url": "https://promo.com"
-    }
-  ]
-}
-```
+	"totalResults": 4,
+	"pageSize": 10,
+	"start": 0,
+	"items": [
+		{
+			"name": "dcoupon demo",
+			"token": "q5dn8vbw59t8es4709fu",
+			"logoUrl": "s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1580813574943.png",
+			"numActiveOffers": 49
+		},
+		{
+			"name": "GADIS",
+			"token": "scgildx2619ccqzu4vkj",
+			"logoUrl": "s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/mcp_img1460370674807.png",
+			"numActiveOffers": 1
+		},
+		{
+			"name": "LUPA",
+			"token": "ed7hrbujnzlswvyp7c11",
+			"logoUrl": "s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/mcp_img1447785382041.png",
+			"numActiveOffers": 1
+		},
+		{
+			"name": "ScanLife Demo",
+			"token": "x3vyr8icn081mlrrr0rn",
+			"logoUrl": "s3.amazonaws.com/dev.imgs.dcoupon.scanlife.com/files/retailers/img1579625831118.png",
+			"numActiveOffers": 61
+		}
+	]
+}```
 
 + Error Response:
 HttpStatus + body with:
