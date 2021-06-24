@@ -2,22 +2,21 @@
 
 # dcoupon-sdk - Third Party SDK
 
-Document Version 1.1 (September 2020)
+Document Version 1.3 (June 2021)
+
+Latest SDK Version: 3.0.0
 
 ## Introduction
 
-The dcoupon SDK allows to log in client' users into the dcoupon service, so users can benefit from accessing dcoupon service from 3rd party apps, without needing to use an additional login for dcoupon
+The dcoupon SDK allows to log in client' users into the dcoupon service, so users can benefit from accessing dcoupon service from 3rd party apps, without needing to use an additional login for dcoupon.
 
 All dcoupon users must provide the following information when registering:
--	Alias/nickname
--	Email address
-- External identifier
--	Gender
--	Birthdate
+- External identifier (MANDATORY)
+- Referral code (OPTIONAL)
 
-and they need to accept the terms and conditions and the privacy policy of the service. The 3rd party app will be able to provide the user’s personal information through the SDK, so the user won’t need to enter it again. 
+and they need to accept the terms and conditions and the privacy policy of the service.
 
-In the first access, the user will need to accept the legal documents and to fill in personal information (if that info was not provided by the 3rd party) or update this info. 
+In the first access, the user will need to accept the legal documents. 
 
 In future attempts, if any legal doc has changed, they will be prompted to accept those changes before proceeding.
 

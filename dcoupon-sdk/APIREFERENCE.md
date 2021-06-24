@@ -38,11 +38,8 @@ dcoupon.logIn(..., (code, message) -> {
 Third-party log in method.
 ```kotlin
 fun logIn(
-    email: String,
     externalId: String,
-    alias: String?,
-    gender: String?,
-    birthdate: String?,
+    referralCode: String?,
     callback: DcouponCallback
 )
 ```
@@ -53,19 +50,16 @@ fun logIn(
 #### Input
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
-| `email` | varchar(200) | String | ***true*** | User's email.
 | `externalId` | varchar(100) | String | ***true*** | User's id from your system.
-| `alias` | varchar(90) | String | *false* | User's alias/name.
-| `gender` | 'MALE', 'FEMALE', 'OTHER', 'RATHERNOTSAY' | String | *false* | User's gender.
-| `birthdate` | 'YYYY-MM-dd' | String | *false* | User's date of birth.
+| `email` | varchar(200) | String | *false* | User's email.
 | `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
 | code | (type) message | description |
 | --- | :---: | --- |
 | 200 | (String) | The user is logged, now the user can access to others methods(getCoupons(), getFilters(),...).
-| 301 | (String) | A form view is showed, the user must fill the mandatory data and accept the legal documents.
-| 400 | (String) | Bad request, missing mandatory data (email, externalId).
+| 301 | (String) | A form view is showed, the user must accept the legal documents.
+| 400 | (String) | Bad request, missing mandatory data (externalId).
 | 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
 | 503 | (String) | Service unavailable, other service in background thread is running, please wait a moment.
 
@@ -77,14 +71,6 @@ fun logOut()
 ```
 
 ---
-
-### isLoggedIn
-Check if the user is still logged in.
-```kotlin
-fun isLoggedIn(
-    callback: DcouponBoolCallback
-)
-```
 
 #### Input
 | name | value | type | mandatory | description |
@@ -289,7 +275,7 @@ fun createCoupons(
     source: String?,
     transId: String?,
     crmId: String?,
-    publisherName: String?,
+    publisherId: String?,
     callback: DcouponCallback
 )
 ```
@@ -303,7 +289,7 @@ fun createCoupons(
 | `source` | varchar(100) | String | *false* | Source from the request.
 | `transId` | varchar(50) | String | *false* | Transaction identifier if the promotion requires it.
 | `crmId` | varchar(50) | String | *false* | The customer relationship management identifier.
-| `publisherName` | varchar | String | *false* | The client publisher name.
+| `publisherId` | varchar | String | *false* | The client publisher id.
 | `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
@@ -590,7 +576,7 @@ fun deleteLoyaltyCard(
 Returns all categories with active promotions associated to the publisher and the number of active offers for category.
 ```kotlin
 fun getCategories(
-    publisherName: String?,
+    publisherId: String?,
     callback: DcouponCallback
 )
 ```
@@ -598,7 +584,7 @@ fun getCategories(
 #### Input
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
-| `publisherName` | varchar | String | *false* | The client publisher name.
+| `publisherId` | varchar | String | *false* | The client publisher id.
 | `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
@@ -606,6 +592,7 @@ fun getCategories(
 | --- | :---: | --- |
 | 200 | [(JsonObject)](#getCategories-jsonobject) | Returns the categories list.
 | 401 | (String) | Bad request, user is not logged in.
+| 403 | (String) | Forbidden, wrong publisher id.
 | 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
 | 503 | (String) | Service unavailable, other service in background thread is running, please wait a moment.
 
@@ -617,7 +604,7 @@ Returns all companies with active promotions associated to the publisher and the
 fun getCompanies(
     start: Int?,
     limit: Int?,
-    publisherName: String?,
+    publisherId: String?,
     callback: DcouponCallback
 )
 ```
@@ -627,7 +614,7 @@ fun getCompanies(
 | :--- | :---: | :---: | :---: | --- |
 | `start` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Index of first item to be returned.
 | `limit` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Maximum number of items to return.
-| `publisherName` | varchar | String | *false* | The client publisher name.
+| `publisherId` | varchar | String | *false* | The client publisher id.
 | `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
@@ -635,6 +622,7 @@ fun getCompanies(
 | --- | :---: | --- |
 | 200 | [(JsonObject)](#getCompanies-jsonobject) | Returns the companies list.
 | 401 | (String) | Bad request, user is not logged in.
+| 403 | (String) | Forbidden, wrong publisher id.
 | 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
 | 503 | (String) | Service unavailable, other service in background thread is running, please wait a moment.
 
@@ -646,7 +634,7 @@ Returns all retailers with active promotions associated to the publisher and the
 fun getRetailers(
     start: Int?,
     limit: Int?,
-    publisherName: String?,
+    publisherId: String?,
     callback: DcouponCallback
 )
 ```
@@ -656,7 +644,7 @@ fun getRetailers(
 | :--- | :---: | :---: | :---: | --- |
 | `start` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Index of first item to be returned.
 | `limit` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Maximum number of items to return.
-| `publisherName` | varchar | String | *false* | The client publisher name.
+| `publisherId` | varchar | String | *false* | The client publisher id.
 | `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
@@ -664,6 +652,7 @@ fun getRetailers(
 | --- | :---: | --- |
 | 200 | [(JsonObject)](#getRetailers-jsonobject) | Returns the retailers list.
 | 401 | (String) | Bad request, user is not logged in.
+| 403 | (String) | Forbidden, wrong publisher id.
 | 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
 | 503 | (String) | Service unavailable, other service in background thread is running, please wait a moment.
 
@@ -685,7 +674,7 @@ fun getPromotions(
     longitude: String?,
     radius: String?,
     orderBy: String?,
-    publisherName: String?,
+    publisherId: String?,
     callback: DcouponCallback
 )
 ```
@@ -705,7 +694,7 @@ fun getPromotions(
 | `longitude` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninQ.gif) | String | *false* | User longitude coordinate.
 | `radius` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | String | *false* | Radius to make the search for coupons available.
 | `orderBy` | 'NEWEST', 'ENDING', 'VALUE', 'TOP' | String | *false* | How the result set is sorted.
-| `publisherName` | varchar | String | *false* | The client publisher name.
+| `publisherId` | varchar | String | *false* | The client publisher id.
 
 Order By Options:
 - **NEWEST** : (default) promotions returned will be ordered from newest promotions to oldest.
@@ -718,6 +707,7 @@ Order By Options:
 | --- | :---: | --- |
 | 200 | [(JsonObject)](#getpromotions-jsonobject) | Returns a list of promotions.
 | 401 | (String) | Unauthorized, the user is not logged.
+| 403 | (String) | Forbidden, wrong publisher id.
 | 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
 | 503 | (String) | Service unavailable, other service in background thread is running, please wait a moment.
 
@@ -728,7 +718,7 @@ Get the details of a promotion by promotion token sent.
 ```kotlin
 fun getPromotionDetail(
     promotionToken: String,
-    publisherName: String?,
+    publisherId: String?,
     callback: DcouponCallback
 )
 ```
@@ -737,13 +727,14 @@ fun getPromotionDetail(
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
 | `promotionToken` | any | String | ***true*** | The token that identifies this promotion.
-| `publisherName` | varchar | String | *false* | The client publisher name.
+| `publisherId` | varchar | String | *false* | The client publisher id.
 
 #### Callback response
 | code | (type) message | description |
 | --- | :---: | --- |
 | 200 | [(JsonObject)](#getpromotiondetail-jsonobject) | Returns the promotion detail.
 | 401 | (String) | Unauthorized, the user is not logged.
+| 403 | (String) | Forbidden, wrong publisher id.
 | 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
 | 503 | (String) | Service unavailable, other service in background thread is running, please wait a moment.
 
@@ -761,7 +752,7 @@ Returns all active promotions associated to the publisher filtered with the para
         latitude: String?,
         longitude: String?,
         radius: String?,
-        publisherName: String?,
+        publisherId: String?,
         callback: DcouponCallback
     )
 ```
@@ -776,13 +767,14 @@ Returns all active promotions associated to the publisher filtered with the para
 | `latitude` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninQ.gif) | String | *false* | User latitude coordinate.
 | `longitude` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninQ.gif) | String | *false* | User longitude coordinate.
 | `radius` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | String | *false* | Radius to make the search for coupons available.
-| `publisherName` | varchar | String | *false* | The client publisher name.
+| `publisherId` | varchar | String | *false* | The client publisher id.
 
 #### Callback response
 | code | (type) message | description |
 | --- | :---: | --- |
 | 200 | [(JsonObject)](#getstores-jsonobject) | Return a list of stores.
 | 401 | (String) | Unauthorized, the user is not logged.
+| 403 | (String) | Forbidden, wrong publisher id.
 | 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
 | 503 | (String) | Service unavailable, other service in background thread is running, please wait a moment.
 

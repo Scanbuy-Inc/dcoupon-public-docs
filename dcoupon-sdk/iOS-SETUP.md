@@ -7,12 +7,17 @@ An iOS framework for dcoupon SDK. dcoupon SDK allows our clients to log in their
 
 1. If your existing application doesn’t already have a **Podfile**, follow the [CocoaPods getting started guide](https://guides.cocoapods.org/using/using-cocoapods.html) to add a **Podfile** to your project.
 
-2. Add the following line to your **Podfile**:
+2. Add the following lines to your **Podfile**:
 ```ruby
 target '<YourAppName>' do
 ...
-   pod 'dcouponSDK-debug', :configurations => ['Debug']
-   pod 'dcouponSDK', :configurations => ['Release']
+    ## Works in simulator/real device
+    pod 'dcouponSDK-debug', :configurations => ['Debug']
+
+    ## ---- OR ----
+
+    ## Works ONLY in real device
+    pod 'dcouponSDK', :configurations => ['Release']
 ...
 end
 ```
@@ -27,17 +32,7 @@ end
   "com.dcoupon.sdk.ClientToken": "<YOUR_CLIENT_TOKEN_HERE>",
   "com.dcoupon.sdk.ClientSecretKey": "<YOUR_CLIENT_SECRET_KEY_HERE>",
   "com.dcoupon.sdk.ClientCountry": "<YOUR_CLIENT_COUNTRY_2_LETTER_CODE_HERE>",
-  "com.dcoupon.sdk.ClientDomain": "<YOUR_CLIENT_DOMAIN_HERE>",
-  "com.dcoupon.sdk.ClientPublishers": [
-    {
-      "token":"<YOUR_DEFAULT_CLIENT_PUBLISHER_API_TOKEN_HERE>",
-      "name" : "<YOUR_DEFAULT_CLIENT_PUBLISHER_NAME_HERE>"
-    },
-    {
-      "token":"<YOUR_OTHER_CLIENT_PUBLISHER_API_TOKEN_HERE>",
-      "name" : "<YOUR_OTHER_CLIENT_PUBLISHER_NAME_HERE>"
-    }
-  ]
+  "com.dcoupon.sdk.ClientDomain": "<YOUR_CLIENT_DOMAIN_HERE>"
 }
 ```
 
