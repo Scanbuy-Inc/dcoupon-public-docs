@@ -26,7 +26,7 @@ In future attempts, if any legal doc has changed, they will be prompted to accep
 
 **Flutter**. If you want to set up dcoupon SDK on Flutter, visit [dcoupon Flutter Package](https://pub.dev/packages/dcoupon_sdk_flutter_package).
 
-**Android**. If you want to set up dcoupon SDK on Android, visit [dcoupon Android Library](https://bintray.com/dcouponsdk/maven-dcoupon-sdk/android_library#read).
+**Android**. If you want to set up dcoupon SDK on Android, visit [dcoupon Android Library](https://github.com/Scanbuy-Inc/dcoupon-public-docs/blob/master/dcoupon-sdk/android-SETUP.md).
 
 **iOS**. If you want to set up dcoupon SDK on iOS, visit [dcoupon iOS Framework](https://github.com/Scanbuy-Inc/dcoupon-public-docs/blob/master/dcoupon-sdk/iOS-SETUP.md).
 
