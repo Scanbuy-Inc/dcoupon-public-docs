@@ -140,8 +140,7 @@ A brief examination of the JWT token will determine if the token is already expi
 
 ## dcoupon's Terms and Conditions acceptance and IFRAME message passing
 
-Add in your project a javascript event listener at your DOM Window
-When the "SIGNIN" event is sent, it will get your sessiontoken
+Add in your project a javascript event listener at your DOM Window, when the "SIGNIN" event is sent, it will get your sessionToken.
 
 ## Sample application
 
