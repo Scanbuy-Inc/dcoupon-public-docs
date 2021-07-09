@@ -2,7 +2,7 @@
 
 # dcoupon Third Party Login API
 
-Version 1.0 (January 2020)
+Version 2.0 (July 2021)
 
 
 ## Introduction
@@ -14,38 +14,6 @@ When calling the 3rd Party Login API on behalf of a user for the first time, suc
 After successfully calling the 3rd Party Login API, clients will receive a JSON Web Token, which is valid for accessing the dcoupon Platform.
 
 All requests to the dcoupon Platform must be signed with a secret, which is provided by dcoupon.
-
-
-## API description
-
-The API consists of a single URL that handles registration and login. This endpoint must be called every time a valid access token to the dcoupon Platform should be obtained.
-The endpoint is in the form:
-
-+ POST https://testapi.dcoupon.com/thirdparty/login/v1
-
-And should be provided with the following json:
-```json
-{
-    "email": "_users email_",
-    "externalId": "_user id in clients platform_",
-    "alias": "_users alias_",
-    "birthdate": "_users birthdate_",
-    "gender": "_users gender_"
-}
-```
-
-as a POST body.
-
-
-Additionally, the following headers must be provided:
-
-+ dcoupon-authorization-apikey: client's API key
-+ dcoupon-authorization-method: should always be 'SIGNATURE'
-+ dcoupon-authorization-signature: request' signature, see below
-+ dcoupon-authorization-timestamp: timestamp at the time of making the request, in the format "yyyy-MM-dd'T'HH:mm:ssZ"
-
-*It is recommended always issuing a call to the aforementioned login method prior to using any dcoupon Platform API service.*
-
 
 ## API response when users are not registered
 
@@ -62,6 +30,96 @@ When a user is already registered in the dcoupon Platform, the API will return a
 A valid JSON Web Token is available inside the field 'sessionToken'. This token should be used in all subsequent calls to the dcoupon Platform.
 
 ![Flow diagram](https://s3.amazonaws.com/dcoupon.com/sdk/docs/third_party_api/third_party_api_ok_flow.jpg)
+
+## API description
+
+The API consists of a single URL that handles registration and login. This endpoint must be called every time a valid access token to the dcoupon Platform should be obtained.
+The endpoint is in the form:
+
++ POST https://services-dev.dcoupon.com/thirdparty/login/v2
+
+###### Request
+
+```json
+{
+  "headers": {
+    "dcoupon-authorization-apikey": "(mandatory) String",
+    "dcoupon-authorization-method": "(mandatory) String",
+    "dcoupon-authorization-timestamp": "(mandatory) String",
+    "dcoupon-authorization-signature": "(mandatory) String"
+  },
+  "body": {
+    "externalId": "(mandatory) String",
+    "clientCountry": "(mandatory) String",
+    "email": "(optional) String",
+    "referralCode": "(optional) String"
+  }
+}
+```
+
+example:
+
+```json
+{
+  "headers": {
+    "dcoupon-authorization-apikey": "YOUR_API_KEY",
+    "dcoupon-authorization-method": "SIGNATURE",
+    "dcoupon-authorization-timestamp": "yyyy-MM-dd'T'HH:mm:ssZ",
+    "dcoupon-authorization-signature": "HmacSHA256(YOUR_API_KEY:timestamp, YOUR_SECRET_KEY)"
+  },
+  "body": {
+    "externalId": "external-id-example-01",
+    "clientCountry": "ES",
+    "email": "example@email.com",
+    "referralCode": "DC-AA18976"
+  }
+}
+```
+
+###### Responses
+
+| Response     | StatusCode | Description                                    |
+| ------------ | :--------: | ---------------------------------------------- |
+| SignIn       |    200     | "OK"                                           |
+| Redirect     |    301     | "There are mandatory documents to be accepted" |
+| Unauthorized |    401     | "Unauthorized"                                 |
+| Bad request  |    404     | "Missing parameters"                           |
+| Error        |    500     | "Internal Server Error"                        |
+
+examples:
+
+**Status code 301**
+
+```json
+{
+  "statusCode": 301,
+  "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "Location": "http://localhost:3000/enrollmentform/v2?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI3Mzg0NWU2OC01ZDJjLTQyZGUtYTE4YS00MmM3ODhhOGRhY2QiLCJpc3MiOiJkY291cG9uLmNvbSIsImlhdCI6MTYyNTU2NDY0MiwiZXhwIjoxNjU3MTAwNjQyLCJzdWIiOjE0NTMsImNsaWVudEFwaUtleSI6IngzdnlyOGljbjA4MW1scnJyMHJuIiwiZXh0ZXJuYWxJZCI6IjEyMyIsImNvdW50cnkiOiJFUyIsImx0IjpbIjBiODUwZTYzZDQ2N2Y5YjIyMDU0MGUzN2Q1MmFlNjEiLCIyYzcwNmMzYzRjMTNiNzlmMzFiNGI3YWVmN2YxYmIzIl0sImVtYWlsIjoiOGNFUklzUFJiclh5SWhHT1d2cGtxaXFQTmM3SzQybE9xU1ZidVdRNWc2NHBkaytkUGpqSzVYc09FMFF2aks1cSJ9.AuMu5MkR5JN7lNfDKz7pUaRPMdCYmfaAwyo5I_vVqyg"
+  },
+  "body": {
+    "message": "There are mandatory documents to be accepted"
+  }
+}
+```
+
+**Status code 200**
+
+```json
+{
+  "statusCode": 200,
+  "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "client-type": "CLIENT-TYPE"
+  },
+  "body": {
+    "message": "OK",
+    "sessionToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI1Yjk0MjVkMC01YWZjLTQ2YmMtYmI5Ni0zYjIwMzAwNTNiOWEiLCJpc3MiOiJkY291cG9uLmNvbSIsImlhdCI6MTYyNTU2NDY0MiwiZXhwIjoxNjU3MTAwNjQyLCJzdWIiOjcyNywiY2xpZW50QXBpS2V5IjoieDN2eXI4aWNuMDgxbWxycnIwcm4iLCJleHRlcm5hbElkIjoiZmx1dHRlci1leGFtcGxlLWV4dGVybmFsSWQiLCJsdCI6WyI2MGI4NTBlNjNkNDY3ZjliMjIwNTQwZTM3ZDUyYWU2MSIsImEyYzcwNmMzYzRjMTNiNzlmMzFiNGI3YWVmN2YxYmIzIl0sImVtYWlsIjoiUUlxVFF3V1gyUXk4blczNlhRSTNzclpvTkdiRERTUDBmcVNyUVM5RTFQckR1TC9PYmM2dHpzM2lqWVZIdWZiYiJ9.woQMXwByx32YQyWIOu-avx84n_FHSoLFPA4OIXx1sc8"
+  }
+}
+```
+
+*It is recommended always issuing a call to the aforementioned login method prior to using any dcoupon Platform API service.*
 
 
 ## Signing requests
@@ -82,19 +140,9 @@ A brief examination of the JWT token will determine if the token is already expi
 
 ## dcoupon's Terms and Conditions acceptance and IFRAME message passing
 
-A sample application is provided, in order to show how to embed the IFRAME message passing code snippet. It consists of two parts:
 
-+ dcouponwidget.js: Javascript code providing the message handling mechanism for IFRAME communication
-+ index.html: a sample HTML with a Javascript code snippet for activating the message passing mechanism.
-
-Third parties should use _both_ parts in order to properly integrate the dcoupon Third Party Login API. 
 
 
 ## Sample application
 
-The sample application is a Spring Boot application with Thymeleaf.
-
-The embeddable contents are:
-+ src/main/resources/static/dcouponwidget.js
-+ src/main/resources/templates/index.html
 
