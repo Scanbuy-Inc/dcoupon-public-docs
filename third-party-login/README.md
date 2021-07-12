@@ -138,23 +138,48 @@ The string should be signed using the client's API secret provided by dcoupon.
 A brief examination of the JWT token will determine if the token is already expired or not. Check the 'exp' field inside the payload section of the JWT for expiration. If the JSON Web Token is expired, a new one can be obtained by calling the login endpoint (see above, _API description_).
 
 
-## dcoupon's Terms and Conditions acceptance and IFRAME message communication
+## dcoupon's Terms and Conditions acceptance
 
-You need to add the following code at your DOM Window to handle when the "SIGNIN" event is sent. The event data will contains your sessionToken.
+If you receive a 301 HTTP status code, the login flow will continue in a web page that must be shown inside an iframe or webview, where we handle dcoupon's T&C acceptance. This section explains how to implement this.
+
+### Events
+
+Our web page will post events when the user is in the T&C step. These events are "SIGN_IN_SUCCESS" and "SIGN_IN_CANCELLED". If the eventType is "SIGN_IN_SUCCESS", it will contain the sessionToken.
+
+```json
+{
+  "eventType": "SIGN_IN_SUCCESS",
+  "sessionToken": "xxxxxxx"
+}
+
+or
+
+{
+  "eventType": "SIGN_IN_CANCELLED"
+}
+```
+
+### iFrame implementation
+
+You need to add the following code at your DOM Window to handle the events.
 
 ```javascript
 window.addEventListener('message', event => {
-  event.origin // https://services-dev.dcoupon.com
-  event.eventType // "SIGNIN"
-  event.data // your session token
+  var data = event.data 
+  if(data.eventType == 'SIGN_IN_CANCELLED'){
+    //Cancel your login request
+  }
+  if(data.eventType == 'SIGN_IN_SUCCESS'){
+    var sessionToken = data.sessionToken // the user session token
+  }
 })
 ```
 
-## dcoupon's Terms and Conditions acceptance and WEBVIEW message communication
+### Webview implementation
 
-You need to add the following code (choose your platform) to handle when the "SIGNIN" event is sent. The event data will contains your sessionToken.
+You need to add the following code (choose your platform) to handle the events.
 
-1. iOS: You need to use WKScriptMessageHandler protocol.
+1. IOS. You need to use WKScriptMessageHandler protocol.
 
 ```swift
 var mDcouponPostMessage : String = "DcouponPostMessage"
@@ -163,16 +188,30 @@ mWebKitView.configuration.userContentController.add(self, name: mDcouponPostMess
 func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
   if message.name == mDcouponPostMessage {
     message.body as? String // Received message from webview in native, process data/sessionToken
+    var data = jsonDecode(message.body)
+    if(data.eventType == 'SIGN_IN_CANCELLED'){
+      //Cancel your login request
+    }
+    if(data.eventType == 'SIGN_IN_SUCCESS'){
+      var sessionToken = data.sessionToken // the user session token
+    }
   }
 }
 ```
 
-2. Android. Add a Javascript Interface.
+2. ANDROID. Add a Javascript Interface.
 ```java
 class DcouponPostMessage(){
     @JavascriptInterface
     public boolean postMessage(String message) {
-        // Received message from webview in native, process data/sessionToken
+      // Received message from webview in native, process data/sessionToken
+      var data = jsonDecode(message)
+      if(data.eventType == 'SIGN_IN_CANCELLED'){
+        //Cancel your login request
+      }
+      if(data.eventType == 'SIGN_IN_SUCCESS'){
+        var sessionToken = data.sessionToken // the user session token
+      }
     }
 }
 
@@ -180,13 +219,20 @@ mWebViewComponent.settings.javaScriptEnabled = true
 mWebViewComponent.addJavascriptInterface(DcouponPostMessage(),"DcouponPostMessage")
 ```
 
-3. Flutter. Using webview_flutter plugin and JavascriptChannels.
+3. FLUTTER. Using webview_flutter plugin and JavascriptChannels.
 ```dart
 JavascriptChannel _dcouponPostMessage(BuildContext context) {
   return JavascriptChannel(
     name: 'DcouponPostMessage',
     onMessageReceived: (JavascriptMessage message) {
       // Received message from webview in native, process data/sessionToken
+      var data = jsonDecode(message.message)
+      if(data.eventType == 'SIGN_IN_CANCELLED'){
+        //Cancel your login request
+      }
+      if(data.eventType == 'SIGN_IN_SUCCESS'){
+        var sessionToken = data.sessionToken // the user session token
+      }
     },
   );
 }
@@ -198,13 +244,19 @@ WebView(
 ;
 ```
 
-4. Ionic. Using inappbrowser plugin.
+4. IONIC. Using inappbrowser plugin.
 
 ```javascript
 this.inAppBrowserRef.on('message').subscribe((event) => {
   const postObject:any = event
-  if(postObject.data.message){
-      // Received message from webview in native, process data/sessionToken
+  if(postObject.data){
+    var data = jsonDecode(postObject.data)
+    if(data.eventType == 'SIGN_IN_CANCELLED'){
+      //Cancel your login request
+    }
+    if(data.eventType == 'SIGN_IN_SUCCESS'){
+      var sessionToken = data.sessionToken // the user session token
+    }
   }
 })
 ```
