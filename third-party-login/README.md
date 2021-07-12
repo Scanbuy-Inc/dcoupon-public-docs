@@ -138,17 +138,75 @@ The string should be signed using the client's API secret provided by dcoupon.
 A brief examination of the JWT token will determine if the token is already expired or not. Check the 'exp' field inside the payload section of the JWT for expiration. If the JSON Web Token is expired, a new one can be obtained by calling the login endpoint (see above, _API description_).
 
 
-## dcoupon's Terms and Conditions acceptance and IFRAME message passing
+## dcoupon's Terms and Conditions acceptance and IFRAME message communication
 
-Add in your project a javascript event listener at your DOM Window, when the "SIGNIN" event is sent, it will get your sessionToken.
-
-## Sample application
+You need to add the following code at your DOM Window to handle when the "SIGNIN" event is sent. The event data will contains your sessionToken.
 
 ```javascript
 window.addEventListener('message', event => {
   event.origin // https://services-dev.dcoupon.com
   event.eventType // "SIGNIN"
-  event.sessionToken // your session token
+  event.data // your session token
 })
 ```
+
+## dcoupon's Terms and Conditions acceptance and WEBVIEW message communication
+
+You need to add the following code (choose your platform) to handle when the "SIGNIN" event is sent. The event data will contains your sessionToken.
+
+1. iOS: You need to use WKScriptMessageHandler protocol.
+
+```swift
+var mDcouponPostMessage : String = "DcouponPostMessage"
+mWebKitView.configuration.userContentController.add(self, name: mDcouponPostMessage)
+
+func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+  if message.name == mDcouponPostMessage {
+    message.body as? String // Received message from webview in native, process data/sessionToken
+  }
+}
+```
+
+2. Android. Add a Javascript Interface.
+```java
+class DcouponPostMessage(){
+    @JavascriptInterface
+    public boolean postMessage(String message) {
+        // Received message from webview in native, process data/sessionToken
+    }
+}
+
+mWebViewComponent.settings.javaScriptEnabled = true
+mWebViewComponent.addJavascriptInterface(DcouponPostMessage(),"DcouponPostMessage")
+```
+
+3. Flutter. Using webview_flutter plugin and JavascriptChannels.
+```dart
+JavascriptChannel _dcouponPostMessage(BuildContext context) {
+  return JavascriptChannel(
+    name: 'DcouponPostMessage',
+    onMessageReceived: (JavascriptMessage message) {
+      // Received message from webview in native, process data/sessionToken
+    },
+  );
+}
+ 
+WebView(
+    javascriptChannels: <JavascriptChannel>[
+        _dcouponPostMessage(context),
+    ].toSet(),
+;
+```
+
+4. Ionic. Using inappbrowser plugin.
+
+```javascript
+this.inAppBrowserRef.on('message').subscribe((event) => {
+  const postObject:any = event
+  if(postObject.data.message){
+      // Received message from webview in native, process data/sessionToken
+  }
+})
+```
+
 
