@@ -144,18 +144,18 @@ If you receive a 301 HTTP status code, the login flow will continue in a web pag
 
 ### Events
 
-Our web page will post events when the user is in the T&C step. These events are "SIGN_IN_SUCCESS" and "SIGN_IN_CANCELLED". If the eventType is "SIGN_IN_SUCCESS", it will contain the sessionToken.
+Our web page will post events when the user is in the T&C step. These events are "DCOUPON_SIGN_IN_SUCCESS" and "DCOUPON_SIGN_IN_CLOSED". If the eventType is "DCOUPON_SIGN_IN_SUCCESS", it will contain the sessionToken.
 
 ```json
 {
-  "eventType": "SIGN_IN_SUCCESS",
+  "eventType": "DCOUPON_SIGN_IN_SUCCESS",
   "sessionToken": "xxxxxxx"
 }
 
 or
 
 {
-  "eventType": "SIGN_IN_CANCELLED"
+  "eventType": "DCOUPON_SIGN_IN_CLOSED"
 }
 ```
 
@@ -166,10 +166,10 @@ You need to add the following code at your DOM Window to handle the events.
 ```javascript
 window.addEventListener('message', event => {
   var data = event.data 
-  if(data.eventType == 'SIGN_IN_CANCELLED'){
+  if(data.eventType == 'DCOUPON_SIGN_IN_CLOSED'){
     //Cancel your login request
   }
-  if(data.eventType == 'SIGN_IN_SUCCESS'){
+  if(data.eventType == 'DCOUPON_SIGN_IN_SUCCESS'){
     var sessionToken = data.sessionToken // the user session token
   }
 })
@@ -189,10 +189,10 @@ func userContentController(_ userContentController: WKUserContentController, did
   if message.name == mDcouponPostMessage {
     message.body as? String // Received message from webview in native, process data/sessionToken
     var data = jsonDecode(message.body)
-    if(data.eventType == 'SIGN_IN_CANCELLED'){
+    if(data.eventType == 'DCOUPON_SIGN_IN_CLOSED'){
       //Cancel your login request
     }
-    if(data.eventType == 'SIGN_IN_SUCCESS'){
+    if(data.eventType == 'DCOUPON_SIGN_IN_SUCCESS'){
       var sessionToken = data.sessionToken // the user session token
     }
   }
@@ -206,10 +206,10 @@ class DcouponPostMessage(){
     public boolean postMessage(String message) {
       // Received message from webview in native, process data/sessionToken
       var data = jsonDecode(message)
-      if(data.eventType == 'SIGN_IN_CANCELLED'){
+      if(data.eventType == 'DCOUPON_SIGN_IN_CLOSED'){
         //Cancel your login request
       }
-      if(data.eventType == 'SIGN_IN_SUCCESS'){
+      if(data.eventType == 'DCOUPON_SIGN_IN_SUCCESS'){
         var sessionToken = data.sessionToken // the user session token
       }
     }
@@ -227,10 +227,10 @@ JavascriptChannel _dcouponPostMessage(BuildContext context) {
     onMessageReceived: (JavascriptMessage message) {
       // Received message from webview in native, process data/sessionToken
       var data = jsonDecode(message.message)
-      if(data.eventType == 'SIGN_IN_CANCELLED'){
+      if(data.eventType == 'DCOUPON_SIGN_IN_CLOSED'){
         //Cancel your login request
       }
-      if(data.eventType == 'SIGN_IN_SUCCESS'){
+      if(data.eventType == 'DCOUPON_SIGN_IN_SUCCESS'){
         var sessionToken = data.sessionToken // the user session token
       }
     },
@@ -251,10 +251,10 @@ this.inAppBrowserRef.on('message').subscribe((event) => {
   const postObject:any = event
   if(postObject.data){
     var data = jsonDecode(postObject.data)
-    if(data.eventType == 'SIGN_IN_CANCELLED'){
+    if(data.eventType == 'DCOUPON_SIGN_IN_CLOSED'){
       //Cancel your login request
     }
-    if(data.eventType == 'SIGN_IN_SUCCESS'){
+    if(data.eventType == 'DCOUPON_SIGN_IN_SUCCESS'){
       var sessionToken = data.sessionToken // the user session token
     }
   }
