@@ -95,7 +95,7 @@ examples:
   "statusCode": 301,
   "headers": {
     "Content-Type": "application/json; charset=utf-8",
-    "Location": "http://localhost:3000/enrollmentform/v2?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI3Mzg0NWU2OC01ZDJjLTQyZGUtYTE4YS00MmM3ODhhOGRhY2QiLCJpc3MiOiJkY291cG9uLmNvbSIsImlhdCI6MTYyNTU2NDY0MiwiZXhwIjoxNjU3MTAwNjQyLCJzdWIiOjE0NTMsImNsaWVudEFwaUtleSI6IngzdnlyOGljbjA4MW1scnJyMHJuIiwiZXh0ZXJuYWxJZCI6IjEyMyIsImNvdW50cnkiOiJFUyIsImx0IjpbIjBiODUwZTYzZDQ2N2Y5YjIyMDU0MGUzN2Q1MmFlNjEiLCIyYzcwNmMzYzRjMTNiNzlmMzFiNGI3YWVmN2YxYmIzIl0sImVtYWlsIjoiOGNFUklzUFJiclh5SWhHT1d2cGtxaXFQTmM3SzQybE9xU1ZidVdRNWc2NHBkaytkUGpqSzVYc09FMFF2aks1cSJ9.AuMu5MkR5JN7lNfDKz7pUaRPMdCYmfaAwyo5I_vVqyg"
+    "Location": "https://services-dev.dcoupon.com/thirdparty/html-enrollmentform/v2?jwt=eyJ0eXAiOiJKV1QiLC[…]Bvbi5jb20ifQ.WWfe_9xpYfLv2YJwWSAAD4Cb-Rwzpf89zW8pmjkH9Ug"
   },
   "body": {
     "message": "There are mandatory documents to be accepted"
