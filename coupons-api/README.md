@@ -40,7 +40,7 @@ In addition once the *coupon identifier* is returned, it is possible to access t
 
 ```json
 {
-	"promoTokens": ["_Array of Tokens that identify the promotions_"], 
+	"promoTokens": ["_Array with the token that identify the promotion_"], 
 	"publisherId": "_Publisher Identifier_",
 	"source": "_Identifies which site sends the request_",
 	"creationLatitude": "_Customer latitude_",
