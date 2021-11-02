@@ -25,7 +25,7 @@ This method generates a coupon from a promotion, identified by its promoToken.
 To be able to create the coupon, the promotion must allow anonymous coupons creation. 
 If everything is correct, the method will return a unique coupon identifier that will be used to access coupon detail, and to generate the temporal token to redeem the coupon.
 
-In addition once the *coupon identifier* is returned, it is possible to access the coupon detail by calling a URL like https://[DOMAIN]/mycoupons/coupon/anonymous/detail/{coupon identifier}=?lang=XX
+In addition once the *coupon identifier* is returned, it is possible to access the coupon detail by calling a URL like https://[DOMAIN]/mycoupons/coupon/anonymous/detail/{coupon identifier}?lang=XX
 
 
 + URL: [ENV]/coupons/{version}/createAnonymousCoupon
