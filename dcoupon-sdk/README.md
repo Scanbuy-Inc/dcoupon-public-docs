@@ -1,10 +1,16 @@
 ![Logo](https://s3.amazonaws.com/dcoupon.com/sdk/docs/dcouponLogo.png)
 
-# dcoupon-sdk - Third Party SDK
+# dcoupon-sdk - Third Party dcoupon SDK
 
-Document Version 1.3 (June 2021)
+Document Date: November 2021
 
-Latest SDK Version: 3.0.0
+Latest SDK Version: 4.0.1
+
+## Changelog
+
+# 4.0.1
+
+- **BREAKING CHANGE**: publisherId param has been renamed to publisherToken
 
 ## Introduction
 
