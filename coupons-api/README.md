@@ -774,10 +774,11 @@ URL to use as [ENV] for this environment is https://services-dev.dcoupon.com/
 
 Change Log
 
-| Version | {version} | Launch Date | Available until |
-|----------------|:----------:|:-------------:|-------------|
-| Version 1.0 | v1 | 17th of April, 2020  | TBD|
-| Version 1.1 | v1 | 28th of May, 2020  | TBD|
+| Version | {version} | Launch Date | Available until | Documentation |
+|----------------|:----------:|:-------------:|:-------------:|:-------------:|
+| Version 1.0 | v1 | 17th of April, 2020  | TBD| [v1](https://github.com/Scanbuy-Inc/dcoupon-public-docs/blob/master/coupons-api/README_v1.md)|
+| Version 1.1 | v1 | 28th of May, 2020  | TBD| [v1](https://github.com/Scanbuy-Inc/dcoupon-public-docs/blob/master/coupons-api/README_v1.md)|
+| Version 3.0 | v3 | 1st of Dic, 2021  | TBD| |
 
 
  
