@@ -28,7 +28,7 @@ If everything is correct, the method will return a unique coupon identifier that
 In addition once the *coupon identifier* is returned, it is possible to access the coupon detail by calling a URL like https://[DOMAIN]/mycoupons/coupon/anonymous/detail/{coupon identifier}=?lang=XX
 
 
-+ URL: [ENV]/coupons/{version}/createAnonymousCoupon
++ URL: [ENV]/coupons/v1/createAnonymousCoupon
 + Type: POST
 + Header:
   + dcoupon-authorization-apikey: client's API key
@@ -97,8 +97,8 @@ Returns a JSON with the detailed information of the coupon, including promotion 
 
 To access stores allowed to redeem this coupon, you can call stores API with the promotion token from the response.
 
-+ URL:[ENV]/coupons/{version}/getAnonymousCouponDetail/{coupon identifier} (returned in createAnonymousCoupon method)
-+ URL:[ENV]/coupons/{version}/anonymous/detail/{coupon identifier} (returned in createAnonymousCoupon method)
++ URL:[ENV]/coupons/v1/getAnonymousCouponDetail/{coupon identifier} (returned in createAnonymousCoupon method)
++ URL:[ENV]/coupons/v1/anonymous/detail/{coupon identifier} (returned in createAnonymousCoupon method)
 + Type: GET
 + Header:
   + dcoupon-authorization-apitoken: client's API key
@@ -191,7 +191,7 @@ Returns the temporal code to use for coupon redemption in stores allowed to rede
 
 This value can be displayed as a text or encoded inside a Code-128 barcode, adding "DC" as a prefix.
 
-+ URL:[ENV]/coupons/{version}/generateTemporalCouponToken/{coupon identifier} (returned in CreateAnonymousCoupon method)
++ URL:[ENV]/coupons/v1/generateTemporalCouponToken/{coupon identifier} (returned in CreateAnonymousCoupon method)
 + Type: GET
 + Header:
   + dcoupon-authorization-apitoken: client's API key
@@ -240,7 +240,7 @@ HttpStatus + body with:
 
 This method generates coupons for different promotions, identified by its promoToken. To be able to create the coupons, the promotion must be valid. If everything is correct, the method will return an array of coupons identifiers that will be used to access each coupon detail.
 
-+ URL: [ENV]/coupons/{version}/createUserCoupon
++ URL: [ENV]/coupons/v1/createUserCoupon
 + Type: POST
 + Header:
   + dcoupon-authorization-apikey: client's API key
@@ -317,7 +317,7 @@ HttpStatus + body with:
 
 This method return all user coupons. Can be filtered by retailers and companies and sorted NEWEST, ENDING or VALUE. The response can be pageable by setting LIMIT and OFFSET.
 
-+ URL: [ENV]/coupons/{version}/list
++ URL: [ENV]/coupons/v1/list
 + Type: GET
 + Header:
   + dcoupon-authorization-apikey: client's API key
@@ -410,8 +410,8 @@ Returns a JSON with the detailed information of the coupon, including promotion 
 
 To access stores allowed to redeem this coupon, you can call stores API with the promotion token from the response.
 
-+ URL:[ENV]/coupons/{version}/detail/{coupon_identifier} (returned in CreateUserCoupon method)
-+ URL:[ENV]/coupons/{version}/user/detail/{coupon_identifier} (returned in CreateUserCoupon method)
++ URL:[ENV]/coupons/v1/detail/{coupon_identifier} (returned in CreateUserCoupon method)
++ URL:[ENV]/coupons/v1/user/detail/{coupon_identifier} (returned in CreateUserCoupon method)
 + Type: GET
 + Header:
   + dcoupon-authorization-apitoken: client's API key
@@ -505,7 +505,7 @@ HttpStatus + body with:
 
 Activate a user coupon if not already active.
 
-+ URL:[ENV]/coupons/{version}/activate/{coupon_identifier} (returned in CreateUserCoupon method)
++ URL:[ENV]/coupons/v1/activate/{coupon_identifier} (returned in CreateUserCoupon method)
 + Type: GET
 + Header:
   + dcoupon-authorization-apitoken: client's API key
@@ -555,7 +555,7 @@ HttpStatus + body with:
 
 Deactivate a user coupon if not already deactive.
 
-+ URL:[ENV]/coupons/{version}/deactivate/{coupon_identifier} (returned in CreateUserCoupon method)
++ URL:[ENV]/coupons/v1/deactivate/{coupon_identifier} (returned in CreateUserCoupon method)
 + Type: GET
 + Header:
   + dcoupon-authorization-apitoken: client's API key
@@ -605,7 +605,7 @@ HttpStatus + body with:
 
 This method return a temporal generated token to redeem all coupons for an user. This token will be valid 180 seconds.
 
-+ URL: [ENV]/coupons/{version}/redemptionToken
++ URL: [ENV]/coupons/v1/redemptionToken
 + Type: GET
 + Header:
   + dcoupon-authorization-apikey: client's API key
@@ -650,7 +650,7 @@ HttpStatus + body with:
 
 Return an array of retailers where user' coupons can be redeemed
 
-+ URL:[ENV]/coupons/{version}/retailers
++ URL:[ENV]/coupons/v1/retailers
 + Type: GET
 + Header:
   + dcoupon-authorization-apitoken: client's API key
@@ -697,7 +697,7 @@ HttpStatus + body with:
 
 Return an array of companies/brands from user' coupons
 
-+ URL:[ENV]/coupons/{version}/companies
++ URL:[ENV]/coupons/v1/companies
 + Type: GET
 + Header:
   + dcoupon-authorization-apitoken: client's API key
@@ -765,8 +765,6 @@ This environment is available to develop and test your integration with dcoupon 
 URL to use as [ENV] for this environment is https://services-dev.dcoupon.com/
 
 ## API method Version
-
-The version of the api method to use must be provided {version} when making a call
 
 Change Log
 
