@@ -3,7 +3,7 @@
 # dcoupon 
 # Coupons API
 
-Version 3.0 (Dic 2021)
+Version 3.0 (Dec 2021)
 
 ## Introduction
 
@@ -778,7 +778,7 @@ Change Log
 |----------------|:----------:|:-------------:|:-------------:|:-------------:|
 | Version 1.0 | v1 | 17th of April, 2020  | TBD| [v1](https://github.com/Scanbuy-Inc/dcoupon-public-docs/blob/master/coupons-api/README_v1.md)|
 | Version 1.1 | v1 | 28th of May, 2020  | TBD| [v1](https://github.com/Scanbuy-Inc/dcoupon-public-docs/blob/master/coupons-api/README_v1.md)|
-| Version 3.0 | v3 | 1st of Dic, 2021  | TBD| |
+| Version 3.0 | v3 | 1st of Dec, 2021  | TBD| |
 
 
  
