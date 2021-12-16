@@ -2,15 +2,15 @@
 
 # dcoupon-sdk - Third Party dcoupon SDK
 
-Document Date: November 2021
+Document Date: December 2021
 
-Latest SDK Version: 4.0.1
+Latest SDK Version: 4.1.0
 
 ## Changelog
 
-# 4.0.1
+# 4.1.0
 
-- **BREAKING CHANGE**: publisherId param has been renamed to publisherToken
+- CHANGE: createCoupons parameters (utmSource & saveMethod)
 
 ## Introduction
 

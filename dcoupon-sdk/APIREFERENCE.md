@@ -272,7 +272,8 @@ fun createCoupons(
     promotionTokens: ArrayList<String>,
     latitude: String?,
     longitude: String?,
-    source: String?,
+    saveMethod: String?,
+    utmSource: String?,
     transId: String?,
     crmId: String?,
     publisherToken: String?,
@@ -286,7 +287,8 @@ fun createCoupons(
 | `promotionTokens` | any | ArrayList<*String*> | ***true*** | Promotions tokens that identifies the promotions.
 | `latitude` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninQ.gif) | String | *false* | User latitude coordinate.
 | `longitude` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninQ.gif) | String | *false* | User longitude coordinate.
-| `source` | varchar(100) | String | *false* | Source from the request.
+| `saveMethod` | varchar(100) | String | *false* | Save method (app business logic to save these coupons).
+| `utmSource` | varchar(100) | String | *false* | UtmSource to identify the coupon.
 | `transId` | varchar(50) | String | *false* | Transaction identifier if the promotion requires it.
 | `crmId` | varchar(50) | String | *false* | The customer relationship management identifier.
 | `publisherToken` | varchar | String | *false* | The client publisher token.
