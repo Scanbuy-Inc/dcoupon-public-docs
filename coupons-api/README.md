@@ -746,6 +746,210 @@ HttpStatus + body with:
 | USER_NOT_ACTIVE | 403 | 147 |  "User not active" |
 | INTERNAL_ERROR | 500 | 500 | "Internal Error" |
 
+### clip2card create coupons (clip2cardCreateCoupons)
+
+This method generates coupons associated to a loyalty card.
+Coupons from different promotions can be generated in the same call, identified each promotion  by its promoToken. To be able to create the coupons, the promotion must be valid. If everything is correct, the method will return an array of coupons identifiers.
+
++ URL: [ENV]/coupons/{version}/clip2card
++ Type: POST
++ Header:
+  + dcoupon-authorization-apikey: client's API key
+  + dcoupon-authorization-method: should always be 'SIGNATURE'
+  + dcoupon-authorization-signature: request' signature, see below
+  + dcoupon-authorization-timestamp: timestamp at the time of making the request, in the format "yyyy-MM-dd'T'HH:mm:ssZ"
+  
++ Body:
+
+```json
+{
+   "promoTokens": ["_Array of Tokens that identifiers the promotions_(Required)"], 
+   "publisherId": "_Publisher Identifier_(Required)",
+   "source": "_Identifies which site sends the request_(Optional)",
+   "creationLatitude": "_Customer latitude_(Optional)",
+   "creationLongitude": "_Customer longitude(Optional)",
+   "crmId": "_Customer identifier_(Optional)",
+   "transId": "_Transaction ID_(Optional)",
+   "userCard": "_Encrypted user's card using client's secret key_(Required)",
+   "loyaltyProgram": "_Loyalty program api key_(Required)",
+   "legatTermsAccepted": "true|false (Required)",
+   "legalDocs": ["_Array of legad docs accepted for an user_(Optional)(Required if legatTermsAccepted is true)"],
+   "legalCountry": "ES|US|MX (Required)"
+   "platform": "Identifier of the platform: WEB | APP| API(default) (Optional - String)",
+   "domain": "Identifier of the client, only the domain variable is taken into account if platform is web, platform=WEB: domain , platform=APP or API: CLIENT_TOKEN (Optional - String)",
+   "saveMethod":"Text (Optional - String)"
+}
+```
+  + Encrypting user's card number:
+
+userCard must be encrypted using UTF-8 encoding and the HmacSHA256 algorithm.
+The string to sign should be the user card number
+The string must be signed using the client's secret provided by dcoupon. 
+The encrypted text must be URL encoded when added in the request
+
++ OK Response:
+
+```json array of CouponDetailResponse
+[{"apiToken":"_Promotion token_",
+	"idCoupon":"_New created coupond id_",
+	"coupon":"_Hash unique coupon identifier_",
+	"response":{
+		"code":"_dcoupon response code_",
+ 		"description":"_dcoupon response description_"
+	}
+}]
+```
+
+If a request can't be resolved, an error JSON response will be returned with the following structure:
+
++ Error Response:
+HttpStatus + body with:
+
+```json ResponseType
+{
+	"code":"_dcoupon response code_",
+ 	"description":"_dcoupon response description_"
+}
+```
+
++ Response Types for this method:
+
+| Response	 | HttpStatus | Internal Code | Description |
+|----------------|:----------:|:-------------:|-------------|
+| SESSION_TOKEN_NOT_VALID | 406 | 142 |  "Session Token Not Valid" |
+| USER_NOT_FOUND | 404 | 105 |  "User not found" |
+| USER_NOT_ACTIVE | 403 | 147 |  "User not active" |
+| COUPONID_NOT_FOUND | 404 | 111 |  "Coupon id not found" |
+| MAX_COUPON_EXCEEDED | 202 | 119 |  "User exceeded the max coupon available per user" |
+| PROMOTION_NOT_INITIATED | 202 | 126 |  "Promotion not initiated" |
+| PROMOTION_EXPIRED | 202 | 127 |  "Promotion expired" |
+| MAX_COUPONS_PER_OFFER_EXCEEDED | 202 | 131 | "Max Coupons per Offer exceeded" |
+| TRANSID_NOT_VALID | 406 | 132 | "TransId not valid" |
+| PUBLISHER_NOT_VALID | 406 | 133 | "Publisher not valid" |
+| PUBLISHER_EXCEED_MAX_NUMBER_OF_COUPONS | 202 | 135 | "Publisher exceed max number of coupons for this campaign" |
+| CORDS_NOT_VALIDS | 406 | 136 | "Latitude or Longitude not valid" |
+| PROMOTION_STATE_NOT_VALID | 202 | 137 | "Promotion's state does not allow this operation" |
+| PARAMATER_NOT_FOUND | 404 | 149 | "Required parameter not found" |
+| PARAMETER_NOT_CORRECT | 406 | 150 | "Parameter is not correct" |
+| PROMOTION_NOT_FOUND | 404 | 152 |  "Promotion not found" |
+| PARAMETER_TRANSID_NOT_FOUND | 404 | 153 | "Parameter transid not found" |
+| INTERNAL_ERROR | 500 | 500 | "Internal Error" |
+| LEGAL_TERMS_NOT_ACCEPTED | 202 | 156 | "Legal terms not accepted" |
+| CARD_NUMBER_NOT_VERIFIED | 202 | 157 | "The user's card is not verified" |
+| AFFILIATE_CLIP2CARD_NOT_ALLOWED | 202 | 158 | "Clip2Card is not allowed for this loyalty affiliate" |
+
+### clip2card list (clip2cardGetCoupons)
+
+This method return all user coupons associated to a loyalty card. Can be filtered by retailers and companies and sorted NEWEST, ENDING or VALUE. The response can be pageable by setting LIMIT and OFFSET.
+
++ URL: [ENV]/coupons/{version}/clip2card/list
++ Type: GET
++ Header:
+  + dcoupon-authorization-apikey: client's API key
+  + dcoupon-authorization-method: should always be 'SIGNATURE'
+  + dcoupon-authorization-signature: request' signature, see below
+  + dcoupon-authorization-timestamp: timestamp at the time of making the request, in the format "yyyy-MM-dd'T'HH:mm:ssZ"
++ Parameters: 
+  + retailerTokens: "_Array of retailers_" (Optional)
+  + companyTokens: "_Array of companies_" (Optional)
+  + sortBy: "NEWEST|ENDING|VALUE" (Optional)
+  + limit: "_Number of rows fetched_" (Optional) (Default: 100)
+  + offset: "_Number of rows to skip before starting to return rows_" (Optional) (Default: 0)  
+  + loyaltyProgram: "_Api token loyalty program_" (Required)
+  + userCard: "_Encrypted user's card using client's secret key_" (Required)
+  
+ + OK Response:
+
+```json object of UserCouponsResponse
+{
+	"coupons":[{
+		"couponId": "_Coupon id_",
+		"mcToken": "_Promotion token_",
+		"lowImage": "_Path to low image_",
+		"highImage": "_Path to high image_",
+		"highImage2": "_Path to second high image_",
+		"name": "_Coupon name_",
+		"description": "_Coupon description_",
+		"offerRedemptionStartDate": "_Coupon redemption start date_",
+		"offerRedemptionEndDate": "_Coupon redemption end date_",
+		"status": "_Active/Inactive_",
+		"sgcn": "_sgcn_",
+		"canBeRedeemed": "_Flag indicating if the coupon can be redeem_",
+		"termsAndConditions": "_Terms and conditions_",
+		"rewardedItems":[
+			{
+				"idREWARDED_ITEMS": "__Internal item id_",
+				"itemId": "_EAN/UPC of the item_",
+				"rewardedItemQuantity": "_quantity_"
+			}
+		],
+		"promotionType": "_type of promotion_",
+		"totalStampsBurnt": "_stamps burnt_",
+		"maxStamps": "_max number of stamps_",
+		"retailerNameImg":[
+			{
+				"retailerName": "_Retailer name_",
+				"retailerLogo": "_Retailer logo_",
+				"retailerToken": "_Retailer token_"
+			}
+		],
+		"stampsBurnt":[
+			{	
+				"redemption": 
+				{
+					"redDate": "_Redemption date_",
+					"stamps": "_Stamps burnt_"
+				}
+			}
+		]
+		,
+		"promoDiscount":{
+			"type": "_Discount type_",
+			"amount": "_Discount amount_",
+			"textToDisplay": "",
+			"maxAmount": "_Discount amount_",
+			"currency": "EUR|USD|MXN"
+		}
+	}],
+	"discountTotal":{
+	  "amount": "_Total discount amount of coupons in user wallet_",
+	  "currency":"EUR|USD|MXN"
+    },
+	"totalCount": "_Total number of coupons in user wallet_"
+}
+```
+  + Encrypting user's card number:
+
+userCard must be encrypted using UTF-8 encoding and the HmacSHA256 algorithm.
+The string to sign should be the user card number
+The string must be signed using the client's secret provided by dcoupon. 
+The encrypted text must be URL encoded when added in the request
+
+If a request can't be resolved, an error JSON response will be returned with the following structure:
+
++ Error Response:
+HttpStatus + body with:
+
+```json ResponseType
+{
+ "code":"_dcoupon response code_",
+ "description":"_dcoupon response description_"
+}
+```
+
++ Response Types for this method:
+
+| Response	 | HttpStatus | Internal Code | Description |
+|----------------|:----------:|:-------------:|-------------|
+| SESSION_TOKEN_NOT_VALID | 406 | 142 |  "Session Token Not Valid" |
+| USER_NOT_FOUND | 404 | 105 |  "User not found" |
+| USER_NOT_ACTIVE | 403 | 147 |  "User not active" |
+| INTERNAL_ERROR | 500 | 500 | "Internal Error" |
+| AFFILIATE_API_TOKEN_NOT_FOUND | 404 | 129 | Loyalty affiliate api token not found |
+| AFFILIATE_CLIP2CARD_NOT_ALLOWED | 202 | 158 | Clip2Card is not allowed for this loyalty affiliate |
+  
+ 
+
 ## Signing requests
 
 All request must be signed using UTF-8 encoding and the HmacSHA256 algorithm. 
