@@ -948,8 +948,99 @@ HttpStatus + body with:
 | AFFILIATE_API_TOKEN_NOT_FOUND | 404 | 129 | Loyalty affiliate api token not found |
 | AFFILIATE_CLIP2CARD_NOT_ALLOWED | 202 | 158 | Clip2Card is not allowed for this loyalty affiliate |
   
- 
+### clip2card users coupon (clip2cardCreateUsersCoupon)
 
+This method generates one coupon/promotion to many users by his loyalty card.
+One coupon can be generated in the same call to different users using his loyalty card number, identified promotion by its promoToken. To be able to create the coupon to the users, the promotion must be valid. If everything is correct, the method will call a url with an ok response.
+
++ URL: [ENV]/coupons/{version}/clip2card
++ Type: POST
++ Header:
+  + dcoupon-authorization-apikey: client's API key
+  + dcoupon-authorization-method: should always be 'SIGNATURE'
+  + dcoupon-authorization-signature: request' signature, see below
+  + dcoupon-authorization-timestamp: timestamp at the time of making the request, in the format "yyyy-MM-dd'T'HH:mm:ssZ"
+  
++ Body:
+
+```json
+{
+   "promoToken": "_Token that identifiers the promotion_(Required)"], 
+   "publisherId": "_Publisher Identifier_(Required)",
+   "source": "_Identifies which site sends the request_(Optional)",
+   "userCards": "__List of user's card separated by semicolon ';' should be encrypted using client's secret key_(Required) MAX: 1000 users' cards per call_(Required)",
+   "loyaltyProgram": "_Loyalty program api key_(Required)",
+   "legalTermsAccepted": "true|false (Required)",
+   "legalDocs": ["_Array of legad docs accepted for an user_(Optional)(Required if legalTermsAccepted is true)"],
+   "legalCountry": "ES|US|MX (Required)"
+   "platform": "Identifier of the platform: WEB | APP| API(default) (Optional - String)",
+   "domain": "Identifier of the client, only the domain variable is taken into account if platform is web, platform=WEB: domain , platform=APP or API: CLIENT_TOKEN (Optional - String)",
+   "saveMethod":"Text (Optional - String)"
+}
+```
+  + Encrypting user's card number:
+
+userCard must be encrypted using UTF-8 encoding and the HmacSHA256 algorithm.
+The string to sign should be the user card number
+The string must be signed using the client's secret provided by dcoupon. 
+The encrypted text must be URL encoded when added in the request
+
++ OK Response:
+
+```json array of CouponDetailResponse
+{
+	"code":"_dcoupon response code_",
+ 	"description":"_dcoupon response description_"
+}
+```
+
+When finished to perform tasks for this method it will call back an url sent in the first request with a response json with the next structuree:
+
++ POST:
+
+```json 
+{
+ "promoToken": "_Token that identifiers the promotion_",
+ "publisherId": "_Publisher Identifier_",
+ "loyaltyProgram": "_Loyalty program api key_",
+ "usersCards":[
+  {"card":"_Card number_", "result":"_Result operation_"},
+ ]
+}
+```
+
+
+If a request can't be resolved, an error JSON response will be returned with the following structure:
+
++ Error Response:
+HttpStatus + body with:
+
+```json ResponseType
+{
+	"code":"_dcoupon response code_",
+ 	"description":"_dcoupon response description_"
+}
+```
+
++ Response Types for this method:
+
+| Response	 | HttpStatus | Internal Code | Description |
+|----------------|:----------:|:-------------:|-------------|
+| COUPONID_NOT_FOUND | 404 | 111 |  "Coupon id not found" |
+| MAX_COUPON_EXCEEDED | 202 | 119 |  "User exceeded the max coupon available per user" |
+| PROMOTION_NOT_INITIATED | 202 | 126 |  "Promotion not initiated" |
+| PROMOTION_EXPIRED | 202 | 127 |  "Promotion expired" |
+| MAX_COUPONS_PER_OFFER_EXCEEDED | 202 | 131 | "Max Coupons per Offer exceeded" |
+| PUBLISHER_NOT_VALID | 406 | 133 | "Publisher not valid" |
+| PUBLISHER_EXCEED_MAX_NUMBER_OF_COUPONS | 202 | 135 | "Publisher exceed max number of coupons for this campaign" |
+| PROMOTION_STATE_NOT_VALID | 202 | 137 | "Promotion's state does not allow this operation" |
+| PARAMATER_NOT_FOUND | 404 | 149 | "Required parameter not found" |
+| PARAMETER_NOT_CORRECT | 406 | 150 | "Parameter is not correct" |
+| PROMOTION_NOT_FOUND | 404 | 152 |  "Promotion not found" |
+| PARAMETER_TRANSID_NOT_FOUND | 404 | 153 | "Parameter transid not found" |
+| LEGAL_TERMS_NOT_ACCEPTED | 202 | 156 | "Legal terms not accepted" |
+| INTERNAL_ERROR | 500 | 500 | "Internal Error" |
+ 
 ## Signing requests
 
 All request must be signed using UTF-8 encoding and the HmacSHA256 algorithm. 
