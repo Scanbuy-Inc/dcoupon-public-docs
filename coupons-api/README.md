@@ -751,7 +751,7 @@ HttpStatus + body with:
 This method generates coupons associated to a loyalty card.
 Coupons from different promotions can be generated in the same call, identified each promotion  by its promoToken. To be able to create the coupons, the promotion must be valid. If everything is correct, the method will return an array of coupons identifiers.
 
-+ URL: [ENV]/coupons/{version}/clip2card
++ URL: [ENV]/coupons/{version}/clip2cardusers
 + Type: POST
 + Header:
   + dcoupon-authorization-apikey: client's API key
@@ -772,9 +772,9 @@ Coupons from different promotions can be generated in the same call, identified 
    "transId": "_Transaction ID_(Optional)",
    "userCard": "_Encrypted user's card using client's secret key_(Required)",
    "loyaltyProgram": "_Loyalty program api key_(Required)",
-   "legatTermsAccepted": "true|false (Required)",
-   "legalDocs": ["_Array of legad docs accepted for an user_(Optional)(Required if legatTermsAccepted is true)"],
-   "legalCountry": "ES|US|MX (Required)"
+   "legalTermsAccepted": "true|false (Required)",
+   "legalDocs": ["_Array of legal docs accepted for an user_(Optional)(Required if legalTermsAccepted is true)"],
+   "legalCountry": "Country code  ISO 3166-1 alpha-2: ES|US|MX|PT|CL|... (Required)"
    "platform": "Identifier of the platform: WEB | APP| API(default) (Optional - String)",
    "domain": "Identifier of the client, only the domain variable is taken into account if platform is web, platform=WEB: domain , platform=APP or API: CLIENT_TOKEN (Optional - String)",
    "saveMethod":"Text (Optional - String)"
@@ -947,13 +947,13 @@ HttpStatus + body with:
 | INTERNAL_ERROR | 500 | 500 | "Internal Error" |
 | AFFILIATE_API_TOKEN_NOT_FOUND | 404 | 129 | Loyalty affiliate api token not found |
 | AFFILIATE_CLIP2CARD_NOT_ALLOWED | 202 | 158 | Clip2Card is not allowed for this loyalty affiliate |
-  
+
 ### clip2card users coupon (clip2cardCreateUsersCoupon)
 
 This method generates one coupon/promotion to many users by his loyalty card.
 One coupon can be generated in the same call to different users using his loyalty card number, identified promotion by its promoToken. To be able to create the coupon to the users, the promotion must be valid. If everything is correct, the method will call a url with an ok response.
 
-+ URL: [ENV]/coupons/{version}/clip2card
++ URL: [ENV]/coupons/{version}/clip2card/users
 + Type: POST
 + Header:
   + dcoupon-authorization-apikey: client's API key
@@ -965,14 +965,15 @@ One coupon can be generated in the same call to different users using his loyalt
 
 ```json
 {
-   "promoToken": "_Token that identifiers the promotion_(Required)"], 
+   "promoToken": "_Token that identifiers the promotion_(Required)", 
    "publisherId": "_Publisher Identifier_(Required)",
    "source": "_Identifies which site sends the request_(Optional)",
    "userCards": "__List of user's card separated by semicolon ';' should be encrypted using client's secret key_(Required) MAX: 1000 users' cards per call_(Required)",
    "loyaltyProgram": "_Loyalty program api key_(Required)",
    "legalTermsAccepted": "true|false (Required)",
    "legalDocs": ["_Array of legad docs accepted for an user_(Optional)(Required if legalTermsAccepted is true)"],
-   "legalCountry": "ES|US|MX (Required)"
+   "callbackURL": "_URL to send the response once the coupons are generated_(Optional)"
+   "legalCountry": "Country code  ISO 3166-1 alpha-2: ES|US|MX|PT|CL|... (Required)",
    "platform": "Identifier of the platform: WEB | APP| API(default) (Optional - String)",
    "domain": "Identifier of the client, only the domain variable is taken into account if platform is web, platform=WEB: domain , platform=APP or API: CLIENT_TOKEN (Optional - String)",
    "saveMethod":"Text (Optional - String)"
@@ -980,8 +981,8 @@ One coupon can be generated in the same call to different users using his loyalt
 ```
   + Encrypting user's card number:
 
-userCard must be encrypted using UTF-8 encoding and the HmacSHA256 algorithm.
-The string to sign should be the user card number
+userCards must be encrypted using UTF-8 encoding and the HmacSHA256 algorithm.
+The string to sign should be the list of users cards numbers
 The string must be signed using the client's secret provided by dcoupon. 
 The encrypted text must be URL encoded when added in the request
 
@@ -1003,6 +1004,8 @@ When finished to perform tasks for this method it will call back an url sent in 
  "promoToken": "_Token that identifiers the promotion_",
  "publisherId": "_Publisher Identifier_",
  "loyaltyProgram": "_Loyalty program api key_",
+ "totalCreated": "_Total user coupons created_",
+ "totalNotCreated: "_Total user coupons not created_",
  "usersCards":[
   {"card":"_Card number_", "result":"_Result operation_"},
  ]
@@ -1037,9 +1040,8 @@ HttpStatus + body with:
 | PARAMATER_NOT_FOUND | 404 | 149 | "Required parameter not found" |
 | PARAMETER_NOT_CORRECT | 406 | 150 | "Parameter is not correct" |
 | PROMOTION_NOT_FOUND | 404 | 152 |  "Promotion not found" |
-| PARAMETER_TRANSID_NOT_FOUND | 404 | 153 | "Parameter transid not found" |
-| LEGAL_TERMS_NOT_ACCEPTED | 202 | 156 | "Legal terms not accepted" |
 | INTERNAL_ERROR | 500 | 500 | "Internal Error" |
+| LEGAL_TERMS_NOT_ACCEPTED | 202 | 156 | "Legal terms not accepted" |
  
 ## Signing requests
 
