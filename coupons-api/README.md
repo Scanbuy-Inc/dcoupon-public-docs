@@ -751,7 +751,7 @@ HttpStatus + body with:
 This method generates coupons associated to a loyalty card.
 Coupons from different promotions can be generated in the same call, identified each promotion  by its promoToken. To be able to create the coupons, the promotion must be valid. If everything is correct, the method will return an array of coupons identifiers.
 
-+ URL: [ENV]/coupons/{version}/clip2cardusers
++ URL: [ENV]/coupons/{version}/clip2card
 + Type: POST
 + Header:
   + dcoupon-authorization-apikey: client's API key
