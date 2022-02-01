@@ -1005,7 +1005,7 @@ When finished to perform tasks for this method it will call back an url sent in 
  "publisherId": "_Publisher Identifier_",
  "loyaltyProgram": "_Loyalty program api key_",
  "totalCreated": "_Total user coupons created_",
- "totalNotCreated: "_Total user coupons not created_",
+ "totalNotCreated": "_Total user coupons not created_",
  "usersCards":[
   {"card":"_Card number_", "result":"_Result operation_"},
  ]
