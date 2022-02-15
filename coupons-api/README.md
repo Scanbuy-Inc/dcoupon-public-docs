@@ -970,7 +970,7 @@ One coupon can be generated in the same call to different users using his loyalt
    "source": "_Identifies which site sends the request_(Optional)",
    "userCards": "__List of user's card separated by semicolon ';' should be encrypted using client's secret key_(Required) MAX: 1000 users' cards per call_(Required)",
    "loyaltyProgram": "_Loyalty program api key_(Required)",
-   "legalTermsAccepted": "true|false (Required)",
+   "legalTermsAccepted": "true|false (Optional)",
    "legalDocs": ["_Array of legad docs accepted for an user_(Optional)(Required if legalTermsAccepted is true)"],
    "callbackURL": "_URL to send the response once the coupons are generated_(Optional)"
    "legalCountry": "Country code  ISO 3166-1 alpha-2: ES|US|MX|PT|CL|... (Required)",
@@ -1041,7 +1041,6 @@ HttpStatus + body with:
 | PARAMETER_NOT_CORRECT | 406 | 150 | "Parameter is not correct" |
 | PROMOTION_NOT_FOUND | 404 | 152 |  "Promotion not found" |
 | INTERNAL_ERROR | 500 | 500 | "Internal Error" |
-| LEGAL_TERMS_NOT_ACCEPTED | 202 | 156 | "Legal terms not accepted" |
  
 ## Signing requests
 
