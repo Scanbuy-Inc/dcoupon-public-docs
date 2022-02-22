@@ -1,2 +1,2 @@
 # dcoupon-public-docs
-dcoupon public documetnation
+dcoupon public documentation
