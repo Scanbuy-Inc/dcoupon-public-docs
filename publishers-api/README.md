@@ -406,10 +406,7 @@ Creates a new Transaction ID and associates it with a promotion ID
     }
 }
 ```
-   + country: "_Short country code (2 digits), according to ISO 3166-1 alpha-2. The publisher must be authorized to publish offers in this country._"
-   + start: "_Number of rows to skip before starting to return rows_" (Optional) (Default: 0)  
-   + limit: "_Number of rows fetched_" (Optional)_"
-  
+
  + OK Response example:
 
 ```json
