@@ -365,6 +365,70 @@ HttpStatus + body with:
 }
 ```
 
+### Transaction ID
+
+Creates a new Transaction ID and associates it with a promotion ID
+
++ URL: [ENV]/publisher/{version}/transID/
++ Type: POST
++ Header:
+  + dcoupon-authorization-apikey: client's API key
+  + dcoupon-authorization-method: should always be 'SIGNATURE'
+  + dcoupon-authorization-signature: request' signature, see below
+  + dcoupon-authorization-timestamp: timestamp at the time of making the request, in the format "yyyy-MM-dd'T'HH:mm:ssZ"
+  
++ Request body JSON schema: 
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "type": "object",
+    "title": "Transaction ID request body",
+    "description": "This schema describes the request body for the method transID method on publisher-api",
+    "default": {},
+    "required": [
+        "publisherToken",
+        "promotionToken"
+    ],
+    "properties": {
+        "publisherToken": {
+            "type": "string",
+            "title": "A valid publisher token",
+        },
+        "promotionToken": {
+            "type": "string",
+            "title": "A valid promotion token"
+        },
+        "validFor": {
+            "type": "integer",
+            "title": "Days before the transaction ID expires",
+            "description": "If this field is omitted, the transaction ID does not expires"
+        }
+    }
+}
+```
+   + country: "_Short country code (2 digits), according to ISO 3166-1 alpha-2. The publisher must be authorized to publish offers in this country._"
+   + start: "_Number of rows to skip before starting to return rows_" (Optional) (Default: 0)  
+   + limit: "_Number of rows fetched_" (Optional)_"
+  
+ + OK Response example:
+
+```json
+{
+  "transIDValue": "9c000b77-f5ea-4301-877b-b9ddea26f9f0",
+  "expirationDate": "yyyy-MM-dd"
+}
+```
+
++ Error Response:
+HttpStatus + body with:
+```json
+{
+  "errorId": "_Error status_",
+  "errorCode": "_Error Response Code_",
+  "errorMessage": "_Error Response Message_"
+}
+```
+
 ## Response Codes:
 
 + Response types for methods included in this API:
