@@ -407,12 +407,21 @@ Creates a new Transaction ID and associates it with a promotion ID
 }
 ```
 
+ + Request example:
+```json
+{
+  "publisherToken": "9c000b77-f5ea-4301",
+  "promotionToken": "b9ddea26f9f0",
+  "validFor": 30
+}
+```
+
  + OK Response example:
 
 ```json
 {
   "transIDValue": "9c000b77-f5ea-4301-877b-b9ddea26f9f0",
-  "expirationDate": "yyyy-MM-dd"
+  "expirationDate": "2020-05-01"
 }
 ```
 
