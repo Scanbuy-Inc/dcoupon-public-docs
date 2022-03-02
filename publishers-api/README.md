@@ -424,6 +424,7 @@ Creates a new Transaction ID and associates it with a promotion ID
   "expirationDate": "2020-05-01"
 }
 ```
+_expirationDate_ is null if _validFor_ is not provided on request.
 
 + Error Response:
 HttpStatus + body with:
@@ -434,6 +435,13 @@ HttpStatus + body with:
   "errorMessage": "_Error Response Message_"
 }
 ```
+
++ Response Types for this method:
+
+| HttpStatus | Description |
+|----------------|:----------|
+| 200 | "OK, transaction ID generated and returned in the json body" |
+| 404 | "Publisher or promotion not found" |
 
 ## Response Codes:
 
