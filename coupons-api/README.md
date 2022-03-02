@@ -302,7 +302,6 @@ HttpStatus + body with:
 | SESSION_TOKEN_NOT_VALID | 406 | 142 |  "Session Token Not Valid" |
 | USER_NOT_FOUND | 404 | 105 |  "User not found" |
 | USER_NOT_ACTIVE | 403 | 147 |  "User not active" |
-| COUPONID_NOT_FOUND | 404 | 111 |  "Coupon id not found" |
 | MAX_COUPON_EXCEEDED | 202 | 119 |  "User exceeded the max coupon available per user" |
 | PROMOTION_NOT_INITIATED | 202 | 126 |  "Promotion not initiated" |
 | PROMOTION_EXPIRED | 202 | 127 |  "Promotion expired" |
