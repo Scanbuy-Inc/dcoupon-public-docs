@@ -3,7 +3,7 @@
 # dcoupon 
 # Coupons API
 
-Version 3.0 (Dec 2021)
+Version 3.1 (Apr 2022)
 
 ## Introduction
 
@@ -649,6 +649,47 @@ HttpStatus + body with:
 | USER_NOT_ACTIVE | 403 | 147 |  "User not active" |
 | INTERNAL_ERROR | 500 | 500 | "Internal Error" |
 
+### userCardRedemptionToken
+
+This method return a temporal generated token to redeem coupons for an user using one of his loyalty card. User card will be send encrypted using loyalty affiliate program secret key. It will be valid 90 seconds by default. 
+
++ URL: [ENV]/coupons/v3/redemptionToken/{loyaltyApiToken}/{encryptedUserCard}
++ Type: GET
++ Header:
+  + dcoupon-authorization-apikey: client's API key
+  + dcoupon-authorization-method: should always be 'SIGNATURE'
+  + dcoupon-authorization-signature: request' signature, see below
+  + dcoupon-authorization-timestamp: timestamp at the time of making the request, in the format "yyyy-MM-dd'T'HH:mm:ssZ"
+  
+ + OK Response:
+HttpStatus + body with:
+
+```json TemporalTokenUserResponse
+{
+ "temporalToken":"_Temporal user token_",
+}
+```
+
+If a request can't be resolved, an error JSON response will be returned with the following structure:
+
++ Error Response:
+HttpStatus + body with:
+
+```json ResponseType
+{
+ "code":"_dcoupon response code_",
+ "description":"_dcoupon response description_"
+}
+```
+
++ Response Types for this method:
+
+| Response	 | HttpStatus | Internal Code | Description |
+|----------------|:----------:|:-------------:|-------------|
+| AFFILIATE_API_TOKEN_NOT_FOUND | 404 | 129 | "Loyalty affiliate api token not found" |
+| USER_NOT_FOUND | 404 | 105 |  "User not found" |
+| USER_NOT_ACTIVE | 403 | 147 |  "User not active" |
+| INTERNAL_ERROR | 500 | 500 | "Internal Error" |
 
 
 ### retailers
