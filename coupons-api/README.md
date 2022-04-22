@@ -670,6 +670,12 @@ HttpStatus + body with:
 }
 ```
 
++ Encrypting user's card number:
+
+userCard must be encrypted using UTF-8 encoding and the AES/ECB/PKCS7Padding 128b algorithm.
+The string must be signed using the loyalty program secret key. 
+The encrypted text must be URL encoded when added in the request
+
 If a request can't be resolved, an error JSON response will be returned with the following structure:
 
 + Error Response:
@@ -791,7 +797,7 @@ HttpStatus + body with:
 This method generates coupons associated to a loyalty card.
 Coupons from different promotions can be generated in the same call, identified each promotion  by its promoToken. To be able to create the coupons, the promotion must be valid. If everything is correct, the method will return an array of coupons identifiers.
 
-+ URL: [ENV]/coupons/{version}/clip2card
++ URL: [ENV]/coupons/v3/clip2card
 + Type: POST
 + Header:
   + dcoupon-authorization-apikey: client's API key
@@ -820,11 +826,12 @@ Coupons from different promotions can be generated in the same call, identified 
    "saveMethod":"Text (Optional - String)"
 }
 ```
-  + Encrypting user's card number:
 
-userCard must be encrypted using UTF-8 encoding and the HmacSHA256 algorithm.
-The string to sign should be the user card number
-The string must be signed using the client's secret provided by dcoupon. 
++ Encrypting user's card number:
+
+userCard must be encrypted using UTF-8 encoding and the AES/ECB/PKCS7Padding 128b algorithm.
+The string to sign should be the list of users cards numbers separated by semicolons ';'
+The string must be signed using the loyalty program secret key. 
 The encrypted text must be URL encoded when added in the request
 
 + OK Response:
@@ -882,7 +889,7 @@ HttpStatus + body with:
 
 This method return all user coupons associated to a loyalty card. Can be filtered by retailers and companies and sorted NEWEST, ENDING or VALUE. The response can be pageable by setting LIMIT and OFFSET.
 
-+ URL: [ENV]/coupons/{version}/clip2card/list
++ URL: [ENV]/coupons/v3/clip2card/list
 + Type: GET
 + Header:
   + dcoupon-authorization-apikey: client's API key
@@ -958,11 +965,12 @@ This method return all user coupons associated to a loyalty card. Can be filtere
 	"totalCount": "_Total number of coupons in user wallet_"
 }
 ```
-  + Encrypting user's card number:
 
-userCard must be encrypted using UTF-8 encoding and the HmacSHA256 algorithm.
-The string to sign should be the user card number
-The string must be signed using the client's secret provided by dcoupon. 
++ Encrypting user's cards number:
+
+userCards must be encrypted using UTF-8 encoding and the AES/ECB/PKCS7Padding 128b algorithm.
+The string to sign should be the list of users cards numbers separated by semicolons ';'
+The string must be signed using the loyalty program secret key. 
 The encrypted text must be URL encoded when added in the request
 
 If a request can't be resolved, an error JSON response will be returned with the following structure:
@@ -993,7 +1001,7 @@ HttpStatus + body with:
 This method generates one coupon/promotion to many users by his loyalty card.
 One coupon can be generated in the same call to different users using his loyalty card number, identified promotion by its promoToken. To be able to create the coupon to the users, the promotion must be valid. If everything is correct, the method will call a url with an ok response.
 
-+ URL: [ENV]/coupons/{version}/clip2card/users
++ URL: [ENV]/coupons/v3/clip2card/users
 + Type: POST
 + Header:
   + dcoupon-authorization-apikey: client's API key
@@ -1019,11 +1027,12 @@ One coupon can be generated in the same call to different users using his loyalt
    "saveMethod":"Text (Optional - String)"
 }
 ```
-  + Encrypting user's card number:
 
-userCards must be encrypted using UTF-8 encoding and the HmacSHA256 algorithm.
-The string to sign should be the list of users cards numbers
-The string must be signed using the client's secret provided by dcoupon. 
++ Encrypting user's card number:
+
+userCards must be encrypted using UTF-8 encoding and the AES/ECB/PKCS7Padding 128b algorithm.
+The string to sign should be the list of users cards numbers separated by semicolons ';'
+The string must be signed using the loyalty program secret key. 
 The encrypted text must be URL encoded when added in the request
 
 + OK Response:
