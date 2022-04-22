@@ -674,7 +674,7 @@ HttpStatus + body with:
 
 userCard must be encrypted using UTF-8 encoding and the AES/ECB/PKCS7Padding 128b algorithm.
 The string must be signed using the loyalty program secret key. 
-The encrypted text must be URL encoded when added in the request
+The encrypted text must be Base64 URL encoded when added in the request
 
 If a request can't be resolved, an error JSON response will be returned with the following structure:
 
@@ -832,7 +832,7 @@ Coupons from different promotions can be generated in the same call, identified 
 userCard must be encrypted using UTF-8 encoding and the AES/ECB/PKCS7Padding 128b algorithm.
 The string to sign should be the list of users cards numbers separated by semicolons ';'
 The string must be signed using the loyalty program secret key. 
-The encrypted text must be URL encoded when added in the request
+The encrypted text must be Base64 URL encoded when added in the request
 
 + OK Response:
 
@@ -971,7 +971,7 @@ This method return all user coupons associated to a loyalty card. Can be filtere
 userCards must be encrypted using UTF-8 encoding and the AES/ECB/PKCS7Padding 128b algorithm.
 The string to sign should be the list of users cards numbers separated by semicolons ';'
 The string must be signed using the loyalty program secret key. 
-The encrypted text must be URL encoded when added in the request
+The encrypted text must be Base64 URL encoded when added in the request
 
 If a request can't be resolved, an error JSON response will be returned with the following structure:
 
@@ -1033,7 +1033,7 @@ One coupon can be generated in the same call to different users using his loyalt
 userCards must be encrypted using UTF-8 encoding and the AES/ECB/PKCS7Padding 128b algorithm.
 The string to sign should be the list of users cards numbers separated by semicolons ';'
 The string must be signed using the loyalty program secret key. 
-The encrypted text must be URL encoded when added in the request
+The encrypted text must be Base64 URL encoded when added in the request
 
 + OK Response:
 
