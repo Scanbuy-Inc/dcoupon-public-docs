@@ -499,7 +499,7 @@ Update or add one loyalty card for an user.
 ```kotlin
 fun addUpdateLoyaltyCard(
     affiliateApiToken: String,
-    cardNumber: String,
+    formData: Map<String, Any>,
     callback: DcouponCallback
 )
 ```
@@ -508,7 +508,7 @@ fun addUpdateLoyaltyCard(
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
 | `affiliateApiToken` | any | String | ***true*** | The affiliate token.
-| `cardNumber` | any | String | ***true*** | The card number.
+| `formData` | any | Map<String, Any> | ***true*** | The JSON Schema form data containing the card number.
 | `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response

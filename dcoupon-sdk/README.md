@@ -2,11 +2,33 @@
 
 # dcoupon-sdk - Third Party dcoupon SDK
 
-Document Date: December 2021
+Document Date: May 2022
 
-Latest SDK Version: 4.1.0
+Latest SDK Version: 4.4.2
 
 ## Changelog
+
+
+## 4.4.2
+
+- CHANGE: Remove loyalty card number from add/update request.
+- CHANGE: Legal docs are shown in webview now.
+
+## 4.3.0
+
+- **BREAKING**: Loyalty card addUpdateLoyaltyCard params changed.
+
+## 4.2.1
+
+- CHANGE: Enrollment form localizations.
+
+## 4.2.0
+
+- CHANGE: Rework all the legal docs enrollment form UI.
+
+## 4.1.1
+
+- FEAT: Add PT localization.
 
 # 4.1.0
 
