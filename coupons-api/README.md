@@ -672,8 +672,8 @@ HttpStatus + body with:
 
 + Encrypting user's card number:
 
-userCard must be encrypted using UTF-8 encoding and the AES/ECB/PKCS7Padding 128b algorithm.
-The string must be signed using the loyalty program secret key. 
+String objects (userCard & secret key) must be convert to UTF-8, invoke the getBytes method and specify the UTF-8 encoding identifier as a parameter. The getBytes method returns an array of bytes in UTF-8 format.
+userCard must be encrypted using UTF-8 encoding and the AES/ECB/PKCS7Padding 128b algorithm. The string must be signed using the loyalty program secret key. 
 The encrypted text must be Base64 URL encoded when added in the request
 
 If a request can't be resolved, an error JSON response will be returned with the following structure:
@@ -829,10 +829,11 @@ Coupons from different promotions can be generated in the same call, identified 
 
 + Encrypting user's card number:
 
-userCard must be encrypted using UTF-8 encoding and the AES/ECB/PKCS7Padding 128b algorithm.
+String objects (userCards & secret key) must be convert to UTF-8, invoke the getBytes method and specify the UTF-8 encoding identifier as a parameter. The getBytes method returns an array of bytes in UTF-8 format.
+userCards must be encrypted using UTF-8 encoding and the AES/ECB/PKCS7Padding 128b algorithm. The string must be signed using the loyalty program secret key. 
 The string to sign should be the list of users cards numbers separated by semicolons ';'
-The string must be signed using the loyalty program secret key. 
 The encrypted text must be Base64 URL encoded when added in the request
+
 
 + OK Response:
 
@@ -968,9 +969,8 @@ This method return all user coupons associated to a loyalty card. Can be filtere
 
 + Encrypting user's cards number:
 
-userCards must be encrypted using UTF-8 encoding and the AES/ECB/PKCS7Padding 128b algorithm.
-The string to sign should be the list of users cards numbers separated by semicolons ';'
-The string must be signed using the loyalty program secret key. 
+String objects (userCard & secret key) must be convert to UTF-8, invoke the getBytes method and specify the UTF-8 encoding identifier as a parameter. The getBytes method returns an array of bytes in UTF-8 format.
+userCard must be encrypted using UTF-8 encoding and the AES/ECB/PKCS7Padding 128b algorithm. The string must be signed using the loyalty program secret key. 
 The encrypted text must be Base64 URL encoded when added in the request
 
 If a request can't be resolved, an error JSON response will be returned with the following structure:
@@ -1030,9 +1030,9 @@ One coupon can be generated in the same call to different users using his loyalt
 
 + Encrypting user's card number:
 
-userCards must be encrypted using UTF-8 encoding and the AES/ECB/PKCS7Padding 128b algorithm.
+String objects (userCards & secret key) must be convert to UTF-8, invoke the getBytes method and specify the UTF-8 encoding identifier as a parameter. The getBytes method returns an array of bytes in UTF-8 format.
+userCards must be encrypted using UTF-8 encoding and the AES/ECB/PKCS7Padding 128b algorithm. The string must be signed using the loyalty program secret key. 
 The string to sign should be the list of users cards numbers separated by semicolons ';'
-The string must be signed using the loyalty program secret key. 
 The encrypted text must be Base64 URL encoded when added in the request
 
 + OK Response:
