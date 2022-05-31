@@ -211,9 +211,7 @@ HttpStatus + body with:
 
 ### Stores
 
-If retailer_token is sent without using promotion_token, this method returns a list of stores associated with the retailer filtered using other parameters sent in the request.
-OR 
-If promotion_token is sent, returns  a list of stores available to redeem the promotion filtered with the parameters sent in the request. promotion_token can be combined with retailer_tokens, to filter only stores from those retailers. 
+Return a list of stores associated with a retailer identified by its retailer API token. (Use retailer_token , not promotion_token ) OR Returns all active promotions associated to the publisher identified by the API token filtered with the parameters sent in the request, including a list of stores from the retailer. (Use promotion_token , can combine with retailer_tokens) Requires either promotion_token OR retailer_token. Or both can be used.
 
 Requires either promotion_token OR retailer_token OR both can be used.
 
@@ -225,40 +223,49 @@ Requires either promotion_token OR retailer_token OR both can be used.
   + dcoupon-authorization-signature: request' signature, see below
   + dcoupon-authorization-timestamp: timestamp at the time of making the request, in the format "yyyy-MM-dd'T'HH:mm:ssZ"
   
-+ Parameters: 
-   + country: "_Short country code (2 digits), according to ISO 3166-1 alpha-2. The publisher must be authorized to publish offers in this country._"
-   + retailerTokens: "_Filter stores associated to this/these retailer/s_"
-   + promotionToken: "_Filter stores where the promotion can be redeemed_"
-   + longitude: "_User longitude coordinate (DD format)_"
-   + latitude:"_User latitude coordinate (DD format)_"
-   + radius: "_Radius to make the search for available stores_ *FR incluir unidad de medida"
-   + start: "_Number of rows to skip before starting to return rows_" (Optional) (Default: 0)  
-   + limit: "_Number of rows fetched_" (Optional)_"
++ Parameters
+  + publisherToken: Publisher token filter (Required)
+  + latitude: Latitude coord for geolocation search (Optional)
+  + longitude: Longitude coord for geolocation search (Optional)
+  + orderBy: NEWEST|ENDING|TOP|VALUE
+  + radius: Radius search for geolocation search (Optional) 
+  + retailerTokens: A list of retailers token (Optional)
+  + start: Start index result (Optional)
+  + limit: Limit of result in one page (Optional)
+  + storeIds: A list of store ids (Optional)
+  + unit: KM|MI (Optional)
+  + zipcode: Zip code (Optional)
+  + promotionToken: Search stores by a promotion token (Optional)
   
  + OK Response:
 
 ```json
 {
-  "totalResults": 1,
-  "pageSize": 0,
-  "start": 0,
   "items": [
     {
-      "id": 1,
-      "name": "store1",
-      "longitude": 14.135647,
-      "latitude": 134.222356,
-      "zipcode": 450,
-      "city": "harrison",
-      "region": "nj",
-      "addressHtml": "some <html>",
+      "addressHtml": "_Long/marked string for store address_",
+      "city": "_Store city_",
+      "distance": "_Distance to store_",
+      "id": "_Store id_",
+      "latitude": "_Latitude cord of the store_",
+      "longitude": "_Longitude cord of the store_",
+      "name": "_Name of the store_",
+      "region": "_Store region_",
       "retailer": {
-        "token": "blah",
-        "name": "juan",
-        "logoUrl": "http://imgs.dcoupon.com/retailer/blah/hello.jpg"
-      }
+        "availability": "_Retailer availability when filtered by promotion_",
+        "logoUrl": "_Retailers url logo_",
+        "promotionId": "_Promotion id when filtered by promotion_",
+        "id": "_Retailer id_",
+        "name": "_Retailer name_",
+        "token": "_Retailer Token_"
+      },
+      "zipcode": "_Store Zip code_"
     }
-  ]
+  ],
+  "more": "_Boolean for pagination_",
+  "pageSize": "_Page items size_",
+  "start": "_Start index_",
+  "totalResults": "_Total results_"
 }
 ```
 
