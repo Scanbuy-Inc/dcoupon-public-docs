@@ -999,7 +999,7 @@ HttpStatus + body with:
 ### clip2card users coupon (clip2cardCreateUsersCoupon)
 
 This method generates one coupon/promotion to many users by his loyalty card.
-One coupon can be generated in the same call to different users using his loyalty card number, identified promotion by its promoToken. To be able to create the coupon to the users, the promotion must be valid. If everything is correct, the method will call a url with an ok response.
+One coupon can be generated in the same call to different users using his loyalty card number, identified promotion by its promoToken. To be able to create the coupon to the users, the promotion must be valid. If everything is correct, the method will call a url with an ok response. The response will be saved in S3 bucket and will be accesible for some time to check it or in case that no service url call back is setted.
 
 + URL: [ENV]/coupons/v3/clip2card/users
 + Type: POST
@@ -1037,10 +1037,10 @@ The encrypted text must be Base64 URL encoded when added in the request
 
 + OK Response:
 
-```json array of CouponDetailResponse
+```json of ServiceResponse
 {
-	"code":"_dcoupon response code_",
- 	"description":"_dcoupon response description_"
+ 	"description":"_dcoupon response description_",
+ 	"url":"_URL to access service response_"
 }
 ```
 
