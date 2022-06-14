@@ -999,7 +999,7 @@ HttpStatus + body with:
 ### clip2card users coupon (clip2cardCreateUsersCoupon)
 
 This method generates one coupon/promotion to many users by his loyalty card.
-One coupon can be generated in the same call to different users using his loyalty card number, identified promotion by its promoToken. To be able to create the coupon to the users, the promotion must be valid. If everything is correct, the method will call a url with an ok response. The response will be saved in S3 bucket and will be accesible for some time to check it or in case that no service url call back is setted.
+One coupon can be generated in the same call to different users using his loyalty card number, identified promotion by its promoToken. To be able to create the coupon to the users, the promotion must be valid. If everything is correct the response will be saved in S3 bucket and will be accesible for some time to check it.
 
 + URL: [ENV]/coupons/v3/clip2card/users
 + Type: POST
@@ -1020,7 +1020,6 @@ One coupon can be generated in the same call to different users using his loyalt
    "loyaltyProgram": "_Loyalty program api key_(Required)",
    "legalTermsAccepted": "true|false (Optional)",
    "legalDocs": ["_Array of legad docs accepted for an user_(Optional)(Required if legalTermsAccepted is true)"],
-   "callbackURL": "_URL to send the response once the coupons are generated_(Optional)"
    "legalCountry": "Country code  ISO 3166-1 alpha-2: ES|US|MX|PT|CL|... (Required)",
    "platform": "Identifier of the platform: WEB | APP| API(default) (Optional - String)",
    "domain": "Identifier of the client, only the domain variable is taken into account if platform is web, platform=WEB: domain , platform=APP or API: CLIENT_TOKEN (Optional - String)",
