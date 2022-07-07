@@ -55,17 +55,19 @@ Latest SDK Version: 5.1.0
 
 ## Introduction
 
-The dcoupon SDK allows to log in client' users into the dcoupon service, so users can benefit from accessing dcoupon service from 3rd party apps, without needing to use an additional login for dcoupon.
+The dcoupon SDK allows to log in client users into the dcoupon service, so users can benefit from accessing dcoupon service from 3rd party apps, without needing to use an additional login for dcoupon. 
 
-All dcoupon users must provide the following information when registering:
+**NOTE: A successful logIn call is necessary before calling any other SDK method. You should always call logIn method when you start your app.**
+
+All dcoupon users can provide the following information when registering:
 - External identifier (MANDATORY)
+- Email (OPTIONAL)
 - Referral code (OPTIONAL)
+- Legal documents ids (OPTIONAL)
 
-and they need to accept the terms and conditions and the privacy policy of the service.
+-> In the first attempt, the user will need to accept the terms and conditions and the privacy policy of the service (can be skipped if legalDocsIds param is provided).
 
-In the first access, the user will need to accept the legal documents. 
-
-In future attempts, if any legal doc has changed, they will be prompted to accept those changes before proceeding.
+-> In future attempts, if any legal doc has changed, they will be prompted to accept those changes before proceeding.
 
 ---
 
