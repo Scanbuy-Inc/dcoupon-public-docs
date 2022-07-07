@@ -39,7 +39,9 @@ Third-party log in method.
 ```kotlin
 fun logIn(
     externalId: String,
+    email: String?,
     referralCode: String?,
+    legalDocsIds: ArrayList<String>?,
     callback: DcouponCallback
 )
 ```
@@ -52,6 +54,8 @@ fun logIn(
 | :--- | :---: | :---: | :---: | --- |
 | `externalId` | varchar(100) | String | ***true*** | User's id from your system.
 | `email` | varchar(200) | String | *false* | User's email.
+| `referralCode` | varchar(200) | String | *false* | Referral code.
+| `legalDocsIds` | varchar(200) | ArrayList<*String*> | *false* | Legal documents ids to avoid enrollment form.
 | `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response

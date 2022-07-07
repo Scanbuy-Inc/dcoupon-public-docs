@@ -2,12 +2,31 @@
 
 # dcoupon-sdk - Third Party dcoupon SDK
 
-Document Date: May 2022
+Document Date: July 2022
 
-Latest SDK Version: 4.4.2
+Latest SDK Version: 5.1.0
 
 ## Changelog
 
+## 5.1.0
+
+- FEAT: Legal documents ids as arguments to login method to avoid enrollment form.
+
+## 5.0.2
+
+- FIX: Language in api calls.
+
+## 5.0.1
+
+- FIX: Enrollment form crash on CA, GL languages.
+
+## 5.0.0
+
+- CHANGE: Upgrade apis.
+
+## 4.5.0
+
+- FEAT: Add unregisterUser method.
 
 ## 4.4.2
 
