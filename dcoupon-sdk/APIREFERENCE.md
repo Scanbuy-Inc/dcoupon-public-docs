@@ -5,7 +5,7 @@
 ### Dcoupon
 dcoupon SDK instance to call methods.
 ```kotlin
-class Dcoupon(context: Context)
+class Dcoupon()
 ```
 
 ---
@@ -39,35 +39,25 @@ Third-party log in method.
 ```kotlin
 fun logIn(
     externalId: String,
-    email: String?,
     referralCode: String?,
-    legalDocsIds: ArrayList<String>?,
     callback: DcouponCallback
 )
 ```
-#### Log In flow chart
-![login-diagram](https://s3.amazonaws.com/dcoupon.com/sdk/docs/loginflowchart.png?raw=true)
-
 
 #### Input
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
 | `externalId` | varchar(100) | String | ***true*** | User's id from your system.
-| `email` | varchar(200) | String | *false* | User's email.
 | `referralCode` | varchar(200) | String | *false* | Referral code.
-| `legalDocsIds` | varchar(200) | ArrayList<*String*> | *false* | Legal documents ids to avoid enrollment form.
 | `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
 | code | (type) message | description |
 | --- | :---: | --- |
 | 200 | (String) | The user is logged, now the user can access to others methods(getCoupons(), getFilters(),...).
-| 301 | (String) | A form view is showed, the user must accept the legal documents.
 | 400 | (String) | Bad request, missing mandatory data (externalId).
 | 500 | (String) | An internal error has occurred, please try again later. If the error persist, please contact support.
 | 503 | (String) | Service unavailable, other service in background thread is running, please wait a moment.
-
-**logIn -> Special case:** load the enrollment view because there are mandatory legal texts that need to be accepted by the user.
 
 To log out the user, the method **logOut** will do it.
 ```kotlin
@@ -1687,21 +1677,4 @@ Returns all active promotions associated to the publisher filtered with the para
       }
    ]
 }
-```
-
-### Flowcharts
-#### login flowchart
-```flow
-st=>start: Start|past
-e=>end: user logged|future
-loguser=>operation: login|approved
-showform=>subroutine: Enrollment Form View|current
-islogged=>condition: is logged?
-accept=>condition: accept?|past
-
-st->loguser()->islogged(left)
-islogged(yes)->e
-islogged(no, bottom)->showform
-showform->accept(top)
-accept(yes)->e
 ```
