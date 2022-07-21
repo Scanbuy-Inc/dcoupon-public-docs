@@ -4,9 +4,22 @@
 
 Document Date: July 2022
 
-Latest SDK Version: 5.1.0
+Latest SDK Version: 7.0.0
 
 ## Changelog
+
+## 7.0.0
+
+- **BREAKING**: Context is no longer needed for Dcoupon class.
+- **BREAKING**: GetCategories has a lang parameter (required).
+
+## 6.0.1
+
+- CHANGE: Limit parameter is nullable now.
+
+## 6.0.0
+
+- **BREAKING**: Enrollment form has been removed.
 
 ## 5.1.0
 
@@ -55,19 +68,13 @@ Latest SDK Version: 5.1.0
 
 ## Introduction
 
-The dcoupon SDK allows to log in client users into the dcoupon service, so users can benefit from accessing dcoupon service from 3rd party apps, without needing to use an additional login for dcoupon. 
+The dcoupon SDK allows to log in client users into the dcoupon service, so users can benefit from accessing dcoupon service from 3rd party apps, without needing to use an additional authentication for dcoupon. 
 
-**NOTE: A successful logIn call is necessary before calling any other SDK method. You should always call logIn method when you start your app.**
+**NOTE: A successful logIn call is necessary before calling some SDK methods. logIn calls does NOT persist after closing your app.**
 
 All dcoupon users can provide the following information when registering:
 - External identifier (MANDATORY)
-- Email (OPTIONAL)
 - Referral code (OPTIONAL)
-- Legal documents ids (OPTIONAL)
-
--> In the first attempt, the user will need to accept the terms and conditions and the privacy policy of the service (can be skipped if legalDocsIds param is provided).
-
--> In future attempts, if any legal doc has changed, they will be prompted to accept those changes before proceeding.
 
 ---
 

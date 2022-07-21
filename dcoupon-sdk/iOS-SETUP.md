@@ -25,6 +25,8 @@ end
 
 ## Set up Dcoupon SDK
 
+**NOTE: Steps 1 & 2 are just orientative. You can load your JSON config in any way.**
+
 1. Add a json file to your Assets with the following content: (To add a json file to the Assets. Click on Assets.xcassets -> Right click & New Data Set -> Drag & drop your json file in the created Data Set)
 
 ```json

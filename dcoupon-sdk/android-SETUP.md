@@ -30,6 +30,8 @@ dependencies {
 
 ## Set up Dcoupon SDK
 
+**NOTE: Steps 1 & 2 are just orientative. You can load your JSON config in any way.**
+
 1. Add a json file to your app res/raw folder with the following:
 ```json
 {
@@ -50,7 +52,7 @@ String jsonString = readJsonFile(jsonStream);
 3. Configure the SDK with the json contents
 
 ```java
-Dcoupon dcoupon = new Dcoupon(this);
+Dcoupon dcoupon = new Dcoupon();
 dcoupon.loadConfig(jsonString);
 ```
 

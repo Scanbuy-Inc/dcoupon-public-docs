@@ -295,7 +295,7 @@ fun createCoupons(
 | `utmSource` | varchar(100) | String | *false* | UtmSource to identify the coupon.
 | `transId` | varchar(50) | String | *false* | Transaction identifier if the promotion requires it.
 | `crmId` | varchar(50) | String | *false* | The customer relationship management identifier.
-| `publisherToken` | varchar | String | *false* | The client publisher token.
+| `publisherToken` | varchar | String | ***true*** | The client publisher token.
 | `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
@@ -582,6 +582,7 @@ fun deleteLoyaltyCard(
 Returns all categories with active promotions associated to the publisher and the number of active offers for category.
 ```kotlin
 fun getCategories(
+    lang: String?,
     publisherToken: String?,
     callback: DcouponCallback
 )
@@ -590,7 +591,8 @@ fun getCategories(
 #### Input
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
-| `publisherToken` | varchar | String | *false* | The client publisher token.
+| `lang` | varchar | String | ***true*** | The client publisher token.
+| `publisherToken` | varchar | String | ***true*** | The client publisher token.
 | `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
@@ -620,7 +622,7 @@ fun getCompanies(
 | :--- | :---: | :---: | :---: | --- |
 | `start` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Index of first item to be returned.
 | `limit` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Maximum number of items to return.
-| `publisherToken` | varchar | String | *false* | The client publisher token.
+| `publisherToken` | varchar | String | ***true*** | The client publisher token.
 | `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
@@ -650,7 +652,7 @@ fun getRetailers(
 | :--- | :---: | :---: | :---: | --- |
 | `start` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Index of first item to be returned.
 | `limit` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | int | *false* | Maximum number of items to return.
-| `publisherToken` | varchar | String | *false* | The client publisher token.
+| `publisherToken` | varchar | String | ***true*** | The client publisher token.
 | `callback` | (code, message) -> {} | Function | ***true*** | dcoupon callback with code and message.
 
 #### Callback response
@@ -700,7 +702,7 @@ fun getPromotions(
 | `longitude` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninQ.gif) | String | *false* | User longitude coordinate.
 | `radius` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | String | *false* | Radius to make the search for coupons available.
 | `orderBy` | 'NEWEST', 'ENDING', 'VALUE', 'TOP' | String | *false* | How the result set is sorted.
-| `publisherToken` | varchar | String | *false* | The client publisher token.
+| `publisherToken` | varchar | String | ***true*** | The client publisher token.
 
 Order By Options:
 - **NEWEST** : (default) promotions returned will be ordered from newest promotions to oldest.
@@ -733,7 +735,7 @@ fun getPromotionDetail(
 | name | value | type | mandatory | description |
 | :--- | :---: | :---: | :---: | --- |
 | `promotionToken` | any | String | ***true*** | The token that identifies this promotion.
-| `publisherToken` | varchar | String | *false* | The client publisher token.
+| `publisherToken` | varchar | String | ***true*** | The client publisher token.
 
 #### Callback response
 | code | (type) message | description |
@@ -773,7 +775,7 @@ Returns all active promotions associated to the publisher filtered with the para
 | `latitude` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninQ.gif) | String | *false* | User latitude coordinate.
 | `longitude` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninQ.gif) | String | *false* | User longitude coordinate.
 | `radius` | ![equation](https://s3.amazonaws.com/dcoupon.com/sdk/docs/forallninN.gif) | String | *false* | Radius to make the search for coupons available.
-| `publisherToken` | varchar | String | *false* | The client publisher token.
+| `publisherToken` | varchar | String | ***true*** | The client publisher token.
 
 #### Callback response
 | code | (type) message | description |
